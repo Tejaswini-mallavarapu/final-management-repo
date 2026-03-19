@@ -1,9 +1,11 @@
 import React from 'react'
 import { Images } from '../images/Images'
-import { NavLink } from 'react-router-dom'
-
+import { NavLink, Outlet } from 'react-router-dom'
+import { useState } from 'react';
 
 const Dashboardlayout = () => {
+    const [menuOpen, setMenuOpen] = useState(false);
+
     return (
         <div className='dashboard-layout'>
             <div className='container-fluid '>
@@ -14,24 +16,21 @@ const Dashboardlayout = () => {
                     <div className='nav-bar'>
                         <div className='nav-links'>
                             <NavLink
-                                to="/"
+                                to="dashboard"
                                 className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
                                 Dashboard
                             </NavLink>
-
                             <NavLink
-                                to="/upload"
+                                to="/productsupload"
                                 className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
                                 Products Uploading
                             </NavLink>
-
                             <NavLink
                                 to="/creation"
                                 className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} >
                                 Creations
                                 <img src={Images.dropdown} alt="dropdown" />
                             </NavLink>
-
                             <NavLink
                                 to="/reports"
                                 className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} >
@@ -53,16 +52,22 @@ const Dashboardlayout = () => {
                         </div>
                         <div className='nav-icons'>
                             <img src={Images.bell} />
-
                         </div>
                         <div className='nav-icons'>
                             <img src={Images.user} />
-
+                        </div>
+                        <div
+                            className={` hamburger ${menuOpen ? "active" : ""}`}
+                            onClick={() => setMenuOpen(!menuOpen)}>
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </div>
                     </div>
                 </div>
             </div>
             <div className='dashboard-content'>
+                <Outlet />
             </div>
         </div>
     )

@@ -211,6 +211,8 @@ input::-webkit-inner-spin-button {
 
   --main-white: 255, 255, 255;
   --body-bg: #F4F4F4;
+
+
   --container-background: 243, 245, 247;
   --active-approved-green-bg: 237, 254, 244;
   --table-border-gradient: linear-gradient(90deg, rgba(156, 163, 175, 1) 0%, rgba(156, 163, 175, 1) 100%, rgba(156, 163, 175, 1) 0%);
@@ -231,6 +233,8 @@ h2 {
   font-family: "CreatoDisplay";
   font-weight: 700;
   font-size: 25px;
+  color: rgba(var(--text-primary), 1);
+  Line-height: 100%;
 }
 
 h3 {
@@ -249,7 +253,7 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 17px 24px;
+  padding: 16px 24px;
   font-size: 14px;
   font-family: "CreatoDisplay";
   font-weight: 700;
@@ -263,6 +267,18 @@ p {
   color: rgba(var(--main-white), 1);
   background: rgba(var(--text-primary), 1);
 }
+
+.btn-white {
+  background: rgba(var(--main-white), 1);
+}
+
+.btn-white:hover,
+.btn-white:active,
+.btn-white.active {
+  color: rgba(var(--main-white), 1);
+  background: rgba(var(--blue-text), 1);
+}
+
 
 .btn-primary {
   color: rgba(var(--main-white), 1);
@@ -355,6 +371,42 @@ p {
 }
 
 /*================================================================ forms========================================================================================== */
+
+.select-group label{
+  font-size: 14px;
+  font-family: "creatodisplay-medium";
+  line-height: 16px;
+  color: rgba(var(--primary-text), 1);
+}
+.select-group .custom-select {
+  width: 100%;
+  padding: 20px 24px;
+  font-size: 14px;
+  box-sizing: border-box;
+  border-radius: 39px;
+  border: 1px solid rgba(var(--borders), 0.4);
+  margin-top: 11px;
+  cursor: pointer;
+  appearance: none;      
+  -webkit-appearance: none;
+  -moz-appearance: none;  
+}
+.select-wrapper {
+  position: relative;
+}
+.select-wrapper::after {
+  content: "";
+  position: absolute;
+  right:24px;
+  top: 70%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+   background-image: url("/assets/images/dropdown.svg"); 
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
 /* ================================================================models======================================================================= */
 
 
@@ -378,7 +430,7 @@ body {
   max-width: 1390px;
   margin: 0 auto;
   height: auto;
-  padding: 0 16px;
+  padding: 0px;
 }
 
 
@@ -423,6 +475,7 @@ body {
     padding: 0 12px;
   }
 }
+
 /* *************** header *******************/
 
 .dashboard-layout .dashboard-header {
@@ -497,18 +550,59 @@ body {
   height: auto;
 }
 
-@media(max-width:1395px){
+@media(max-width:1395px) {
   .dashboard-layout .dashboard-header {
-  gap: 40px;
- 
+    gap: 40px;
+
+  }
 }
+
+@media(max-width:1200px) {
+  .dashboard-layout .dashboard-header {
+    gap: 0px;
+  }
 }
-@media(max-width:1200px){
-    .dashboard-layout .dashboard-header {
-  gap: 0px;
- 
+
+.hamburger {
+  display: none;
+  width: 69px;
+  height: 69px;
+  background-color: rgba(var(--main-white), 1);
+  border-radius: 50%;
+
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  cursor: pointer;
+  gap: 5px;
+  transition: all 0.3s ease;
 }
+
+.hamburger span {
+  width: 20px;
+  height: 2px;
+  background-color: #111827;
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
+
+
+.hamburger.active span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+@media (max-width: 1300px) {}
+
+
 
 /* =================login-page==================== */
 .login-container {
@@ -517,6 +611,7 @@ body {
   width: 1320px;
   max-width: 100%;
 }
+
 .login-container .login {
   width: 100%;
   background: rgba(var(--main-white));
@@ -525,11 +620,13 @@ body {
   margin: 0 auto;
   box-shadow: 0px 13px 20px 0px rgba(var(--text-primary) 0.08);
 }
+
 .login .login-left {
   background: rgba(var(--blue-text), 1);
   border-radius: 57px;
   padding: 60px;
 }
+
 .login .login-left h1 {
   font-family: "CreatoDisplay";
   font-weight: 700;
@@ -537,6 +634,22 @@ body {
   color: rgba(var(--main-white), 1);
   line-height: 69px;
 }
+
 .login .login-left h1 span {
   border-bottom: 2.6px solid rgba(255, 255, 255, 1);
+}
+
+
+
+/*============================================= products upload page ========================================================== */
+.upload-products-page {}
+
+.upload-products-page .products-btns {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  display: flex;
+  gap: 20px;
+}
+.select-box{
+
 }
