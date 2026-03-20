@@ -3,7 +3,7 @@ import { Images } from "../../images/Images";
 
 const CustomSelect = ({ label, value, options = [], onChange }) => {
   const [open, setOpen] = useState(false);
-  const selectRef = useRef(null); 
+  const selectRef = useRef(null);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -47,8 +47,7 @@ const CustomSelect = ({ label, value, options = [], onChange }) => {
                 onClick={() => {
                   onChange(item);
                   setOpen(false);
-                }}
-              >
+                }}>
                 {item}
               </div>
             ))}

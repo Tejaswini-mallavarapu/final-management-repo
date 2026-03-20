@@ -265,7 +265,7 @@ const ManagementProducts = () => {
                           </Popup>
                         </div>
                       </td>
-                      
+
                     </tr>
                   ))}
                 </tbody>
