@@ -1,34 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '../../components/buttons/Button'
-import { NavLink, Outlet } from 'react-router-dom'
+import ManufacturerProducts from './manufacturer/ManufacturerProducts'
+import ManagementProducts from './management/ManagementProducts'
 
 const ProductsUploading = () => {
+    const [activeTab, setActiveTab] = useState("management") 
+
     return (
         <div className='upload-products-page'>
-            <div className='container'>
-                <h2>Product Uploading</h2>
-                <div className='products-btns'>
-                    <NavLink
-                        to="myproducts"
-                        end
-                        className={({ isActive }) =>
-                            isActive ? "btn btn-white active" : "btn btn-white"
-                        } >
-                        My Uploading Products
-                    </NavLink>
-                    <NavLink
-                        to="manufacturerproducts"
-                        end
-                        className={({ isActive }) =>
-                            isActive ? "btn btn-white active" : "btn btn-white"
-                        }>
-                        Manufacturer Uploading Products
-                    </NavLink>
 
-                </div>
-                <div>
-                    <Outlet/>
-                </div>
+            <div className='page-header'>
+                <h2>Product Uploading</h2>
+            </div>
+            <div className='upload-products-links'>
+
+                <Button
+                    variant={activeTab === "management" ? "primary" : "white"}
+                    onClick={() => setActiveTab("management")}>
+                    My Uploading Products
+                </Button>
+                <Button
+                    variant={activeTab === "manufacturer" ? "primary" : "white"}
+                    onClick={() => setActiveTab("manufacturer")} >
+                    Manufacturer Uploading Products
+                </Button>
+            </div>
+            <div className="upload-products-content">
+                {activeTab === "management" && <ManagementProducts />}
+
+                {activeTab === "manufacturer" && <ManufacturerProducts />}
             </div>
         </div>
     )

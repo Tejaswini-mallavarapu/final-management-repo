@@ -3,9 +3,8 @@ import { Images } from "../../images/Images";
 
 const CustomSelect = ({ label, value, options = [], onChange }) => {
   const [open, setOpen] = useState(false);
-  const selectRef = useRef(null); // 🔥 added
+  const selectRef = useRef(null); 
 
-  // 🔥 outside click logic
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (selectRef.current && !selectRef.current.contains(e.target)) {
@@ -48,8 +47,7 @@ const CustomSelect = ({ label, value, options = [], onChange }) => {
                 onClick={() => {
                   onChange(item);
                   setOpen(false);
-                }}
-              >
+                }} >
                 {item}
               </div>
             ))}
