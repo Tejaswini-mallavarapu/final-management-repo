@@ -2,105 +2,106 @@ import React, { useState } from 'react'
 import CustomSelect from '../../../components/forms/CustomSelect';
 import Button from '../../../components/buttons/Button';
 import { Images } from '../../../images/Images';
+import Popup from '../../../components/popup/PopUp';
 const ManagementProducts = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [products, setProducts] = useState([
-    {
-      id: 8,
-      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Brand Owner",
-      companyName: "Sri Animalife Biotech",
-      category: "Aqua Culture",
-      subCategory: "Probiotic",
-      productName: "Aqua Remid",
-      weight: "500g",
-      price: 20,
-      status: "Active",
-    },
-    {
-      id: 7,
-      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Manufacturer",
-      companyName: "Unique Biotech",
-      category: "Agriculture",
-      subCategory: "Biofertilizers",
-      productName: "Rhizobium",
-      weight: "1kg",
-      price: 40,
-      status: "Inactive",
-    },
-    {
-      id: 6,
-      images: ["/assets/images/products1.png","/assets/images/products1.png"],
-      companyType: "Manufacturer",
-      companyName: "Unique Biotech",
-      category: "Human Medicine",
-      subCategory: "Tablet",
-      productName: "Amlodipine",
-      weight: "20mg",
-      price: 20,
-      status: "Active",
-    },
-    {
-      id: 5,
-      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Brand Owner",
-      companyName: "Unique Bio Minerals",
-      category: "Aqua Culture",
-      subCategory: "Mineral",
-      productName: "Super-min",
-      weight: "500g",
-      price: 20,
-      status: "Deleted",
-    },
-    {
-      id: 4,
-       images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Brand Owner",
-      companyName: "Sri Animalife Biotech",
-      category: "Aqua Culture",
-      subCategory: "Probiotic",
-      productName: "Aqua Remid",
-      weight: "500g",
-      price: 20,
-      status: "Active",
-    },
-    {
-      id: 3,
-      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Brand Owner",
-      companyName: "Sri Animalife Biotech",
-      category: "Aqua Culture",
-      subCategory: "Probiotic",
-      productName: "Aqua Bison",
-      weight: "1kg",
-      price: 40,
-      status: "Inactive",
-    },
-    {
-      id: 2,
-    images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Brand Owner",
-      companyName: "Unique Bio Minerals",
-      category: "Aqua Culture",
-      subCategory: "Mineral",
-      productName: "Super-min",
-      weight: "500g",
-      price: 20,
-      status: "Active",
-    },
-    {
-      id: 1,
-       images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Brand Owner",
-      companyName: "Unique Bio Minerals",
-      category: "Aqua Culture",
-      subCategory: "Mineral",
-      productName: "Super-min",
-      weight: "500g",
-      price: 20,
-      status: "Deleted",
-    }
+    // {
+    //   id: 8,
+    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+    //   companyType: "Brand Owner",
+    //   companyName: "Sri Animalife Biotech",
+    //   category: "Aqua Culture",
+    //   subCategory: "Probiotic",
+    //   productName: "Aqua Remid",
+    //   weight: "500g",
+    //   price: 20,
+    //   status: "Active",
+    // },
+    // {
+    //   id: 7,
+    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+    //   companyType: "Manufacturer",
+    //   companyName: "Unique Biotech",
+    //   category: "Agriculture",
+    //   subCategory: "Biofertilizers",
+    //   productName: "Rhizobium",
+    //   weight: "1kg",
+    //   price: 40,
+    //   status: "Inactive",
+    // },
+    // {
+    //   id: 6,
+    //   images: ["/assets/images/products1.png", "/assets/images/products1.png"],
+    //   companyType: "Manufacturer",
+    //   companyName: "Unique Biotech",
+    //   category: "Human Medicine",
+    //   subCategory: "Tablet",
+    //   productName: "Amlodipine",
+    //   weight: "20mg",
+    //   price: 20,
+    //   status: "Active",
+    // },
+    // {
+    //   id: 5,
+    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+    //   companyType: "Brand Owner",
+    //   companyName: "Unique Bio Minerals",
+    //   category: "Aqua Culture",
+    //   subCategory: "Mineral",
+    //   productName: "Super-min",
+    //   weight: "500g",
+    //   price: 20,
+    //   status: "Deleted",
+    // },
+    // {
+    //   id: 4,
+    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+    //   companyType: "Brand Owner",
+    //   companyName: "Sri Animalife Biotech",
+    //   category: "Aqua Culture",
+    //   subCategory: "Probiotic",
+    //   productName: "Aqua Remid",
+    //   weight: "500g",
+    //   price: 20,
+    //   status: "Active",
+    // },
+    // {
+    //   id: 3,
+    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+    //   companyType: "Brand Owner",
+    //   companyName: "Sri Animalife Biotech",
+    //   category: "Aqua Culture",
+    //   subCategory: "Probiotic",
+    //   productName: "Aqua Bison",
+    //   weight: "1kg",
+    //   price: 40,
+    //   status: "Inactive",
+    // },
+    // {
+    //   id: 2,
+    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+    //   companyType: "Brand Owner",
+    //   companyName: "Unique Bio Minerals",
+    //   category: "Aqua Culture",
+    //   subCategory: "Mineral",
+    //   productName: "Super-min",
+    //   weight: "500g",
+    //   price: 20,
+    //   status: "Active",
+    // },
+    // {
+    //   id: 1,
+    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+    //   companyType: "Brand Owner",
+    //   companyName: "Unique Bio Minerals",
+    //   category: "Aqua Culture",
+    //   subCategory: "Mineral",
+    //   productName: "Super-min",
+    //   weight: "500g",
+    //   price: 20,
+    //   status: "Deleted",
+    // }
   ]);
 
   const [filters, setFilters] = useState({
@@ -110,6 +111,13 @@ const ManagementProducts = () => {
     productsubcategory: "All",
     productName: "All",
   });
+
+  // active, inactive ,deleted
+  const statusClassMap = {
+    active: "btn-active",
+    inactive: "btn-inactive",
+    deleted: "btn-inactive",
+  };
 
   return (
     <div className='management-products-container'>
@@ -217,9 +225,7 @@ const ManagementProducts = () => {
                 <tbody>
                   {products?.map((item) => (
                     <tr key={item.id}>
-
                       <td>{item.id}</td>
-
                       <td>
                         <div className="image-stack">
                           {item.images?.slice(0, 3).map((img, i) => (
@@ -243,18 +249,23 @@ const ManagementProducts = () => {
                       <td>{item.price}</td>
 
                       <td>
-                        <span className={`status ${item.status.toLowerCase()}`}>
+                        <span
+                          className={`status ${statusClassMap[item.status.toLowerCase()] || ""}`} >
                           {item.status}
                         </span>
                       </td>
+
                       <td>
                         <div className="actions">
-                          <button className="action-btn edit">✏️</button>
-                          <button className="action-btn delete">🗑️</button>
-                          <button className="action-btn view">👁️</button>
+                          <Popup
+                            trigger={<button>Edit</button>}
+                            size="sm"
+                            title="Edit Package">
+                            <div>Content here...</div>
+                          </Popup>
                         </div>
                       </td>
-
+                      
                     </tr>
                   ))}
                 </tbody>

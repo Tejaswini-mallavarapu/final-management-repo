@@ -47,7 +47,8 @@ const CustomSelect = ({ label, value, options = [], onChange }) => {
                 onClick={() => {
                   onChange(item);
                   setOpen(false);
-                }} >
+                }}
+              >
                 {item}
               </div>
             ))}
