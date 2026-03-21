@@ -1,0 +1,11 @@
+export const Images={
+    logo:"/assets/logo/logo.png",
+    settings:"/assets/images/settings.svg",
+    chat:"/assets/images/chat.svg",
+    bell:"/assets/images/Bell.svg",
+    user:"/assets/images/user.svg",
+    dropdown:"/assets/images/dropdown.svg",
+    calendar:"/assets/images/Group.svg",
+    crossuparrow:"/assets/images/Vector.svg",
+    arrow_green:"/assets/images/arrow-green.svg"
+}
