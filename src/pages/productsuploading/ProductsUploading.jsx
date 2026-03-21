@@ -4,7 +4,7 @@ import ManufacturerProducts from './manufacturer/ManufacturerProducts'
 import ManagementProducts from './management/ManagementProducts'
 
 const ProductsUploading = () => {
-    const [activeTab, setActiveTab] = useState("management") 
+    const [activeTab, setActiveTab] = useState("management") // default = management
 
     return (
         <div className='upload-products-page'>

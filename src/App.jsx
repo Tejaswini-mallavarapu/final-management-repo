@@ -1,5 +1,7 @@
+
 import React from 'react'
 import './App.css'
+import Header from './components/header/Header'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import DashboardLayout from './layout/dashboardlayout/DashboardLayout'
 import Dashboard from './pages/dashboard/Dashboard'
