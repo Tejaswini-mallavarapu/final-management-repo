@@ -213,12 +213,6 @@ const ManagementProducts = () => {
 
         ) : (
           <div className='card-container'>
-            <div>
-              <div>
-
-              </div>
-              <div><Button></Button></div>
-            </div>
             <div className='table-container '>
               <table className="products-table">
                 <thead>
