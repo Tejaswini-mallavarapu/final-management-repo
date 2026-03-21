@@ -11,6 +11,11 @@ export const Images = {
     product1: "/assets/images/products1.png",
     product2: "/assets/images/products2.png",
     product3: "/assets/images/products3.png",
-    login: "",
+    openeye:"/assets/images/closedeye.svg",
+    closedeye:"/assets/images/openeye.svg",
+    edit:"/assets/images/edit.svg",
+    delete:"/assets/images/delete.svg",
+    restore:"/assets/images/restore.svg",
+    search:"/assets/images/search.svg"
 
 }

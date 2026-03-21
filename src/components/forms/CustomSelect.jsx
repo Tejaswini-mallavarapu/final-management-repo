@@ -20,7 +20,7 @@ const CustomSelect = ({ label, value, options = [], onChange }) => {
   }, []);
 
   return (
-    <div className="select" ref={selectRef}>
+    <div className="custom-select select" ref={selectRef}>
 
       {label && <label className="select-label">{label}</label>}
 

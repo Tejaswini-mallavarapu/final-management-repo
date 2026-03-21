@@ -1,107 +1,109 @@
 import React, { useState } from 'react'
+import { FaPlus } from "react-icons/fa";
 import CustomSelect from '../../../components/forms/CustomSelect';
 import Button from '../../../components/buttons/Button';
 import { Images } from '../../../images/Images';
 import Popup from '../../../components/popup/PopUp';
+import { DeleteIcon, EditIcon, RestoreIcon, ViewIcon } from '../../../components/actions/Actions';
 const ManagementProducts = () => {
   const [showFilters, setShowFilters] = useState(false);
   const [products, setProducts] = useState([
-    // {
-    //   id: 8,
-    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-    //   companyType: "Brand Owner",
-    //   companyName: "Sri Animalife Biotech",
-    //   category: "Aqua Culture",
-    //   subCategory: "Probiotic",
-    //   productName: "Aqua Remid",
-    //   weight: "500g",
-    //   price: 20,
-    //   status: "Active",
-    // },
-    // {
-    //   id: 7,
-    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-    //   companyType: "Manufacturer",
-    //   companyName: "Unique Biotech",
-    //   category: "Agriculture",
-    //   subCategory: "Biofertilizers",
-    //   productName: "Rhizobium",
-    //   weight: "1kg",
-    //   price: 40,
-    //   status: "Inactive",
-    // },
-    // {
-    //   id: 6,
-    //   images: ["/assets/images/products1.png", "/assets/images/products1.png"],
-    //   companyType: "Manufacturer",
-    //   companyName: "Unique Biotech",
-    //   category: "Human Medicine",
-    //   subCategory: "Tablet",
-    //   productName: "Amlodipine",
-    //   weight: "20mg",
-    //   price: 20,
-    //   status: "Active",
-    // },
-    // {
-    //   id: 5,
-    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-    //   companyType: "Brand Owner",
-    //   companyName: "Unique Bio Minerals",
-    //   category: "Aqua Culture",
-    //   subCategory: "Mineral",
-    //   productName: "Super-min",
-    //   weight: "500g",
-    //   price: 20,
-    //   status: "Deleted",
-    // },
-    // {
-    //   id: 4,
-    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-    //   companyType: "Brand Owner",
-    //   companyName: "Sri Animalife Biotech",
-    //   category: "Aqua Culture",
-    //   subCategory: "Probiotic",
-    //   productName: "Aqua Remid",
-    //   weight: "500g",
-    //   price: 20,
-    //   status: "Active",
-    // },
-    // {
-    //   id: 3,
-    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-    //   companyType: "Brand Owner",
-    //   companyName: "Sri Animalife Biotech",
-    //   category: "Aqua Culture",
-    //   subCategory: "Probiotic",
-    //   productName: "Aqua Bison",
-    //   weight: "1kg",
-    //   price: 40,
-    //   status: "Inactive",
-    // },
-    // {
-    //   id: 2,
-    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-    //   companyType: "Brand Owner",
-    //   companyName: "Unique Bio Minerals",
-    //   category: "Aqua Culture",
-    //   subCategory: "Mineral",
-    //   productName: "Super-min",
-    //   weight: "500g",
-    //   price: 20,
-    //   status: "Active",
-    // },
-    // {
-    //   id: 1,
-    //   images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-    //   companyType: "Brand Owner",
-    //   companyName: "Unique Bio Minerals",
-    //   category: "Aqua Culture",
-    //   subCategory: "Mineral",
-    //   productName: "Super-min",
-    //   weight: "500g",
-    //   price: 20,
-    //   status: "Deleted",
-    // }
+    {
+      id: 8,
+      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+      companyType: "Brand Owner",
+      companyName: "Sri Animalife Biotech",
+      category: "Aqua Culture",
+      subCategory: "Probiotic",
+      productName: "Aqua Remid",
+      weight: "500g",
+      price: 20,
+      status: "Active",
+    },
+    {
+      id: 7,
+      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+      companyType: "Manufacturer",
+      companyName: "Unique Biotech",
+      category: "Agriculture",
+      subCategory: "Biofertilizers",
+      productName: "Rhizobium",
+      weight: "1kg",
+      price: 40,
+      status: "Inactive",
+    },
+    {
+      id: 6,
+      images: ["/assets/images/products1.png", "/assets/images/products1.png"],
+      companyType: "Manufacturer",
+      companyName: "Unique Biotech",
+      category: "Human Medicine",
+      subCategory: "Tablet",
+      productName: "Amlodipine",
+      weight: "20mg",
+      price: 20,
+      status: "Active",
+    },
+    {
+      id: 5,
+      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+      companyType: "Brand Owner",
+      companyName: "Unique Bio Minerals",
+      category: "Aqua Culture",
+      subCategory: "Mineral",
+      productName: "Super-min",
+      weight: "500g",
+      price: 20,
+      status: "Deleted",
+    },
+    {
+      id: 4,
+      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+      companyType: "Brand Owner",
+      companyName: "Sri Animalife Biotech",
+      category: "Aqua Culture",
+      subCategory: "Probiotic",
+      productName: "Aqua Remid",
+      weight: "500g",
+      price: 20,
+      status: "Active",
+    },
+    {
+      id: 3,
+      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+      companyType: "Brand Owner",
+      companyName: "Sri Animalife Biotech",
+      category: "Aqua Culture",
+      subCategory: "Probiotic",
+      productName: "Aqua Bison",
+      weight: "1kg",
+      price: 40,
+      status: "Inactive",
+    },
+    {
+      id: 2,
+      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+      companyType: "Brand Owner",
+      companyName: "Unique Bio Minerals",
+      category: "Aqua Culture",
+      subCategory: "Mineral",
+      productName: "Super-min",
+      weight: "500g",
+      price: 20,
+      status: "Active",
+    },
+    {
+      id: 1,
+      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
+      companyType: "Brand Owner",
+      companyName: "Unique Bio Minerals",
+      category: "Aqua Culture",
+      subCategory: "Mineral",
+      productName: "Super-min",
+      weight: "500g",
+      price: 20,
+      status: "Deleted",
+    }
   ]);
 
   const [filters, setFilters] = useState({
@@ -119,6 +121,7 @@ const ManagementProducts = () => {
     deleted: "btn-inactive",
   };
 
+
   return (
     <div className='management-products-container'>
       <div className='management-products-page'>
@@ -129,18 +132,20 @@ const ManagementProducts = () => {
             </svg></Button>
           </div>
         </div>
-        <div className={`filter-boxes ${showFilters ? "open" : ""}`}>
 
+        <div className={`filter-boxes ${showFilters ? "open" : ""}`}>
           <div className="filter-header">
             <span>Filters</span>
             <span onClick={() => setShowFilters(false)}>✖</span>
           </div>
+
           <CustomSelect
             label="Company Type"
             value={filters.companyType}
             options={["All", "Brand Owner", "Manufacturer"]}
             onChange={(val) =>
               setFilters({ ...filters, companyType: val })} />
+
           <CustomSelect
             label="Company Name"
             value={filters.companyName}
@@ -151,41 +156,44 @@ const ManagementProducts = () => {
             ]}
             onChange={(val) =>
               setFilters({ ...filters, companyName: val })} />
+
           <CustomSelect
             label="Product Category"
             value={filters.productscategory}
             options={["All", "Aquaculture", "Agriculture", "Human Medicine", "Others"]}
             onChange={(val) =>
               setFilters({ ...filters, productscategory: val })} />
+
           <CustomSelect
             label="Product Sub Category"
             value={filters.productsubcategory}
             options={["All", "Probiotic", "Minerals", "Medicine", "Feeds", "Biofertilizer", "Tablet"]}
             onChange={(val) =>
               setFilters({ ...filters, productsubcategory: val })} />
+
           <CustomSelect
             label="Product Name"
             value={filters.productName}
             options={["All", "Aqua Remid", "Aqua Bison", "Super-min", "Super-min", "Super-min", "Aqua care"]}
             onChange={(val) =>
               setFilters({ ...filters, productName: val })} />
-          <div>   <Button
+          <div><Button
             variant='secondary'
             onClick={() => setShowFilters(false)}>Search</Button></div>
+
         </div>
 
         <div >
           <Button variant='white' >
-            <span className='upload-btn'> <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-              <path d="M9 15.4673C8.51449 15.4673 8.12109 15.0739 8.12109 14.5884V3.41016C8.12109 2.92465 8.51449 2.53125 9 2.53125C9.48551 2.53125 9.87891 2.92465 9.87891 3.41016V14.5884C9.87891 15.0739 9.48551 15.4673 9 15.4673Z" fill="#6B7280" />
-              <path d="M14.5892 9.87891H3.41089C2.92538 9.87891 2.53198 9.48551 2.53198 9C2.53198 8.51449 2.92538 8.12109 3.41089 8.12109H14.5892C15.0747 8.12109 15.4681 8.51449 15.4681 9C15.4681 9.48551 15.0747 9.87891 14.5892 9.87891Z" fill="#6B7280" />
-            </svg><span>Upload New</span></span>
+            <span className='upload-btn'> <FaPlus /> <span>Upload New</span></span>
           </Button>
         </div>
 
       </div>
       <div className='card-container'>
+
         {Array.isArray(products) && products.length === 0 ? (
+
           <div className='empty-state-container'>
             <div className='empty-state'>
               <span><img src={Images.emptystate} alt='no products' /></span>
@@ -204,12 +212,18 @@ const ManagementProducts = () => {
           </div>
 
         ) : (
-          <div>
+          <div className='card-container'>
+            <div>
+              <div>
+
+              </div>
+              <div><Button></Button></div>
+            </div>
             <div className='table-container '>
               <table className="products-table">
                 <thead>
                   <tr>
-                    <th>S.No</th>
+                    <th className='id'>S.No</th>
                     <th>Product Image</th>
                     <th>Company Type</th>
                     <th>Company Name</th>
@@ -218,14 +232,15 @@ const ManagementProducts = () => {
                     <th>Product Name</th>
                     <th>Mg/G/M/L/KG/L</th>
                     <th>Price/Unit</th>
-                    <th>Status</th>
-                    <th>Action</th>
+                    <th className="status-col">Status</th>
+                    <th className="actions">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {products?.map((item) => (
-                    <tr key={item.id}>
-                      <td>{item.id}</td>
+                    <tr key={item.id}
+                      className={item.status.toLowerCase() === "deleted" ? "row-deleted" : ""}>
+                      <td className='id'>{item.id}</td>
                       <td>
                         <div className="image-stack">
                           {item.images?.slice(0, 3).map((img, i) => (
@@ -247,25 +262,28 @@ const ManagementProducts = () => {
                       <td>{item.productName}</td>
                       <td>{item.weight}</td>
                       <td>{item.price}</td>
-
                       <td>
                         <span
                           className={`status ${statusClassMap[item.status.toLowerCase()] || ""}`} >
                           {item.status}
                         </span>
                       </td>
-
                       <td>
                         <div className="actions">
-                          <Popup
-                            trigger={<button>Edit</button>}
-                            size="sm"
-                            title="Edit Package">
-                            <div>Content here...</div>
-                          </Popup>
+                          {item.status.toLowerCase() === "deleted" ? (
+                            <>
+                              <Popup size="sm" trigger={<RestoreIcon />} />
+                              <Popup size="sm" trigger={<ViewIcon />} />
+                            </>
+                          ) : (
+                            <>
+                              <Popup size="sm" trigger={<EditIcon />} />
+                              <Popup size="sm" trigger={<DeleteIcon />} />
+                              <Popup size="sm" trigger={<ViewIcon />} />
+                            </>
+                          )}
                         </div>
                       </td>
-
                     </tr>
                   ))}
                 </tbody>
