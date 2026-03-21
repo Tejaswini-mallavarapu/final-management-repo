@@ -16,7 +16,7 @@ const ProductsUploading = () => {
 
                 <Button
                     variant={activeTab === "management" ? "primary" : "white"}
-                    onClick={() => setActiveTab("my")}>
+                    onClick={() => setActiveTab("management")}>
                     My Uploading Products
                 </Button>
                 <Button
