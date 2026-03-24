@@ -2313,7 +2313,6 @@ body {
     flex-direction: column;
   }
 }
-<<<<<<< HEAD
 @media (max-width:375px){
   .dashboard .d-head .cards .card-row {
     padding: 20px;
@@ -2322,7 +2321,6 @@ body {
     gap: 0px;
 }
 }
-=======
 
 
 /* BIG IMAGE */
@@ -2438,4 +2436,3 @@ body {
   }
 
 }
->>>>>>> 3f1a742f7cd32f466cd0019dc5c6a376097f2063
