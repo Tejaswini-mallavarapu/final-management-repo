@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { Images } from "../../images/Images";
 import {
-  CartesianGrid,
-  BarChart,
   Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
   XAxis,
   YAxis,
-  ResponsiveContainer,
 } from "recharts";
+import { Images } from "../../images/Images";
 
 const data=[
   {name: "Jan",expenditure :35000,profit:50000},
@@ -15,13 +15,13 @@ const data=[
   {name: "Mar",expenditure :23550,profit:50400},
   {name: "Apr",expenditure :42000,profit:44000},
   {name: "May",expenditure :11000,profit:66000},
-  {name: "Jun",expenditure :44000,profit:5000},
+  {name: "Jun",expenditure :44000,profit:55000},
   {name: "July",expenditure :44000,profit:23500},
   {name: "Aug",expenditure :15300,profit:23300},
-  {name: "Sep",expenditure :3700,profit:57000},
+  {name: "Sep",expenditure :33700,profit:57000},
   {name: "Oct",expenditure :35000,profit:85000},
   {name: "Nov",expenditure :31200,profit:75540},
-  {name: "Dec",expenditure :3000,profit:5000},
+  {name: "Dec",expenditure :32192,profit:72353},
 ]
 const images=[
   "/assets/images/Rectangle 141.svg",
@@ -38,7 +38,7 @@ const products = [
     Image:"/assets/images/Rectangle 105.svg"
   },
   {
-    name :"Adfvefvquaremid",
+    name :"Aquare",
     brand:"UBM",
     type:"Probiotic",
     Image:"/assets/images/Rectangle 105.svg"
@@ -185,10 +185,8 @@ const Dashboard = () => {
                   <CartesianGrid strokeDasharray="3 3" vertical={false}/>
                     <XAxis dataKey="name" axisLine={false} tickLine={false}/>
                     <YAxis axisLine={false} tickLine={false} tickFormatter={(v)=>`${v/1000}k`}/>
-                    <Bar dataKey="expenditure" stackId="a" className='bar-exp' radius={[20,20,20,20]} barSize={35}  stroke="#ffffff"       // 👈 gap color
-      strokeWidth={5} />
-                    <Bar dataKey="profit" stackId="a" className='bar-profit' radius={[20,20,20,20]} barSize={35}  stroke="#ffffff"       // 👈 gap color
-      strokeWidth={5} />
+                    <Bar dataKey="expenditure" stackId="a" className='bar-exp' radius={[20,20,20,20]} barSize={35}  stroke="#ffffff" strokeWidth={5} />
+                    <Bar dataKey="profit" stackId="a" className='bar-profit' radius={[20,20,20,20]} barSize={35}  stroke="#ffffff" strokeWidth={5} />
                 </BarChart>
               </ResponsiveContainer>
 

@@ -199,7 +199,7 @@ input::-webkit-inner-spin-button {
 }
 
 @font-face {
-  font-family: "CreatoDisplay";
+  font-family: "CreatoDisplay-regular";
   src: url("../fonts/CreatoDisplay-Regular.otf");
   font-weight: 400;
   font-display: swap;
@@ -234,22 +234,19 @@ input::-webkit-inner-spin-button {
  ========================================================================================================================================================================== */
 h2 {
   font-family: "CreatoDisplay";
-  font-weight: 700;
   font-size: 25px;
   color: rgba(var(--text-primary), 1);
   Line-height: 100%;
 }
 
 h3 {
-  font-family: "CreatoDisplay";
-  font-weight: 700;
   font-size: 20px;
   color: rgba(var(--text-primary), 1)
 }
 
 p {
   font-size: 16px;
-  font-family: "CreatoDisplay";
+  font-family: "CreatoDisplay-regular";
 }
 
 @media(max-width:576px) {
@@ -268,7 +265,6 @@ p {
   padding: 16px 24px;
   font-size: 14px;
   font-family: "CreatoDisplay";
-  font-weight: 700;
   border-radius: 54px;
   cursor: pointer;
   user-select: none;
@@ -326,8 +322,7 @@ p {
   padding: 10px 20px;
   border-radius: 42px;
   background: rgba(var(--inActive-bg), 1);
-  font-family: "CreatoDisplay";
-  font-weight: 500;
+  font-family: "CreatoDisplay-medium";
   font-size: 13px;
   border: 1px solid rgba(var(--inActive-text), 1);
 }
@@ -393,7 +388,6 @@ p {
 
 .table-container table thead th,
 .table-container table tbody td {
-  font-family: "CreatoDisplay";
   font-size: 13px;
   text-align: start;
 }
@@ -403,13 +397,13 @@ p {
 }
 
 .table-container table thead th {
-  font-weight: 700;
+  font-family: "CreatoDisplay";
   padding-top: 18px;
   padding-bottom: 18px;
 }
 
 .table-container table tbody td {
-  font-weight: 500;
+  font-family:"CreatoDisplay-medium" ;
   color: rgba(var(--text-primary), 1);
   padding-top: 12px;
   padding-bottom: 12px;
@@ -799,8 +793,8 @@ body {
 }
 
 .header {
-  padding-top: 25px;
-  padding-bottom: 25px;
+  padding: 25px;
+
   width: 100%;
   display: flex;
   align-items: center;
@@ -825,8 +819,7 @@ body {
   display: flex;
   align-items: center;
   gap: 15px;
-  font-family: "CreatoDisplay";
-  font-weight: 500;
+  font-family: "CreatoDisplay-medium";
   font-size: 14px;
   line-height: 100%;
   letter-spacing: 0%;
@@ -857,6 +850,127 @@ body {
   border-radius: 54px;
 }
 
+.header .nav-wrapper .nav .dropdown{
+  position: relative;
+  cursor: pointer;
+}
+.header .nav-wrapper .nav .dropdown::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 12px;
+}
+.header .nav-wrapper .nav .dropdown img{
+  transform: rotate(0deg);
+  transition: transform 0.25s ease-in-out;
+}
+.header .nav-wrapper .nav .dropdown:hover img{
+  transform: rotate(180deg);
+}
+.header .nav-wrapper .nav .dropdown .hover-dropdown,
+.header .nav-wrapper .actions .settings-btn .hover-dropdown{
+  position: absolute;
+  top: 130%;
+  left: -30%;
+  width: 182px;
+  border-radius: 14px;
+  background: rgba(var(--main-white),1);
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.12);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  overflow: visible;
+  transition: all 0.15s ease-in-out;
+}
+.header .nav-wrapper .actions .settings-btn .hover-dropdown{
+  top: 110%;
+  width: 208px;
+  z-index: 100;
+}
+.header .nav-wrapper .nav .dropdown:hover .hover-dropdown,
+.header .nav-wrapper .actions .settings-btn:hover .hover-dropdown{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+.header .nav-wrapper .nav .dropdown .hover-dropdown .item,
+.header .nav-wrapper .actions .settings-btn .hover-dropdown .item{
+  font-family: "CreatoDisplay-medium";
+  font-size: 13px;
+  color: rgba(var(--text-primary), 1);
+  padding: 12.5px 17px ;
+  background: rgba(var(--main-white),1);
+  transition: 0.2s;
+  border-bottom: 1px solid rgba(212, 212, 212, 1);
+  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header .nav-wrapper .nav .dropdown .hover-dropdown .item:hover,
+.header .nav-wrapper .actions .settings-btn .hover-dropdown .item:hover,
+.header .nav-wrapper .actions .settings-btn .hover-dropdown .more-data .sub-dropdown .lang:hover{
+  color: rgba(var(--main-white),1);
+  background: rgba(var(--text-primary), 1);
+}
+
+.header .nav-wrapper .nav .dropdown .hover-dropdown .item:first-child,
+.header .nav-wrapper .actions .settings-btn .hover-dropdown .item:first-child{
+  border-top-left-radius:14px ;
+  border-top-right-radius: 14px;
+}
+.header .nav-wrapper .nav .dropdown .hover-dropdown .item:last-child,
+.header .nav-wrapper .actions .settings-btn .hover-dropdown .item:last-child{
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+  border-bottom:none ;
+}
+
+.header .nav-wrapper .nav .dropdown .hover-dropdown .more-data,
+.header .nav-wrapper .actions .settings-btn .hover-dropdown .more-data{
+  position: relative;
+}
+
+.header .nav-wrapper .nav .dropdown .hover-dropdown .more-data .sub-dropdown,
+.header .nav-wrapper .actions .settings-btn .hover-dropdown .more-data .sub-dropdown{
+  position: absolute;
+  top: 0;
+  left: 105%;
+
+  width: 182px;
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.12);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(10px);
+  transition: 0.2s ease;
+
+  z-index: 999;
+}
+
+
+.header .nav-wrapper .nav .dropdown .hover-dropdown .more-data:hover > .sub-dropdown,
+.header .nav-wrapper .actions .settings-btn .hover-dropdown .more-data:hover  > .sub-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+.header .nav-wrapper .nav .dropdown .hover-dropdown .more-data::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 10px;
+  height: 100%;
+}
+
+
 .header .nav-wrapper .actions {
   display: flex;
   align-items: center;
@@ -869,8 +983,67 @@ body {
   gap: 10px;
   padding: 22px 32px;
   border-radius: 54px;
-  background: rgba(var(--main-white));
+  background: rgba(var(--main-white),1);
+  cursor: pointer;
+  position: relative;
 }
+
+.header .nav-wrapper .actions:hover .settings-btn{
+  background: rgba(var(--light-gray),0.16);
+}
+.header .nav-wrapper .actions .settings-btn .hover-dropdown .item .img,
+.header .nav-wrapper .nav .dropdown .hover-dropdown .item .img{
+  font-size: 18px;
+  color: rgba(var(--text-secondary), 1);
+  transform: rotate(270deg);
+
+}
+.header .nav-wrapper .actions .settings-btn .hover-dropdown .item:hover .img,
+.header .nav-wrapper .nav .dropdown .hover-dropdown .item:hover .img{
+  color: rgba(var(--main-white), 1);
+}
+.header .nav-wrapper .actions .settings-btn .hover-dropdown .more-data::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -12px;
+  width: 12px;
+  height: 100%;
+}
+
+.header .nav-wrapper .actions .settings-btn .hover-dropdown .more-data .sub-dropdown {
+    position: absolute;
+    top: 0;
+    left: 105%;
+    width: 215px;
+    background:rgba(var(--main-white), 1);
+    border-radius: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(10px);
+    transition: 0.2s ease;
+    z-index: 999;
+    padding: 6px;
+}
+.header .nav-wrapper .actions .settings-btn .hover-dropdown .more-data .sub-dropdown .lang{
+  padding: 13px 16px;
+  font-size: 14px;
+  color: rgba(var(--text-primary), 1);
+  cursor: pointer;
+  transition: 0.2s;
+  border-radius: 8px;
+  margin-bottom: 6px;
+
+  display: flex;
+  gap: 10px;
+}
+/* .header .nav-wrapper .actions .settings-btn .hover-dropdown .more-data .sub-dropdown:hover{
+  background: rgba(var(--text-primary), 1);
+  color: rgba(var(--main-white), 1);
+  margin-bottom: 6px;
+} */
+
 
 .header .nav-wrapper .actions .icon {
   width: 69px;
@@ -1047,7 +1220,6 @@ body {
 
 .login-container .login .login-left .login-text h1 {
   font-family: "CreatoDisplay";
-  font-weight: 700;
   font-size: 54px;
   color: rgba(var(--main-white), 1);
   line-height: 69px;
@@ -1093,7 +1265,6 @@ body {
 
 .login-container .login .login-right .login-right-head h2 {
   font-family: "CreatoDisplay";
-  font-weight: 700;
   font-size: 36px;
   color: rgba(var(--text-primary), 1);
   padding: 49px 0px 15px 0px;
@@ -1137,9 +1308,8 @@ body {
 }
 
 .login-container .login .login-right .login-form .input-box input::placeholder {
-  font-family: "CreatoDisplay";
+  font-family: "CreatoDisplay-regular";
   color: rgba(var(--light-gray), 1);
-  font-weight: 400;
   font-size: 16px;
   line-height: 23px;
 }
@@ -1185,8 +1355,7 @@ body {
   list-style-type: disc;
   list-style-position: inside;
 
-  font-family: "CreatoDisplay";
-  font-weight: 400;
+  font-family: "CreatoDisplay-regular";
   font-size: 14px;
   line-height: 24px;
   color: rgba(var(--text-secondary), 1);
@@ -1200,13 +1369,11 @@ body {
   background: rgba(var(--light-gray), 1);
   cursor: pointer;
   font-family: "CreatoDisplay";
-  font-weight: 700;
   font-size: 18px;
 }
 
 .login-container .login .login-right>span {
-  font-family: "CreatoDisplay";
-  font-weight: 400;
+  font-family: "CreatoDisplay-regular";
   font-size: 12px;
   color: rgba(var(--text-secondary), 1);
   padding-top: 47px;
@@ -1410,8 +1577,7 @@ body {
   }
 
   .filter-header {
-    font-family: "CreatoDisplay";
-    font-weight: 500;
+    font-family: "CreatoDisplay-medium";
     color: rgba(var(--text-primary), 1);
   }
 
@@ -1487,7 +1653,7 @@ body {
 }
 
 .dashboard .d-head .cards .card-row {
-  display: flex;
+  display: flex;padding: 20px;
   gap: 15px;
 }
 
@@ -1522,7 +1688,7 @@ body {
   align-items: center;
   justify-content: center;
   font-family: "CreatoDisplay";
-  font-weight: 700;
+  color: rgba(var(--text-primary), 1);
   font-size: 14px;
   background: rgba(var(--card-bg), 1);
 }
@@ -1536,7 +1702,6 @@ body {
   border-radius: 40px;
   font-family: "CreatoDisplay";
   color: rgba(var(--active-approved-green-text), 1);
-  font-weight: 700;
   font-size: 12px;
   line-height: 16px;
   margin: 14px 0px 10px 0px;
@@ -1559,13 +1724,11 @@ body {
 
 .dashboard .d-head .cards .card-row .card .sales .sale-img .product-info h5 {
   font-family: "CreatoDisplay";
-  font-weight: 700;
   font-size: 15px;
 }
 
 .dashboard .d-head .cards .card-row .card .sales .sale-img .product-info p {
-  font-family: "CreatoDisplay";
-  font-weight: 400;
+  font-family: "CreatoDisplay-regular";
   font-size: 12px;
   color: rgba(var(--text-secondary), 1);
   padding: 4px 0px 12px 0px;
@@ -1578,7 +1741,6 @@ body {
   background: rgba(var(--light-orange), 1);
   color: rgba(239, 104, 52, 1);
   font-family: "CreatoDisplay";
-  font-weight: 700;
   font-size: 12px;
   line-height: 16px;
   text-align: center;
@@ -1657,4 +1819,12 @@ body {
   .dashboard .d-head .cards .card-row {
     flex-direction: column;
   }
+}
+@media (max-width:375px){
+  .dashboard .d-head .cards .card-row {
+    padding: 20px;
+}
+.dashboard .d-head .cards {
+    gap: 0px;
+}
 }
