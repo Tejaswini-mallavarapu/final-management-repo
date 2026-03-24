@@ -16,7 +16,7 @@ const Header = () => {
     }, [menuOpen]);
 
     return (
-        <div className="header" onClick={(e) => e.stopPropagation()}>
+        <div className="container-fluid  header" onClick={(e) => e.stopPropagation()}>
             <div
                 className={`hamburger ${menuOpen ? "active" : ""}`}
                 onClick={() => setMenuOpen(!menuOpen)}>
@@ -31,9 +31,12 @@ const Header = () => {
                 <div className={`nav ${menuOpen ? "show" : ""}`}>
 
                     <NavLink
-                        to="/dashboard"
+                        to="/"
+                        end
                         className={({ isActive }) =>
-                            isActive ? "nav-item active" : "nav-item"} >
+                            isActive ? "nav-item active" : "nav-item"
+                        }
+                    >
                         Dashboard
                     </NavLink>
                     <NavLink

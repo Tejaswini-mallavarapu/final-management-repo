@@ -4,107 +4,29 @@ import CustomSelect from '../../../components/forms/CustomSelect';
 import Button from '../../../components/buttons/Button';
 import { Images } from '../../../images/Images';
 import Popup from '../../../components/popup/PopUp';
+import { productsData } from "../../../data/productsData";
+import usePagination from "../../../hooks/usePagination";
 import { DeleteIcon, EditIcon, RestoreIcon, ViewIcon } from '../../../components/actions/Actions';
+import Pagination from '../../../components/pagination/Pagination';
+import SearchToggle from '../../../components/forms/SearchToggle';
+import ProductView from './ProductView';
 const ManagementProducts = () => {
   const [showFilters, setShowFilters] = useState(false);
-  const [products, setProducts] = useState([
-    {
-      id: 8,
-      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Brand Owner",
-      companyName: "Sri Animalife Biotech",
-      category: "Aqua Culture",
-      subCategory: "Probiotic",
-      productName: "Aqua Remid",
-      weight: "500g",
-      price: 20,
-      status: "Active",
-    },
-    {
-      id: 7,
-      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Manufacturer",
-      companyName: "Unique Biotech",
-      category: "Agriculture",
-      subCategory: "Biofertilizers",
-      productName: "Rhizobium",
-      weight: "1kg",
-      price: 40,
-      status: "Inactive",
-    },
-    {
-      id: 6,
-      images: ["/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Manufacturer",
-      companyName: "Unique Biotech",
-      category: "Human Medicine",
-      subCategory: "Tablet",
-      productName: "Amlodipine",
-      weight: "20mg",
-      price: 20,
-      status: "Active",
-    },
-    {
-      id: 5,
-      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Brand Owner",
-      companyName: "Unique Bio Minerals",
-      category: "Aqua Culture",
-      subCategory: "Mineral",
-      productName: "Super-min",
-      weight: "500g",
-      price: 20,
-      status: "Deleted",
-    },
-    {
-      id: 4,
-      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Brand Owner",
-      companyName: "Sri Animalife Biotech",
-      category: "Aqua Culture",
-      subCategory: "Probiotic",
-      productName: "Aqua Remid",
-      weight: "500g",
-      price: 20,
-      status: "Active",
-    },
-    {
-      id: 3,
-      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Brand Owner",
-      companyName: "Sri Animalife Biotech",
-      category: "Aqua Culture",
-      subCategory: "Probiotic",
-      productName: "Aqua Bison",
-      weight: "1kg",
-      price: 40,
-      status: "Inactive",
-    },
-    {
-      id: 2,
-      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Brand Owner",
-      companyName: "Unique Bio Minerals",
-      category: "Aqua Culture",
-      subCategory: "Mineral",
-      productName: "Super-min",
-      weight: "500g",
-      price: 20,
-      status: "Active",
-    },
-    {
-      id: 1,
-      images: ["/assets/images/products1.png", "/assets/images/products1.png", "/assets/images/products1.png"],
-      companyType: "Brand Owner",
-      companyName: "Unique Bio Minerals",
-      category: "Aqua Culture",
-      subCategory: "Mineral",
-      productName: "Super-min",
-      weight: "500g",
-      price: 20,
-      status: "Deleted",
-    }
-  ]);
+
+  const [products, setProducts] = useState(productsData);
+  // pagination//
+  const {
+    currentData,
+    currentPage,
+    totalPages,
+    goToPage,
+    next,
+    prev,
+    showingFrom,
+    showingTo,
+    totalItems,
+  } = usePagination(products, 8);
+  const [search, setSearch] = useState("");
 
   const [filters, setFilters] = useState({
     companyType: "All",
@@ -190,103 +112,146 @@ const ManagementProducts = () => {
         </div>
 
       </div>
-      <div className='card-container'>
 
-        {Array.isArray(products) && products.length === 0 ? (
+      <div className="shape-card">
+        <svg className="shape-svg" viewBox="0 0 1411 778" preserveAspectRatio="none">
+          <path
+            d="M1315.71 21C1334.49 21 1349.71 36.2223 1349.71 55V60.3545C1349.71 77.2795 1363.43 91 1380.35 91C1397.28 91 1411 104.72 1411 121.646V750C1411 765.464 1398.46 778 1383 778H49C33.536 778 21 765.464 21 750V49C21 33.536 33.536 21 49 21H1315.71Z"
+            fill="white"
+          />
+        </svg>
 
-          <div className='empty-state-container'>
-            <div className='empty-state'>
-              <span><img src={Images.emptystate} alt='no products' /></span>
-              <div className='empty-state-content'>
-                <h3>No Products found in the list.</h3>
-                <p>No products found. Please add products to continue.</p>
-                <Button variant='secondary' className='enpty-state-btn'>
-                  <span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
-                      <path d="M9.00006 15.4673C8.51455 15.4673 8.12115 15.0739 8.12115 14.5884V3.41016C8.12115 2.92465 8.51455 2.53125 9.00006 2.53125C9.48557 2.53125 9.87897 2.92465 9.87897 3.41016V14.5884C9.87897 15.0739 9.48557 15.4673 9.00006 15.4673Z" fill="white" />
-                      <path d="M14.5892 9.87891H3.41095C2.92544 9.87891 2.53204 9.48551 2.53204 9C2.53204 8.51449 2.92544 8.12109 3.41095 8.12109H14.5892C15.0747 8.12109 15.4681 8.51449 15.4681 9C15.4681 9.48551 15.0747 9.87891 14.5892 9.87891Z" fill="white" />
-                    </svg></span><span>Add Products</span>
-                </Button>
+        <div className="shape-content">
+          <SearchToggle
+            value={search}
+            onChange={setSearch}
+          />
+
+          {Array.isArray(products) && products.length === 0 ? (
+
+            <div className='empty-state-container'>
+              <div className='empty-state'>
+                <span><img src={Images.emptystate} alt='no products' /></span>
+                <div className='empty-state-content'>
+                  <h3>No Products found in the list.</h3>
+                  <p>No products found. Please add products to continue.</p>
+                  <Button variant='secondary' className='enpty-state-btn'>
+                    <span>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
+                        <path d="M9.00006 15.4673C8.51455 15.4673 8.12115 15.0739 8.12115 14.5884V3.41016C8.12115 2.92465 8.51455 2.53125 9.00006 2.53125C9.48557 2.53125 9.87897 2.92465 9.87897 3.41016V14.5884C9.87897 15.0739 9.48557 15.4673 9.00006 15.4673Z" fill="white" />
+                        <path d="M14.5892 9.87891H3.41095C2.92544 9.87891 2.53204 9.48551 2.53204 9C2.53204 8.51449 2.92544 8.12109 3.41095 8.12109H14.5892C15.0747 8.12109 15.4681 8.51449 15.4681 9C15.4681 9.48551 15.0747 9.87891 14.5892 9.87891Z" fill="white" />
+                      </svg>
+                    </span>
+                    <span>Add Products</span>
+                  </Button>
+                </div>
               </div>
             </div>
-          </div>
 
-        ) : (
-          <div className='card-container'>
-            <div className='table-container '>
-              <table className="products-table">
-                <thead>
-                  <tr>
-                    <th className='id'>S.No</th>
-                    <th>Product Image</th>
-                    <th>Company Type</th>
-                    <th>Company Name</th>
-                    <th>Product Category</th>
-                    <th>Sub - Category</th>
-                    <th>Product Name</th>
-                    <th>Mg/G/M/L/KG/L</th>
-                    <th>Price/Unit</th>
-                    <th className="status-col">Status</th>
-                    <th className="actions">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {products?.map((item) => (
-                    <tr key={item.id}
-                      className={item.status.toLowerCase() === "deleted" ? "row-deleted" : ""}>
-                      <td className='id'>{item.id}</td>
-                      <td>
-                        <div className="image-stack">
-                          {item.images?.slice(0, 3).map((img, i) => (
-                            <img key={i} src={img} alt="product" />
-                          ))}
+          ) : (
 
-                          {item.images?.length > 3 && (
-                            <div className="more-count">
-                              +{item.images.length - 3}
-                            </div>
-                          )}
-                        </div>
-                      </td>
-
-                      <td>{item.companyType}</td>
-                      <td>{item.companyName}</td>
-                      <td>{item.category}</td>
-                      <td>{item.subCategory}</td>
-                      <td>{item.productName}</td>
-                      <td>{item.weight}</td>
-                      <td>{item.price}</td>
-                      <td>
-                        <span
-                          className={`status ${statusClassMap[item.status.toLowerCase()] || ""}`} >
-                          {item.status}
-                        </span>
-                      </td>
-                      <td>
-                        <div className="actions">
-                          {item.status.toLowerCase() === "deleted" ? (
-                            <>
-                              <Popup size="sm" trigger={<RestoreIcon />} />
-                              <Popup size="sm" trigger={<ViewIcon />} />
-                            </>
-                          ) : (
-                            <>
-                              <Popup size="sm" trigger={<EditIcon />} />
-                              <Popup size="sm" trigger={<DeleteIcon />} />
-                              <Popup size="sm" trigger={<ViewIcon />} />
-                            </>
-                          )}
-                        </div>
-                      </td>
+            <div>
+              <div className='table-header'>
+                <h3>All Products</h3>
+                <p>All your uploaded listed products</p>
+              </div>
+              <div className='table-container'>
+                <table className="table">
+                  <thead>
+                    <tr>
+                      <th className='id'>S.No</th>
+                      <th>Product Image</th>
+                      <th>Company Type</th>
+                      <th>Company Name</th>
+                      <th>Product Category</th>
+                      <th>Sub - Category</th>
+                      <th>Product Name</th>
+                      <th>Mg/G/M/L/KG/L</th>
+                      <th>Price/Unit</th>
+                      <th className="status-col">Status</th>
+                      <th className="actions">Action</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+                  </thead>
 
-        )}
+                  <tbody>
+                    {currentData.map((item) => (
+                      <tr key={item.id}
+                        className={item.status.toLowerCase() === "deleted" ? "row-deleted" : ""}>
+
+                        <td className='id'>{item.id}</td>
+
+                        <td>
+                          <div className="image-stack">
+                            {item.images?.slice(0, 3).map((img, i) => (
+                              <img key={i} src={img} alt="product" />
+                            ))}
+
+                            {item.images?.length > 3 && (
+                              <div className="more-count">
+                                +{item.images.length - 3}
+                              </div>
+                            )}
+                          </div>
+                        </td>
+
+                        <td>{item.companyType}</td>
+                        <td>{item.companyName}</td>
+                        <td>{item.category}</td>
+                        <td>{item.subCategory}</td>
+                        <td>{item.productName}</td>
+                        <td>{item.weight}</td>
+                        <td>{item.price}</td>
+
+                        <td>
+                          <span className={`status ${statusClassMap[item.status.toLowerCase()] || ""}`}>
+                            {item.status}
+                          </span>
+                        </td>
+
+                        <td>
+                          <div className="actions">
+                            {item.status.toLowerCase() === "deleted" ? (
+                              <>
+                                <Popup size="sm" trigger={<RestoreIcon />} />
+                                <Popup size="md" trigger={<ViewIcon />} />
+                              </>
+                            ) : (
+                              <>
+                                <Popup size="sm" trigger={<EditIcon />} />
+                                <Popup size="xs" trigger={<DeleteIcon />} >
+                                </Popup>
+                                <Popup size="md" trigger={<ViewIcon />}>
+                                <ProductView/>
+                                </Popup>
+                              </>
+                            )}
+                          </div>
+                        </td>
+
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          )}
+
+        </div>
       </div>
+
+      {products.length > 8 && (
+        <Pagination
+          currentPage={currentPage}
+          totalPages={totalPages}
+          goToPage={goToPage}
+          next={next}
+          prev={prev}
+          showingFrom={showingFrom}
+          showingTo={showingTo}
+          totalItems={totalItems}
+        />
+      )}
     </div>
   );
 };
