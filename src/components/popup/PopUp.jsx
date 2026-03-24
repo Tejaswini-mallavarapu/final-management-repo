@@ -1,61 +1,58 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 
 const Popup = ({
-    trigger,
-    children,
-    variant,
-    size = "md", // xs | sm | md | lg | xl
-    title = "",
-    showFooter = true,
-    onCancel,
-    className = ""
+  trigger,
+  children,
+  size = "md",
+  title = "",
+  showFooter = true,
+  onCancel,
+  className = ""
 }) => {
+  const [open, setOpen] = useState(false);
 
-    const [open, setOpen] = useState(false);
+  const close = () => {
+    setOpen(false);
+    if (onCancel) onCancel();
+  };
 
-    const close = () => {
-        setOpen(false);
-        if (onCancel) onCancel();
-    };
-    return (
-        <>
-            <div className="custom-popup">
-                <span onClick={() => setOpen(true)} style={{ cursor: "pointer" }}>
-                    {trigger}
-                </span>
+  return (
+    <>
+      <span onClick={() => setOpen(true)} style={{ cursor: "pointer" }}>
+        {trigger}
+      </span>
+      {open &&
+        createPortal(
+          <div className="popup-overlay" onClick={close}>
+            <div
+              className={`popup-container ${size} ${className}`}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="popup-header">
+                <h3>{title}</h3>
+                <button className="popup-close" onClick={close}>✕</button>
+              </div>
 
-                {open && (
-                    <div className="popup-overlay" onClick={close}>
+              <div className="popup-body">
+                {typeof children === "function"
+                  ? children({ close })
+                  : children}
+              </div>
 
-                        <div
-                            className={`popup-container ${size} ${className}`}
-                            onClick={(e) => e.stopPropagation()}>
-
-                            <div className="popup-header">
-                                <h3>{title}</h3>
-                                <button className="popup-close" onClick={close}>✕</button>
-                            </div>
-
-                            <div className="popup-body">
-                                {typeof children === "function"
-                                    ? children({ close })
-                                    : children}
-                            </div>
-
-                            {showFooter && (
-                                <div className="popup-footer">
-                                    <button className="popup-cancel" onClick={close}>
-                                        Cancel
-                                    </button>
-                                </div>
-                            )}
-
-                        </div>
-                    </div>
-                )}
+              {/* {showFooter && (
+                <div className="popup-footer">
+                  <button className="popup-cancel" onClick={close}>
+                    Cancel
+                  </button>
+                </div>
+              )} */}
             </div>
-        </>
-    );
+          </div>,
+          document.body
+        )}
+    </>
+  );
 };
 
 export default Popup;

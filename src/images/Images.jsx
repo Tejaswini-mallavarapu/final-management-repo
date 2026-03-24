@@ -19,6 +19,14 @@ export const Images={
     edit:"/assets/images/edit.svg",
     delete:"/assets/images/delete.svg",
     restore:"/assets/images/restore.svg",
-    search:"/assets/images/search.svg"
+    search:"/assets/images/search.svg",
+    close:"/assets/images/close.svg",
+    closdescription:"/assets/images/fi_9312231 (1).svg"
+}
+
+export const ProductImages={
+    product1:"/assets/images/product1.png",
+    product2:"/assets/images/product2.png",
+    product3:"/assets/images/product3.png",
 
 }
