@@ -7,8 +7,8 @@ const Button = ({
 }) => {
   return (
     <button
-      type="button"                
-      onClick={onClick}         
+      type="button"
+      onClick={onClick}
       className={`btn btn-${variant} ${className}`}
       {...props}
     >
