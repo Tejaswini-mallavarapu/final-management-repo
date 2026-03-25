@@ -933,6 +933,7 @@ body {
   position: relative;
   cursor: pointer;
 }
+
 .header .nav-wrapper .nav .dropdown::after {
   content: "";
   position: absolute;
@@ -1152,6 +1153,103 @@ body {
   background: rgba(88, 63, 255, 1);
   box-shadow: 0 0 0 1.5px rgba(var(--main-white), 1);
 }
+
+/* ****************************************Notifications*********************************************/
+.notification-box{
+  width: 482px;
+  background: rgba(var(--main-white), 1);
+  border-radius: 24px;
+  box-shadow: 0px 0px 8px 0px rgba(43, 43, 44, 0.2);
+  
+  position: absolute;
+  top: 87%;
+  right: 5%;
+  z-index: 30;
+}
+.notification-box .notification-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid rgba(var(--light-gray),0.4);
+}
+.notification-box .notification-header .tabs button {
+  border: none;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(var(--main-white), 1);
+  border: 1px solid rgba(var(--light-gray),0.8);
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.notification-box .notification-header .tabs .active {
+  background: rgba(var(--blue-text), 1);
+  color: rgba(var(--main-white),1);
+  border: none;
+}
+.notification-box .notification-content .empty{
+  justify-content: center;
+  text-align: center;
+  padding: 20px 25px;
+}
+.notification-box .notification-content .empty .img{
+  display: flex;
+  justify-self: center;
+  padding: 60px 68px 34px 68px;
+}
+.notification-box .notification-content .empty h3{
+  font-family: "CreatoDisplay";
+}
+.notification-box .notification-content .empty p{
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(var(--text-secondary),1);
+  padding: 10px 0px 100px 0px;
+}
+.notification-box .notification-list .notification-item{
+  display: flex;
+  gap: 15px;
+  padding: 20px 25px;
+  border-bottom: 1px solid rgba(var(--light-gray),0.4);
+}
+.notification-box .notification-list .notification-item .icon-box img{
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+.notification-box .notification-list .notification-item:last-child{
+  border-bottom: none;
+}
+.notification-box .notification-list .notification-item .content{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+}
+.notification-box .notification-list .notification-item .content h6{
+  font-size: 16px;
+  font-family: "CreatoDisplay";
+  color: rgba(var(--text-primary),1);
+}
+.notification-box .notification-list .notification-item .content .message{
+  font-family: "CreatoDisplay-medium";
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(var(--text-primary),1);
+}
+.notification-box .notification-list .notification-item .content .desc{
+  font-family: "CreatoDisplay-regular";
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(var(--text-secondary), 1);
+}
+.notification-box .notification-list .notification-item .content .view{
+  max-width: fit-content;
+}
+
+
+
 
 @media(max-width:1300px) {
 
@@ -2115,7 +2213,6 @@ body {
   font-weight: 700;
   font-size: 16px;
   line-height: 19.2px;
-  background: rgba(var(--text-primary), 1);
 }
 
 .dashboard .d-head .cards .card {
@@ -2313,7 +2410,6 @@ body {
     flex-direction: column;
   }
 }
-<<<<<<< HEAD
 @media (max-width:375px){
   .dashboard .d-head .cards .card-row {
     padding: 20px;
@@ -2322,7 +2418,6 @@ body {
     gap: 0px;
 }
 }
-=======
 
 
 /* BIG IMAGE */
@@ -2438,4 +2533,3 @@ body {
   }
 
 }
->>>>>>> 3f1a742f7cd32f466cd0019dc5c6a376097f2063

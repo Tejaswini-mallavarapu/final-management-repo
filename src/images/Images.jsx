@@ -21,7 +21,11 @@ export const Images={
     restore:"/assets/images/restore.svg",
     search:"/assets/images/search.svg",
     close:"/assets/images/close.svg",
-    closdescription:"/assets/images/fi_9312231 (1).svg"
+    closdescription:"/assets/images/fi_9312231 (1).svg",
+    empty:"/assets/images/notification empty",
+
+    comment:"/assets/images/Frame 3201.svg",
+    signup:"/assets/images/Frame 3205.svg"
 }
 
 export const ProductImages={
