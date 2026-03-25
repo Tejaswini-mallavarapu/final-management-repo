@@ -1,5 +1,4 @@
 import { useState } from "react";
-<<<<<<< HEAD
 import {
   Bar,
   BarChart,
@@ -9,10 +8,6 @@ import {
   YAxis,
 } from "recharts";
 import { Images } from "../../images/Images";
-=======
-import { Images } from "../../images/Images";
-import {CartesianGrid, BarChart, Bar,XAxis, YAxis, ResponsiveContainer,} from "recharts";
->>>>>>> 3f1a742f7cd32f466cd0019dc5c6a376097f2063
 
 const data=[
   {name: "Jan",expenditure :35000,profit:50000},
