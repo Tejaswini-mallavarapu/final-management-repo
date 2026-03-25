@@ -4,6 +4,7 @@ import { IoMoonSharp, IoSunny } from "react-icons/io5";
 import { LuSunMoon } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
 import { Images } from "../../images/Images";
+import Notifications from "./notifications/Notifications";
 
 
 const languages=[
@@ -12,19 +13,47 @@ const languages=[
 
 const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const [showNotification, setShowNotification] = useState(false);
+
+    const [notifications,setNotifications]=useState([
+        {
+            id:1,
+            type:"comment",
+            title:"Pixelwave",
+            message:"Commented on Classic Car in Studio",
+            desc:"These draggable sliders look really cool. Maybe these could be display when you hold shift..",
+            unread:false,
+        },
+        {
+            id:2,
+            type:"comment",
+            title:"Pixelwave",
+            message:"Commented on Classic Car in Studio",
+            desc:"These draggable sliders look really cool. Maybe these could be display when you hold shift..",
+            unread:true,
+        },
+        {
+            id:3,
+            type:"signup",
+            title:"Signup Request",
+            desc:"Lokesh raj request you to approve signup..",
+            unread:true,
+        }
+    ])
 
     useEffect(() => {
-        const closeMenu = () => setMenuOpen(false);
-        if (menuOpen) {
-            document.addEventListener("click", closeMenu);
-        }
+        const closeMenu = () =>{
+            setMenuOpen(false);setShowNotification(false);
+        };
+        document.addEventListener("click", closeMenu)
         return () => {
             document.removeEventListener("click", closeMenu);
         };
-    }, [menuOpen]);
+    }, []);
 
     return (
-        <div className="container-fluid  header" onClick={(e) => e.stopPropagation()}>
+        <div>
+        <div className="header" onClick={(e) => e.stopPropagation()}>
             <div
                 className={`hamburger ${menuOpen ? "active" : ""}`}
                 onClick={() => setMenuOpen(!menuOpen)}>
@@ -108,15 +137,26 @@ const Header = () => {
                         <img src={Images.chat} alt="chat" />
                         <span className="dot"></span>
                     </div>
-                    <div className="icon">
+                    <div className="icon" onClick={(e)=>{e.stopPropagation();
+                        setShowNotification(!showNotification);
+                    }}>
                         <img src={Images.bell} alt="bell" />
                         <span className="dot"></span>
                     </div>
                     <div className="icon">
-                        <img src={Images.user} />
+                        <img src={Images.user} alt="error"/>
                     </div>
                 </div>
+
+                {
+                    showNotification && (
+                        <div onClick={(e)=>e.stopPropagation()} >
+                            <Notifications notifications={notifications}/>
+                        </div>
+                    )
+                }
             </div>
+        </div>
         </div>
     );
 };

@@ -51,7 +51,7 @@ const Login = () => {
                                 <input type={showPassword ? "text" : "password"} placeholder="Password" />
 
                                 <span className="eye-icon" onClick={() => setShowPassword(!showPassword)}>
-                                    {showPassword ? <img src="\assets\images\Login\eyeopen.svg" alt="error" /> : <img src="\assets\images\Login\eyeclose.svg" alt="error" />}
+                                    {showPassword ? <img src={Images.closedeye} alt="error" /> : <img src={Images.openeye} alt="error" />}
                                 </span>
                             </div>
                             <div className="rules">
