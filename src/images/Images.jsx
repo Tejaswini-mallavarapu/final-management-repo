@@ -21,7 +21,8 @@ export const Images={
     restore:"/assets/images/restore.svg",
     search:"/assets/images/search.svg",
     close:"/assets/images/close.svg",
-    closdescription:"/assets/images/fi_9312231 (1).svg"
+    closdescription:"/assets/images/fi_9312231 (1).svg",
+    back:"/assets/images/back.svg",
 }
 
 export const ProductImages={

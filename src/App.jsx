@@ -7,6 +7,7 @@ import Dashboard from './pages/dashboard/Dashboard'
 import ProductsUploading from './pages/productsuploading/ProductsUploading'
 import Login from './pages/globalpages/Login'
 import Inputssss from './components/forms/Inputssss'
+import UploadProduct from './pages/productsuploading/management/UploadProduct'
 const App = () => {
   return (
     <div>
@@ -14,7 +15,10 @@ const App = () => {
         <Routes>
           <Route path='/' element={<DashboardLayout />}>
             <Route index element={<Dashboard />} />
-            <Route path="productsupload" element={<ProductsUploading />} />
+            <Route path="productsupload">
+              <Route index element={<ProductsUploading />} />
+              <Route path="upload" element={<UploadProduct />} />
+            </Route>
           </Route>
           <Route path='/login' element={<Login />}></Route>
           <Route path='/input' element={<Inputssss />} />
