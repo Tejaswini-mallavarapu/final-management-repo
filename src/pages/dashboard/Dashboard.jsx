@@ -1,5 +1,4 @@
 import { useState } from "react";
-<<<<<<< HEAD
 import {
   Bar,
   BarChart,
@@ -9,10 +8,6 @@ import {
   YAxis,
 } from "recharts";
 import { Images } from "../../images/Images";
-=======
-import { Images } from "../../images/Images";
-import {CartesianGrid, BarChart, Bar,XAxis, YAxis, ResponsiveContainer,} from "recharts";
->>>>>>> 3f1a742f7cd32f466cd0019dc5c6a376097f2063
 
 const data=[
   {name: "Jan",expenditure :35000,profit:50000},
@@ -190,15 +185,8 @@ const Dashboard = () => {
                   <CartesianGrid strokeDasharray="3 3" vertical={false}/>
                     <XAxis dataKey="name" axisLine={false} tickLine={false}/>
                     <YAxis axisLine={false} tickLine={false} tickFormatter={(v)=>`${v/1000}k`}/>
-<<<<<<< HEAD
                     <Bar dataKey="expenditure" stackId="a" className='bar-exp' radius={[20,20,20,20]} barSize={35}  stroke="#ffffff" strokeWidth={5} />
                     <Bar dataKey="profit" stackId="a" className='bar-profit' radius={[20,20,20,20]} barSize={35}  stroke="#ffffff" strokeWidth={5} />
-=======
-                    <Bar dataKey="expenditure" stackId="a" className='bar-exp' radius={[20,20,20,20]} barSize={35}  stroke="#ffffff" 
-      strokeWidth={5} />
-                    <Bar dataKey="profit" stackId="a" className='bar-profit' radius={[20,20,20,20]} barSize={35}  stroke="#ffffff" 
-      strokeWidth={5} />
->>>>>>> 3f1a742f7cd32f466cd0019dc5c6a376097f2063
                 </BarChart>
               </ResponsiveContainer>
 
