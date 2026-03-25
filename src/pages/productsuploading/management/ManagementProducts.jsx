@@ -10,7 +10,9 @@ import { DeleteIcon, EditIcon, RestoreIcon, ViewIcon } from '../../../components
 import Pagination from '../../../components/pagination/Pagination';
 import SearchToggle from '../../../components/forms/SearchToggle';
 import ProductView from './ProductView';
+import { useNavigate } from 'react-router-dom';
 const ManagementProducts = () => {
+  const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(false);
 
   const [products, setProducts] = useState(productsData);
@@ -62,43 +64,49 @@ const ManagementProducts = () => {
           </div>
 
           <CustomSelect
+            className="filter-select"
             label="Company Type"
             value={filters.companyType}
             options={["All", "Brand Owner", "Manufacturer"]}
             onChange={(val) =>
-              setFilters({ ...filters, companyType: val })} />
+              setFilters({ ...filters, companyType: val })}
+          />
 
           <CustomSelect
+            className="filter-select"
             label="Company Name"
             value={filters.companyName}
-            options={[
-              "All",
-              "Sri Animalife Biotech",
-              "Unique Biotech"
-            ]}
+            options={["All", "Sri Animalife Biotech", "Unique Biotech"]}
             onChange={(val) =>
-              setFilters({ ...filters, companyName: val })} />
+              setFilters({ ...filters, companyName: val })}
+          />
 
           <CustomSelect
+            className="filter-select"
             label="Product Category"
             value={filters.productscategory}
             options={["All", "Aquaculture", "Agriculture", "Human Medicine", "Others"]}
             onChange={(val) =>
-              setFilters({ ...filters, productscategory: val })} />
+              setFilters({ ...filters, productscategory: val })}
+          />
 
           <CustomSelect
+            className="filter-select"
             label="Product Sub Category"
             value={filters.productsubcategory}
             options={["All", "Probiotic", "Minerals", "Medicine", "Feeds", "Biofertilizer", "Tablet"]}
             onChange={(val) =>
-              setFilters({ ...filters, productsubcategory: val })} />
+              setFilters({ ...filters, productsubcategory: val })}
+          />
 
           <CustomSelect
+            className="filter-select"
             label="Product Name"
             value={filters.productName}
-            options={["All", "Aqua Remid", "Aqua Bison", "Super-min", "Super-min", "Super-min", "Aqua care"]}
+            options={["All", "Aqua Remid", "Aqua Bison", "Super-min", "Aqua care"]}
             onChange={(val) =>
-              setFilters({ ...filters, productName: val })} />
+              setFilters({ ...filters, productName: val })}
+          />
           <div><Button
             variant='secondary'
             onClick={() => setShowFilters(false)}>Search</Button></div>
@@ -106,7 +114,7 @@ const ManagementProducts = () => {
         </div>
 
         <div >
-          <Button variant='white' >
+          <Button variant='white' onClick={() => navigate("/productsupload/upload")} >
             <span className='upload-btn'> <FaPlus /> <span>Upload New</span></span>
           </Button>
         </div>
@@ -124,8 +132,7 @@ const ManagementProducts = () => {
         <div className="shape-content">
           <SearchToggle
             value={search}
-            onChange={setSearch}
-          />
+            onChange={setSearch} />
 
           {Array.isArray(products) && products.length === 0 ? (
 
@@ -135,7 +142,7 @@ const ManagementProducts = () => {
                 <div className='empty-state-content'>
                   <h3>No Products found in the list.</h3>
                   <p>No products found. Please add products to continue.</p>
-                  <Button variant='secondary' className='enpty-state-btn'>
+                  <Button variant='secondary' className='enpty-state-btn' onClick={() => navigate("/productsupload/upload")}>
                     <span>
                       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18" fill="none">
                         <path d="M9.00006 15.4673C8.51455 15.4673 8.12115 15.0739 8.12115 14.5884V3.41016C8.12115 2.92465 8.51455 2.53125 9.00006 2.53125C9.48557 2.53125 9.87897 2.92465 9.87897 3.41016V14.5884C9.87897 15.0739 9.48557 15.4673 9.00006 15.4673Z" fill="white" />
@@ -221,7 +228,7 @@ const ManagementProducts = () => {
                                 <Popup size="xs" trigger={<DeleteIcon />} >
                                 </Popup>
                                 <Popup size="md" trigger={<ViewIcon />}>
-                                <ProductView/>
+                                  <ProductView />
                                 </Popup>
                               </>
                             )}

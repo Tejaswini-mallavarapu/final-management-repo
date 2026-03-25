@@ -25,7 +25,8 @@ export const Images={
     empty:"/assets/images/notification empty",
 
     comment:"/assets/images/Frame 3201.svg",
-    signup:"/assets/images/Frame 3205.svg"
+    signup:"/assets/images/Frame 3205.svg",
+    back:"/assets/images/back.svg",
 }
 
 export const ProductImages={

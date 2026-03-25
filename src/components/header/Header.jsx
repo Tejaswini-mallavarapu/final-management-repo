@@ -52,7 +52,8 @@ const Header = () => {
     }, []);
 
     return (
-        <div className="container-fluid  header" onClick={(e) => e.stopPropagation()}>
+        <div>
+        <div className="header" onClick={(e) => e.stopPropagation()}>
             <div
                 className={`hamburger ${menuOpen ? "active" : ""}`}
                 onClick={() => setMenuOpen(!menuOpen)}>
@@ -155,6 +156,7 @@ const Header = () => {
                     )
                 }
             </div>
+        </div>
         </div>
     );
 };

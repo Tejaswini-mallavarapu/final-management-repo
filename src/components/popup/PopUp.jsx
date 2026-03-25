@@ -31,7 +31,7 @@ const Popup = ({
             >
               <div className="popup-header">
                 <h3>{title}</h3>
-                <button className="popup-close" onClick={close}>✕</button>
+                <button className="popup-close" onClick={close}><img src="/assets/images/popupclose.svg"></img></button>
               </div>
 
               <div className="popup-body">
