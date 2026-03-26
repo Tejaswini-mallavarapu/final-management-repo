@@ -22,7 +22,7 @@ return (
             {filteredData.length === 0 ? (
                 <div className="empty">
                     <div className="img">
-                        <img src="assets\images\notification empty.svg" alt="empty" />
+                        <img src={Images.empty} alt="empty" />
                     </div>
                     <h3>Your inbox is empty</h3>
                     <p>We’ll notify you when there’s a new notification.</p>
@@ -33,9 +33,9 @@ return (
                     {filteredData.map((item)=>(
                         <div className="notification-item" key={item.id}>
                             <div className="icon-box">
-                                <img src={item.type === "comment" 
+                                <img className="icon" src={item.type === "comment" 
                                         ? Images.comment
-                                        : item.type === "sinup"
+                                        : item.type === "signup"
                                         ? Images.signup
                                         : Images.userIcon
                                 } alt="icon" />
