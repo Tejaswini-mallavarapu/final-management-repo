@@ -6,11 +6,13 @@ import DashboardLayout from './layout/dashboardlayout/DashboardLayout'
 import Dashboard from './pages/dashboard/Dashboard'
 import ProductsUploading from './pages/productsuploading/ProductsUploading'
 import Login from './pages/globalpages/Login'
-import Inputssss from './components/forms/Inputssss'
+
 import UploadProduct from './pages/productsuploading/management/UploadProduct'
+import { AuthProvider } from './context/AuthContext'
 const App = () => {
   return (
     <div>
+  <AuthProvider>
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<DashboardLayout />}>
@@ -21,9 +23,10 @@ const App = () => {
             </Route>
           </Route>
           <Route path='/login' element={<Login />}></Route>
-          <Route path='/input' element={<Inputssss />} />
         </Routes>
       </BrowserRouter>
+      </AuthProvider>
+     
 
     </div>
   )
