@@ -11,6 +11,7 @@ import Pagination from '../../../components/pagination/Pagination';
 import SearchToggle from '../../../components/forms/SearchToggle';
 import ProductView from './ProductView';
 import { useNavigate } from 'react-router-dom';
+import ProductDelete from './ProductDelete';
 const ManagementProducts = () => {
   const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(false);
@@ -226,6 +227,7 @@ const ManagementProducts = () => {
                               <>
                                 <Popup size="sm" trigger={<EditIcon />} />
                                 <Popup size="xs" trigger={<DeleteIcon />} >
+                                <ProductDelete/>
                                 </Popup>
                                 <Popup size="md" trigger={<ViewIcon />}>
                                   <ProductView />
