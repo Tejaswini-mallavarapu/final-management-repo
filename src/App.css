@@ -228,7 +228,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* ==========================================================================================================================================================================
-                                                                                 typography
+                                                                                  typography
  ========================================================================================================================================================================== */
 h2 {
   font-family: "CreatoDisplay";
@@ -239,6 +239,7 @@ h2 {
 
 
 h3 {
+  font-family: "CreatoDisplay";
   font-size: 20px;
   color: rgba(var(--text-primary), 1)
 }
@@ -703,7 +704,7 @@ p {
 }
 
 /* ==========================================================================================================================================================================
-                                                                                 Model
+                                                                                  Model
  ========================================================================================================================================================================== */
 .popup-overlay {
   position: fixed;
@@ -916,7 +917,7 @@ p {
 
 
 /* ==========================================================================================================================================================================
-                                                                                 global
+                                                                                  global
  ========================================================================================================================================================================== */
 body {
   background-color: var(--body-bg);
@@ -993,7 +994,7 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 9999;
+  z-index: 99;
   background-color: var(--body-bg);
 }
 
@@ -1012,6 +1013,8 @@ body {
   line-height: 100%;
   letter-spacing: 0%;
   color: rgba(var(--text-primary), 1);
+
+  /* position: relative; */
 }
 
 .header .nav-wrapper .nav {
@@ -1076,12 +1079,14 @@ body {
   transform: translateY(10px);
   overflow: visible;
   transition: all 0.15s ease-in-out;
+    z-index: 100;
 }
 
 .header .nav-wrapper .actions .settings-btn .hover-dropdown {
   top: 110%;
   width: 208px;
-  z-index: 100;
+
+
 }
 
 .header .nav-wrapper .nav .dropdown:hover .hover-dropdown,
@@ -1257,6 +1262,7 @@ body {
   justify-content: center;
   flex-shrink: 0;
   position: relative;
+  cursor: pointer;
 }
 
 .header .nav-wrapper .actions .icon img {
@@ -1275,6 +1281,8 @@ body {
   background: rgba(88, 63, 255, 1);
   box-shadow: 0 0 0 1.5px rgba(var(--main-white), 1);
 }
+
+
 
 /* ****************************************Notifications*********************************************/
 .notification-box{
@@ -1296,7 +1304,8 @@ body {
   border-bottom: 1px solid rgba(var(--light-gray),0.4);
 }
 .notification-box .notification-header .tabs button {
-  border: none;
+  font-family: "CreatoDisplay";
+  font-size: 13px;
   padding: 6px 14px;
   border-radius: 20px;
   background: rgba(var(--main-white), 1);
@@ -1329,48 +1338,185 @@ body {
   color: rgba(var(--text-secondary),1);
   padding: 10px 0px 100px 0px;
 }
-.notification-box .notification-list .notification-item{
+/* .notification-box .notification-list{
+  height: 60vh;
+} */
+.notification-box .notification-content .notification-list .notification-item{
   display: flex;
   gap: 15px;
   padding: 20px 25px;
   border-bottom: 1px solid rgba(var(--light-gray),0.4);
 }
-.notification-box .notification-list .notification-item .icon-box img{
+.notification-box .notification-content .notification-list .notification-item .icon-box .icon{
   width: 50px;
   height: 50px;
   object-fit: contain;
 }
-.notification-box .notification-list .notification-item:last-child{
+.notification-box .notification-content .notification-list .notification-item:last-child{
   border-bottom: none;
 }
-.notification-box .notification-list .notification-item .content{
+.notification-box .notification-content .notification-list .notification-item .content{
   display: flex;
   flex-direction: column;
   gap: 10px;
   cursor: pointer;
 }
-.notification-box .notification-list .notification-item .content h6{
+.notification-box .notification-content .notification-list .notification-item .content h6{
   font-size: 16px;
   font-family: "CreatoDisplay";
   color: rgba(var(--text-primary),1);
 }
-.notification-box .notification-list .notification-item .content .message{
+.notification-box .notification-content .notification-list .notification-item .content .message{
   font-family: "CreatoDisplay-medium";
   font-size: 13px;
   line-height: 16px;
   color: rgba(var(--text-primary),1);
 }
-.notification-box .notification-list .notification-item .content .desc{
+.notification-box .notification-content .notification-list .notification-item .content .desc{
   font-family: "CreatoDisplay-regular";
   font-size: 12px;
   line-height: 16px;
   color: rgba(var(--text-secondary), 1);
 }
-.notification-box .notification-list .notification-item .content .view{
+.notification-box .notification-content .notification-list .notification-item .content .view{
   max-width: fit-content;
 }
 
+.notification-box .notification-content .notification-list {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 5px;
+  scroll-behavior: smooth;
+}
+.notification-list::-webkit-scrollbar {
+  width: 6px;
+}
 
+.notification-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notification-list::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+/* profile */
+
+.profile-wrapper {
+  width: 295px;
+  background: rgba(var(--main-white),1);
+  border-radius: 14px;
+  position: absolute;
+  padding: 12px;
+  top: 75px;
+  right: 10px;
+  z-index: 99;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+
+}
+
+
+
+.profile-wrapper .profile-popup .popup-header {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.profile-wrapper .profile-popup .popup-header .logo{
+  width: 60px;
+  height: 60px;
+  background: rgba(var(--light-gray),0.16);
+  border-radius: 50%;
+  font-size: 25px;
+  color: rgba(107, 114, 128, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+
+.profile-wrapper .profile-popup .popup-header .edit {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background:rgba(var(--text-primary),1);
+  border: 1.6px solid rgba(255, 255, 255, 1);
+  border-radius: 50%;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-wrapper .profile-popup .popup-header .edit img{
+  width: 13px;
+  height: 13px;
+}
+
+.profile-wrapper .profile-popup .popup-header .close-btn {
+  padding: 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+.profile-wrapper .profile-popup .profile-content {
+  background: rgba(var(--light-gray),0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 15px;
+}
+
+.profile-wrapper .profile-popup .profile-content .field {
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  border-bottom:  1px solid rgba(156, 163, 175, 0.16);
+}
+.profile-wrapper .profile-popup .profile-content .field:last-child{
+  border-bottom: none;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.profile-wrapper .profile-popup .profile-content .field label {
+  font-family:"CreatoDisplay-regular";
+  font-size: 12px;
+  color:rgba(var(--text-primary), 1);
+}
+.profile-wrapper .profile-popup .profile-content .field .value {
+  font-family:"CreatoDisplay-medium" ;
+  color:rgba(var(--text-primary), 1);
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.profile-wrapper .profile-popup .profile-content .field .edit-icon {
+  cursor: pointer;
+}
+
+.profile-wrapper .profile-popup  button{
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 16px;
+    font-size: 14px;
+    font-family: "CreatoDisplay";
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+}
+.profile-wrapper .profile-popup  button img{
+  padding-right: 8px;
+}
 
 
 @media(max-width:1300px) {
@@ -1381,20 +1527,24 @@ body {
 
   .header .nav-wrapper .nav {
     display: none;
+    border-radius: 0px;
   }
-
   .header .nav-wrapper .nav.show {
     display: flex;
     flex-direction: column;
     width: 200px;
+    height: 100vh;
     position: absolute;
-    top: 106px;
-    left: 15px;
+    top: 111px;
+    left: 5px;
     background: #fff;
-    border-radius: 40px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   }
+  .header .nav-wrapper .nav .dropdown .hover-dropdown, .header .nav-wrapper .actions .settings-btn .hover-dropdown {
+    top: 130%;
+    left: 82%;
 
+  }
   .header .nav-wrapper .nav .nav-item {
     border-bottom: 1px solid rgb(188, 181, 181);
     width: 100%;
@@ -1431,6 +1581,70 @@ body {
   .header .nav-wrapper .actions {
     display: none;
   }
+
+}
+@media(max-width: 576px){
+  .notification-box{
+  width: 382px;
+}
+.header .nav-wrapper .nav .dropdown .hover-dropdown .more-data .sub-dropdown{
+
+    top: 43px;
+    left: 32%;
+}
+}
+@media(max-width: 425px){
+  .header .nav-wrapper .nav.show {
+    width: 185px;
+  }
+  .header .nav-wrapper .nav .dropdown .hover-dropdown {
+    width: 160px;
+}
+.header .nav-wrapper .nav .dropdown .hover-dropdown .more-data .sub-dropdown {
+        top: 43px;
+        left: -11%;
+    }
+  .notification-box{
+  width: 300px;
+  right: 3%;
+}
+.notification-box .notification-header{
+  padding: 15px 15px;
+}
+.notification-box .notification-header h3{
+  font-size: 16px;
+}
+.notification-box .notification-content .notification-list .notification-item {
+    gap: 10px;
+    padding: 15px 15px;
+}
+.notification-box .notification-content .notification-list .notification-item .content {
+    gap: 5px;
+}
+.notification-box .notification-content .notification-list .notification-item .content h6 {
+    font-size: 14px;
+}
+.notification-box .notification-content .notification-list .notification-item .content .message {
+    font-size: 12px;
+    line-height: 12px;
+}
+.notification-box .notification-content .notification-list .notification-item .content .desc {
+    font-size: 10px;
+    line-height: 12px;
+}
+.notification-box .notification-content .notification-list .notification-item .content .view {
+    padding: 10px 15px;
+}
+.profile-wrapper {
+    width: 295px;
+    background: rgba(var(--main-white), 1);
+    border-radius: 14px;
+    position: absolute;
+    padding: 12px;
+    top: 75px;
+    right: -12px;
+
+}
 
 }
 
@@ -2441,6 +2655,57 @@ body {
   }
 
 }
+
+/* Delete-products */
+.delete-container{
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.delete-container .delete-popup{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 10px;
+}
+.delete-container .delete-popup>img{
+  width: 74px;
+  height: 74px;
+}
+.delete-container .delete-popup span h3{
+  line-height: 30px;
+}
+.delete-container .delete-popup span{
+  font-family: "CreatoDisplay-medium";
+  font-size: 13px;
+  color: rgba(var(--text-secondary),1);
+}
+.delete-container .buttons{
+  display: flex;
+  gap: 10px;
+}
+.delete-container .buttons .popup-delete,
+.delete-container .buttons .popup-cancel{
+  padding: 20px 50px;
+}
+@media(max-width:992px){
+  .delete-container .buttons .popup-delete, .delete-container .buttons .popup-cancel {
+        padding: 20px 42px;
+}
+.delete-container {
+    gap: 30px;
+}
+}
+@media(max-width:768px){
+  .delete-container .buttons .popup-delete, .delete-container .buttons .popup-cancel {
+    padding: 15px 40px;
+}
+.delete-container {
+    gap: 20px;
+}
+}
+
 
 /*>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> Dashboard  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<*/
 .dashboard .d-head {
