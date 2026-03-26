@@ -268,6 +268,7 @@ p {
   cursor: pointer;
   user-select: none;
   text-decoration: none;
+  width: inherit;
 }
 
 .btn-secondary {
@@ -290,6 +291,29 @@ p {
 .btn-primary {
   color: rgba(var(--main-white), 1);
   background: rgba(var(--blue-text), 1);
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active {
+  background: rgba(var(--blue-text), 0.85);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.btn-primary:disabled {
+  color: rgba(var(--main-white), 1);
+  background: rgba(var(--light-gray), 1);
+  border: 1px solid rgba(var(--light-gray), 0.8);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-primary:disabled:hover,
+.btn-primary:disabled:active {
+  transform: none;
 }
 
 .btn-gray {
@@ -1731,7 +1755,6 @@ body {
 .login-container .login .login-right .login-form .input-box {
   background: rgba(var(--light-gray), 0.14);
   border-radius: 16px;
-
   display: flex;
   align-items: center;
   padding: 0 23px;
@@ -1739,7 +1762,6 @@ body {
   position: relative;
 }
 
-/* Input */
 .login-container .login .login-right .login-form .input-box input {
   width: 100%;
   flex: 1;
@@ -1750,6 +1772,24 @@ body {
   font-size: 16px;
   color: rgba(var(--text-primary), 1);
   padding-left: 10px;
+}
+.login-container .login .login-right .login-form .input-box.error-box {
+  background: rgba(254, 242, 242, 1);
+  border: 1px solid rgba(255, 78, 72, 1);
+}
+
+.login-container .login .login-right .login-form .input-box {
+  transition: all 0.2s ease;
+}
+
+.login-container .login .login-right .login-form .login-error {
+  font-family: "CreatoDisplay";
+  font-weight: 500;
+  color: rgba(255, 78, 72, 1);
+  font-size: 15px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding-left: 8px;
 }
 
 .login-container .login .login-right .login-form .input-box input::placeholder {
@@ -1806,7 +1846,9 @@ body {
   color: rgba(var(--text-secondary), 1);
 }
 
-.login-container .login .login-right .login-form .login-btn {
+
+
+/* .login-container .login .login-right .login-form .login-btn {
   width: 100%;
   padding: 24px;
   border-radius: 16px;
@@ -1815,13 +1857,17 @@ body {
   cursor: pointer;
   font-family: "CreatoDisplay";
   font-size: 18px;
-}
+} */
 
 .login-container .login .login-right>span {
   font-family: "CreatoDisplay-regular";
   font-size: 12px;
   color: rgba(var(--text-secondary), 1);
   padding-top: 47px;
+}
+
+.login-container .login-btns {
+  width: 100%;
 }
 
 @media (max-width: 1325px) {
