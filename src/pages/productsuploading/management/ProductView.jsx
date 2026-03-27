@@ -2,8 +2,9 @@ import { useState } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Button from "../../../components/buttons/Button";
 import { Images } from "../../../images/Images";
+import { MdSettingsBackupRestore } from "react-icons/md";
 
-const ProductView = ({ product }) => {
+const ProductView = ({ product,hideActions=false }) => {
     const [showDeletePopup,setShowDeletePopup] = useState(false);
 
     const isDeleted=product?.status?.toLowerCase()==="deleted";
@@ -69,7 +70,7 @@ const ProductView = ({ product }) => {
                                     <h3>{product?.productName}</h3>
                                     <div>
                                         <span className="btn probiotics">Probiotics</span>
-                                        <span className={isDeleted ?"btn-delete"
+                                        <span className={isDeleted ?"btn-deleted"
                                                 : product?.status?.toLowerCase() === "active"
                                                 ? "btn-active"
                                                 : "btn-inactive"}>
@@ -204,10 +205,11 @@ Sydney College in Virginia, looked up one of the more obscure Latin words, conse
                     )}
 
                 </div>
+                {!hideActions &&(
                 <div className="popup-actions popup-actions-footer">
                     {isDeleted ? (
                         <Button variant="primary">
-                            <span>Restore Product</span>
+                            <MdSettingsBackupRestore className="restore"/><span>Restore Product</span>
                         </Button>
                     ):(<>
                         <Button variant="delete">
@@ -222,6 +224,7 @@ Sydney College in Virginia, looked up one of the more obscure Latin words, conse
                     </>
                     )}
                 </div>
+                )}
 
             </div>
             

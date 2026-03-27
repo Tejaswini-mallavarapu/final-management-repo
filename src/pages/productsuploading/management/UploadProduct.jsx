@@ -5,6 +5,7 @@ import { Images } from '../../../images/Images';
 import CustomSelect from '../../../components/forms/CustomSelect';
 import Input from '../../../components/forms/Input';
 import FileUpload from '../../../components/forms/FileUpload';
+import { IoMdAdd } from "react-icons/io";
 
 const UploadProduct = () => {
   const navigate = useNavigate();
@@ -128,7 +129,16 @@ const UploadProduct = () => {
           label="Upload Product Photos"
           value={form.images}
           onChange={(files) => handleChange("images", files)}/>
+          <div className='add-btn'>
+            <div className='search-toggle-btn'><IoMdAdd /></div>
+          </div>
       </div>
+      {/* <div className='text-editor'>
+        <label className='textarea-label'>Composition/Ingredients</label>
+        <div className='text-area'>
+
+        </div>
+      </div> */}
 
     </div>
   );

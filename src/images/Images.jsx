@@ -38,5 +38,6 @@ export const ProductImages={
     product1:"/assets/images/product1.png",
     product2:"/assets/images/product2.png",
     product3:"/assets/images/product3.png",
+    product4:"/assets/images/product2.png",
 
 }
