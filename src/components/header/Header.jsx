@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 import { Images } from "../../images/Images";
 import Notifications from "./notifications/Notifications";
 import Profile from "./profile/Profile";
+import { HiDotsVertical } from "react-icons/hi";
 
 
 
@@ -13,6 +14,7 @@ const Header = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [showNotification, setShowNotification] = useState(false);
     const [showProfile,setShowProfile]=useState(false);
+    const [showActionsSidebar,setShowActionsSidebar]=useState(false);
 
     const [notifications,setNotifications]=useState([
         {
@@ -42,7 +44,10 @@ const Header = () => {
 
     useEffect(() => {
         const closeMenu = () =>{
-            setMenuOpen(false);setShowNotification(false);setShowProfile(false);
+            setMenuOpen(false);
+            setShowNotification(false);
+            setShowProfile(false);
+            setShowActionsSidebar(false);
         };
         document.addEventListener("click", closeMenu)
         return () => {
@@ -52,7 +57,7 @@ const Header = () => {
 
     return (
         <div>
-        <div className="header" onClick={(e) => e.stopPropagation()}>
+        <div className="header " onClick={(e) => e.stopPropagation()}>
             <div
                 className={`hamburger ${menuOpen ? "active" : ""}`}
                 onClick={() => setMenuOpen(!menuOpen)}>
@@ -150,6 +155,14 @@ const Header = () => {
                         <img src={Images.user} alt="error"/>
                     </div>
                 </div>
+                <div className="actions-bar" onClick={(e)=>{
+                    e.stopPropagation();
+                    setShowActionsSidebar(true);
+                }}>
+                        <HiDotsVertical className="dot"/>
+                    </div>
+
+                
 
                 {
                     showNotification && (

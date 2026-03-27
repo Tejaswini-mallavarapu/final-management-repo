@@ -13,6 +13,7 @@ import ProductView from './ProductView';
 import { useNavigate } from 'react-router-dom';
 import ProductDelete from './ProductDelete';
 const ManagementProducts = () => {
+  
   const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(false);
 
@@ -43,7 +44,7 @@ const ManagementProducts = () => {
   const statusClassMap = {
     active: "btn-active",
     inactive: "btn-inactive",
-    deleted: "btn-inactive",
+    deleted: "btn-delete",
   };
 
 
@@ -221,7 +222,8 @@ const ManagementProducts = () => {
                             {item.status.toLowerCase() === "deleted" ? (
                               <>
                                 <Popup size="sm" trigger={<RestoreIcon />} />
-                                <Popup size="md" trigger={<ViewIcon />} />
+                                <Popup size="md" trigger={<ViewIcon />} > 
+                                <ProductView product={item} /> </Popup>
                               </>
                             ) : (
                               <>
@@ -230,7 +232,7 @@ const ManagementProducts = () => {
                                 <ProductDelete/>
                                 </Popup>
                                 <Popup size="md" trigger={<ViewIcon />}>
-                                  <ProductView />
+                                  <ProductView product={item}/>
                                 </Popup>
                               </>
                             )}

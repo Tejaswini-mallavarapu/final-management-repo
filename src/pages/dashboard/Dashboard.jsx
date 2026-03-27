@@ -169,15 +169,15 @@ const Dashboard = () => {
                 <h2>Total Revenue</h2>
                 <p>Bar of the company revenue</p>
               </div>
-              <div>
+              {/* <div>
                 <input type="date"/>
-              </div>
+              </div> */}
             </div>
             <div>
-              <div>
+              {/* <div>
                 <p>Expenditure</p>
                 <p>Profit</p>
-              </div>
+              </div> */}
             </div>
             <div className='chart-box'>
               <ResponsiveContainer  width="100%" height={300}>
