@@ -3241,8 +3241,8 @@ h3{
 }
 
 .delete-btn {
-  width: 54px;
-  height: 54px;
+  width: 50px;
+  height: 50px;
   position: absolute;
   top: 6px;
   right: 6px;
@@ -3250,6 +3250,13 @@ h3{
   border-radius: 50%;
   cursor: pointer;
   background: rgba(var(--main-white),1);
+  border: 1px solid rgba(var(--light-gray),0.8);
+}
+.preview-card .delete-btn>img{
+  width: 20px;
+  height: 20px;
+  justify-self: center;
+
 }
 
 .upload-box {
