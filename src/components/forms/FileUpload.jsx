@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
 import Button from "../buttons/Button";
+import { Images } from "../../images/Images";
 
 const FileUpload = ({ label, value = [], onChange }) => {
   const inputRef = useRef(null);
@@ -42,11 +43,8 @@ const FileUpload = ({ label, value = [], onChange }) => {
           <div className="preview-card" key={index}>
             <img src={item.preview} alt="preview" />
 
-            <button
-              className="delete-btn"
-              onClick={() => removeFile(index)}
-            >
-              ✕
+            <button className="delete-btn" onClick={() => removeFile(index)}>
+              <img src={Images.deletepopup}/>
             </button>
           </div>
         ))}

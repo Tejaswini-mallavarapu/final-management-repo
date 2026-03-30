@@ -209,7 +209,7 @@ Sydney College in Virginia, looked up one of the more obscure Latin words, conse
                 <div className="popup-actions popup-actions-footer">
                     {isDeleted ? (
                         <Button variant="primary">
-                            <MdSettingsBackupRestore className="restore"/><span>Restore Product</span>
+                            <MdSettingsBackupRestore className="Restore Product"/><span>Restore Product</span>
                         </Button>
                     ):(<>
                         <Button variant="delete">

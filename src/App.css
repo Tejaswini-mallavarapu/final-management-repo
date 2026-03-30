@@ -311,6 +311,11 @@ p {
   color: rgba(var(--main-white), 1);
   background: rgba(var(--light-gray), 1);
 }
+.btn-disable:hover,
+.btn-disable:active,
+.btn-disable .active{
+background: rgba(var(--blue-text),1);
+}
 
 .btn-active {
   color: rgba(var(--active-approved-green-text), 1);
@@ -378,7 +383,7 @@ p {
 .probiotics {
   padding: 10px 20px;
   background: rgba(var(--main-white), 1);
-  border: 0.6px solid rgba(156, 163, 175, 0.8);
+  border: 0.6px solid rgba(var(--light-gray), 0.8);
 }
 
 @media(max-width:526px) {
@@ -491,10 +496,8 @@ p {
   vertical-align: middle;
 }
 
-
-.table-container .status {
+.table-container .status{
   width: fit-content;
-  display: flex;
   align-items: center;
   justify-content: center;
 }
@@ -542,7 +545,7 @@ p {
 }
 
 .custom-input .input-box {
-  border: 1px solid rgba(156, 163, 175, 0.8);
+  border: 1px solid rgba(var(--light-gray), 0.8);
   border-radius: 40px;
   padding: 0 24px;
   background: rgba(var(--main-white), 1);
@@ -561,7 +564,7 @@ p {
 }
 
 .custom-input .input-box input::placeholder {
-  color: rgba(156, 163, 175, 0.8);
+  color: rgba(var(--light-gray), 0.8);
 }
 
 /* select */
@@ -581,7 +584,7 @@ p {
 }
 
 .custom-select .select-box {
-  border: 1px solid rgba(156, 163, 175, 0.8);
+  border: 1px solid rgba(var(--light-gray), 0.8);
   border-radius: 40px;
   padding: 17px 24px;
   display: flex;
@@ -626,7 +629,7 @@ p {
 
 .custom-select .dropdown-item {
   cursor: pointer;
-  border-top: 1px solid rgba(156, 163, 175, 0.4);
+  border-top: 1px solid rgba(var(--light-gray), 0.4);
   padding: 13px 17px;
 }
 
@@ -639,7 +642,7 @@ p {
 }
 
 .custom-select .placeholder {
-  color: rgba(156, 163, 175, 1);
+  color: rgba(var(--light-gray), 1);
 
 }
 
@@ -1494,7 +1497,7 @@ background: rgba(var(--main-white), 1);
 .profile-wrapper .profile-popup .profile-content .field {
   margin-bottom: 15px;
   padding-bottom: 12px;
-  border-bottom:  1px solid rgba(156, 163, 175, 0.16);
+  border-bottom:  1px solid rgba(var(--light-gray), 0.16);
 }
 .profile-wrapper .profile-popup .profile-content .field:last-child{
   border-bottom: none;
@@ -1783,6 +1786,28 @@ background: rgba(var(--main-white), 1);
   gap: 10px;
 }
 
+@media(max-width:768px){
+  .empty-state-container .empty-state {
+    padding-top: 120px;
+    padding-bottom: 80px;
+}
+}
+@media(max-width:425px){
+  .empty-state-container .empty-state {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+h3{
+  font-size: 16px;
+}
+.empty-state-container .empty-state p{
+  font-size: 12px;
+}
+.empty-state-container .empty-state .empty-state-content .enpty-state-btn {
+    margin-top: 10px;
+}
+
+}
 
 /************************ search toggle *************************/
 .search-toggle-container {
@@ -1832,7 +1857,7 @@ background: rgba(var(--main-white), 1);
 .search-toggle-container .search-icon {
   font-size: 14px;
   color: #9ca3af;
-  background: rgba(156, 163, 175, 0.16);
+  background: rgba(var(--light-gray), 0.16);
   padding: 8px;
   border-radius: 50%;
 
@@ -2457,7 +2482,7 @@ background: rgba(var(--main-white), 1);
 }
 
 .view-products .popup-content .border {
-  border-bottom: 1px solid rgba(156, 163, 175, 0.4);
+  border-bottom: 1px solid rgba(var(--light-gray), 0.4);
   padding-bottom: 20px;
 }
 
@@ -2584,7 +2609,7 @@ background: rgba(var(--main-white), 1);
   }
 
   .view-products .popup-content .border {
-    border-bottom: 1px solid rgba(156, 163, 175, 0.4);
+    border-bottom: 1px solid rgba(var(--light-gray),0.4);
     padding-bottom: 10px;
   }
 
@@ -3041,27 +3066,88 @@ background: rgba(var(--main-white), 1);
   border-radius: 34px;
   position: relative;
 }
-
-.product-upload-page .text-editors{
-  width: 100%;
-  height: fit-content;
-  border-radius: 22px;
-  background: rgba(var(--main-white), 1);
-  border: 1px solid rgba(var(--light-gray),0.8);
-}
 .product-upload-page .add-btn{
   position: absolute;
   right: 0%;
   bottom: 3%;
 }
+
 .product-upload-page .text-editor .textarea-label{
   font-family:"CreatoDisplay-medium";
   font-size: 14px;
   line-height: 16px;
   color: rgba(var(--text-primary),1);
-  margin-left: 10px;
-  margin-bottom: 12px;
+  margin:30px 0px 12px 10px ;
 }
+.product-upload-page .text-editor .text-area{
+  width: 100%;
+  min-height: 171px;
+  border-radius: 22px;
+  background: rgba(var(--main-white), 1);
+  border: 1px solid rgba(var(--light-gray),0.4);
+  box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.06);
+  padding: 20px 24px 25px 24px;
+}
+.product-upload-page .text-editor .text-area .edit-icons{
+  display: flex;
+  gap: 10px;
+  padding-bottom: 20px;
+  border-bottom: 2px dotted rgba(var(--light-gray),1)
+}
+.product-upload-page .text-editor .text-area .edit-icons .icon{
+  width: 34px;
+  height: 34px;
+  border-radius: 4px;
+  background: rgba(var(--light-gray), 0.16);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.product-upload-page .text-editor .text-area .edit-icons .icon .logo{
+  color:rgba(107, 114, 128, 1);
+  font-weight: 700;
+  font-size: 18px;
+}
+
+
+.product-upload-page .text-editor .text-area .text {
+  padding-top: 20px;
+  outline: none;
+
+  font-family: "CreatoDisplay-medium";
+  font-size:14px ;
+  line-height: 22px;
+}
+
+.product-upload-page .text-editor .text-area .text:empty::before {
+  content: attr(data-placeholder);
+  color: rgba(var(--light-gray), 0.8);
+  font-family:"CreatoDisplay-medium";
+  font-size: 14px;
+  line-height: 16px;
+
+}
+.product-upload-page .text-editor .edit-icons .icon{
+  transition: all 0.2s ease;
+}
+
+.product-upload-page .text-editor .text-area .edit-icons .icon:hover,
+.product-upload-page .text-editor .text-area .edit-icons .icon.active {
+  background: rgba(var(--blue-text),0.12);
+  cursor: pointer;
+}
+
+.product-upload-page .text-editor .text-area .edit-icons .icon:hover .logo,
+.product-upload-page .text-editor .text-area .edit-icons .icon.active .logo{
+  color: rgba(var(--blue-text), 1);
+}
+.product-upload-page .submit-btn{
+  display: flex;
+  justify-content: flex-end;
+  gap:30px;
+  margin-top: 40px;
+}
+
 
 
 .product-upload-page .add-btn .search-toggle-btn {
@@ -3145,7 +3231,7 @@ background: rgba(var(--main-white), 1);
   position: relative;
   background: #f3f4f6;
   border-radius: 20px;
-  border: 1px solid rgba(156, 163, 175, 0.8)
+  border: 1px solid rgba(var(--light-gray), 0.8)
 }
 
 .preview-card img {
@@ -3155,12 +3241,15 @@ background: rgba(var(--main-white), 1);
 }
 
 .delete-btn {
+  width: 54px;
+  height: 54px;
   position: absolute;
   top: 6px;
   right: 6px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
+  background: rgba(var(--main-white),1);
 }
 
 .upload-box {
