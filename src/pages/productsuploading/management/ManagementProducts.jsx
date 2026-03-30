@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { FaPlus } from "react-icons/fa";
 import CustomSelect from '../../../components/forms/CustomSelect';
 import Button from '../../../components/buttons/Button';
@@ -12,12 +12,13 @@ import SearchToggle from '../../../components/forms/SearchToggle';
 import ProductView from './ProductView';
 import { useNavigate } from 'react-router-dom';
 import ProductDelete from './ProductDelete';
+import { useAuth } from '../../../context/AuthContext';
 const ManagementProducts = () => {
+  const { auth } = useAuth();
   const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(false);
-
   const [products, setProducts] = useState(productsData);
-  // pagination//
+
   const {
     currentData,
     currentPage,
@@ -45,6 +46,18 @@ const ManagementProducts = () => {
     inactive: "btn-inactive",
     deleted: "btn-inactive",
   };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const roleId = auth?.user?.role_id;
+        const token = auth?.accessToken;
+        const respone=await api.get()
+      }catch(error){
+
+      }
+    }
+  })
 
 
   return (
@@ -123,12 +136,12 @@ const ManagementProducts = () => {
       </div>
 
       <div className="shape-card">
-        <svg className="shape-svg" viewBox="0 0 1411 778" preserveAspectRatio="none">
+        {/* <svg className="shape-svg" viewBox="0 0 1411 778" preserveAspectRatio="none">
           <path
             d="M1315.71 21C1334.49 21 1349.71 36.2223 1349.71 55V60.3545C1349.71 77.2795 1363.43 91 1380.35 91C1397.28 91 1411 104.72 1411 121.646V750C1411 765.464 1398.46 778 1383 778H49C33.536 778 21 765.464 21 750V49C21 33.536 33.536 21 49 21H1315.71Z"
             fill="white"
           />
-        </svg>
+        </svg> */}
 
         <div className="shape-content">
           <SearchToggle
@@ -210,7 +223,7 @@ const ManagementProducts = () => {
                         <td>{item.weight}</td>
                         <td>{item.price}</td>
 
-                        <td>
+                        <td className='status-col'>
                           <span className={`status ${statusClassMap[item.status.toLowerCase()] || ""}`}>
                             {item.status}
                           </span>
@@ -220,17 +233,18 @@ const ManagementProducts = () => {
                           <div className="actions">
                             {item.status.toLowerCase() === "deleted" ? (
                               <>
-                                <Popup size="sm"  trigger={<RestoreIcon />} />
-                                <Popup size="md" trigger={<ViewIcon />} />
+                                <Popup size="sm" trigger={<RestoreIcon />} />
+                                <Popup size="md" trigger={<ViewIcon />} >
+                                  <ProductView product={item} /> </Popup>
                               </>
                             ) : (
                               <>
                                 <Popup size="sm" trigger={<EditIcon />} />
                                 <Popup size="xs" trigger={<DeleteIcon />} >
-                                <ProductDelete/>
+                                  <ProductDelete />
                                 </Popup>
                                 <Popup size="md" trigger={<ViewIcon />}>
-                                  <ProductView />
+                                  <ProductView product={item} />
                                 </Popup>
                               </>
                             )}

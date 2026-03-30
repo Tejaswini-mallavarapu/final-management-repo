@@ -41,6 +41,7 @@ const Login = () => {
             );
             const res = response.data.message;
             console.log(res);
+           
             login({
                 accessToken: res.accessToken,
                 refreshToken: res.refToken,
@@ -89,10 +90,14 @@ const Login = () => {
         register,
         watch,
         handleSubmit,
-        formState: { isValid: formIsValid, errors }
+        formState: { isValid, isDirty, errors }
     } = useForm({
         mode: "onChange",
         resolver: yupResolver(schema),
+        defaultValues: {
+            email: "",
+            password: ""
+        }
     });
     const password = watch("password");
     return (
@@ -211,7 +216,7 @@ const Login = () => {
                             <div className="login-btns">
                                 <Button
                                     variant="primary"
-                                    disabled={!formIsValid || isLoading}
+                                    disabled={!isValid || !isDirty || isLoading}
                                     type="submit"
                                     className={`login-btn ${isLoading ? "loading" : ""}`}
                                 >
