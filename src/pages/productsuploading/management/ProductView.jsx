@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import Button from "../../../components/buttons/Button";
 import { Images } from "../../../images/Images";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import ProductDelete from "./ProductDelete";
+import { MdSettingsBackupRestore } from "react-icons/md";
 
-const ProductView = ({ productId }) => {
+const ProductView = ({ product,hideActions=false }) => {
     const [showDeletePopup,setShowDeletePopup] = useState(false);
+
+    const isDeleted=product?.status?.toLowerCase()==="deleted";
 
     const [activeTab, setActiveTab] = useState("details");
     const [openDescription, setOpenDescription] = useState([]);
@@ -65,10 +67,15 @@ const ProductView = ({ productId }) => {
 
                             <div className="content">
                                 <div className="heading">
-                                    <h3>Aqua Remid</h3>
+                                    <h3>{product?.productName}</h3>
                                     <div>
                                         <span className="btn probiotics">Probiotics</span>
-                                        <span className="btn-active">Active</span>
+                                        <span className={isDeleted ?"btn-deleted"
+                                                : product?.status?.toLowerCase() === "active"
+                                                ? "btn-active"
+                                                : "btn-inactive"}>
+                                            {product?.status}
+                                        </span>
                                     </div>
                                 </div>
 
@@ -198,22 +205,29 @@ Sydney College in Virginia, looked up one of the more obscure Latin words, conse
                     )}
 
                 </div>
+                {!hideActions &&(
                 <div className="popup-actions popup-actions-footer">
-                    <Button variant="delete" onClick={()=>setShowDeletePopup(true)}>
-                        <img src={Images.delete} />
-                        <span>Delete Product</span>
-                    </Button>
+                    {isDeleted ? (
+                        <Button variant="primary">
+                            <MdSettingsBackupRestore className="Restore Product"/><span>Restore Product</span>
+                        </Button>
+                    ):(<>
+                        <Button variant="delete">
+                            <img src={Images.delete} />
+                            <span>Delete Product</span>
+                        </Button>
 
-                    <Button variant="primary">
-                        <img src="/assets/images/editbtn.svg" />
-                        <span>Edit Product Details</span>
-                    </Button>
+                        <Button variant="primary">
+                            <img src="/assets/images/editbtn.svg" />
+                            <span>Edit Product Details</span>
+                        </Button>
+                    </>
+                    )}
                 </div>
+                )}
 
             </div>
-             {showDeletePopup && (
-        <ProductDelete onClose={() => setShowDeletePopup(false)} />
-      )}
+            
         </div>
     );
 };

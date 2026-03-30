@@ -15,19 +15,13 @@ const ReusableTable = ({ columns = [], data = [], renderRow }) => {
             </thead>
 
             <tbody>
-            {data.length === 0 ? (
-                <tr>
-                <td colSpan={columns.length} style={{ textAlign: "center" }}>
-                    No Data Found
-                </td>
-                </tr>
-            ) : (
+            {
                 data.map((item, index) => renderRow(item, index))
-            )}
+            }
             </tbody>
         </table>
         </div>
     );
-    };
+};
 
 export default ReusableTable;
