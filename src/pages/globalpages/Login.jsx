@@ -6,7 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useAuth } from "../../context/AuthContext";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../apis/axios";
 const Login = () => {
     const { login } = useAuth();
     const navigate = useNavigate();
@@ -15,6 +15,7 @@ const Login = () => {
         email: "",
         password: ""
     });
+    const [isLoading, setIsLoading] = useState(false);
     const schema = yup.object().shape({
         email: yup
             .string()
@@ -26,10 +27,13 @@ const Login = () => {
             .matches(/\d/, "At least one number required")
             .required("Password is required"),
     });
+
     const handleLogin = async (data) => {
+        if (isLoading) return;
+        setIsLoading(true);
+
         try {
-            const response = await axios.post(
-                "https://b17q02g4-5051.asse.devtunnels.ms/rest2/0.1/login",
+            const response = await api.post("/login",
                 {
                     email: data.email,
                     password: data.password,
@@ -37,13 +41,14 @@ const Login = () => {
             );
             const res = response.data.message;
             console.log(res);
-
             login({
                 accessToken: res.accessToken,
                 refreshToken: res.refToken,
-                user: { id: res.user_id },
+                user: {
+                    user_id: res.user_id,
+                    role_id: res.role_id,
+                },
             });
-
             setLoginError({ email: "", password: "" });
             navigate("/");
 
@@ -76,6 +81,8 @@ const Login = () => {
                 email: errorMessage,
                 password: errorMessage,
             });
+        } finally {
+            setIsLoading(false);
         }
     };
     const {
@@ -132,7 +139,9 @@ const Login = () => {
                                     placeholder="Email Address"
                                     {...register("email")} />
                             </div>
-                            {loginError.email && <p className="login-error">{loginError.email}</p>}
+                            {errors.email && (
+                                <p className="login-error">{errors.email.message}</p>
+                            )}
 
                             <div className={`input-box ${loginError.password ? "error-box" : ""}`}>
                                 <span className="input-icon">
@@ -171,7 +180,9 @@ const Login = () => {
                                 </span>
                             </div>
 
-                            {loginError.password && <p className="login-error">{loginError.password}</p>}
+                            {errors.password && (
+                                <p className="login-error">{errors.password.message}</p>
+                            )}
                             <div className="rules">
                                 {password ? (
                                     errors.password ? (
@@ -191,10 +202,20 @@ const Login = () => {
                                     )
                                 ) : null}
                             </div>
+                            {loginError.email && !errors.email && !errors.password && (
+                                <p className="login-error text-center">
+                                    {loginError.email}
+                                </p>
+                            )}
 
                             <div className="login-btns">
-                                <Button variant="primary" disabled={!formIsValid} type="submit">
-                                    Login
+                                <Button
+                                    variant="primary"
+                                    disabled={!formIsValid || isLoading}
+                                    type="submit"
+                                    className={`login-btn ${isLoading ? "loading" : ""}`}
+                                >
+                                    {isLoading ? <span className="loader"></span> : "Login"}
                                 </Button>
                             </div>
 

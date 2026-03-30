@@ -1,6 +1,13 @@
 import { useState } from "react";
+import {
+  Bar,
+  BarChart,
+  CartesianGrid,
+  ResponsiveContainer,
+  XAxis,
+  YAxis,
+} from "recharts";
 import { Images } from "../../images/Images";
-import {CartesianGrid, BarChart, Bar,XAxis, YAxis, ResponsiveContainer,} from "recharts";
 
 const data=[
   {name: "Jan",expenditure :35000,profit:50000},
@@ -178,10 +185,8 @@ const Dashboard = () => {
                   <CartesianGrid strokeDasharray="3 3" vertical={false}/>
                     <XAxis dataKey="name" axisLine={false} tickLine={false}/>
                     <YAxis axisLine={false} tickLine={false} tickFormatter={(v)=>`${v/1000}k`}/>
-                    <Bar dataKey="expenditure" stackId="a" className='bar-exp' radius={[20,20,20,20]} barSize={35}  stroke="#ffffff" 
-      strokeWidth={5} />
-                    <Bar dataKey="profit" stackId="a" className='bar-profit' radius={[20,20,20,20]} barSize={35}  stroke="#ffffff" 
-      strokeWidth={5} />
+                    <Bar dataKey="expenditure" stackId="a" className='bar-exp' radius={[20,20,20,20]} barSize={35}  stroke="#ffffff" strokeWidth={5} />
+                    <Bar dataKey="profit" stackId="a" className='bar-profit' radius={[20,20,20,20]} barSize={35}  stroke="#ffffff" strokeWidth={5} />
                 </BarChart>
               </ResponsiveContainer>
 
@@ -189,6 +194,7 @@ const Dashboard = () => {
           </div>
           </div>
         </div>
+        
     </div>
   )
 }

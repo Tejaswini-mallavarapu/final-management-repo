@@ -9,6 +9,8 @@ import Login from './pages/globalpages/Login'
 
 import UploadProduct from './pages/productsuploading/management/UploadProduct'
 import { AuthProvider } from './context/AuthContext'
+import Inputssss from './components/forms/Inputssss'
+import ProfileTest from './components/forms/Inputssss'
 const App = () => {
   return (
     <div>
@@ -23,6 +25,7 @@ const App = () => {
             </Route>
           </Route>
           <Route path='/login' element={<Login />}></Route>
+          <Route path='input' element={<ProfileTest/>}></Route>
         </Routes>
       </BrowserRouter>
       </AuthProvider>

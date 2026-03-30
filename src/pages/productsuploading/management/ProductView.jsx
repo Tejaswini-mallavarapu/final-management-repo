@@ -2,8 +2,11 @@ import { useState } from "react";
 import Button from "../../../components/buttons/Button";
 import { Images } from "../../../images/Images";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import ProductDelete from "./ProductDelete";
 
 const ProductView = ({ productId }) => {
+    const [showDeletePopup,setShowDeletePopup] = useState(false);
+
     const [activeTab, setActiveTab] = useState("details");
     const [openDescription, setOpenDescription] = useState([]);
     const images = [
@@ -196,7 +199,7 @@ Sydney College in Virginia, looked up one of the more obscure Latin words, conse
 
                 </div>
                 <div className="popup-actions popup-actions-footer">
-                    <Button variant="delete">
+                    <Button variant="delete" onClick={()=>setShowDeletePopup(true)}>
                         <img src={Images.delete} />
                         <span>Delete Product</span>
                     </Button>
@@ -208,6 +211,9 @@ Sydney College in Virginia, looked up one of the more obscure Latin words, conse
                 </div>
 
             </div>
+             {showDeletePopup && (
+        <ProductDelete onClose={() => setShowDeletePopup(false)} />
+      )}
         </div>
     );
 };

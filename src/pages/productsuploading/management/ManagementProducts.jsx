@@ -11,6 +11,7 @@ import Pagination from '../../../components/pagination/Pagination';
 import SearchToggle from '../../../components/forms/SearchToggle';
 import ProductView from './ProductView';
 import { useNavigate } from 'react-router-dom';
+import ProductDelete from './ProductDelete';
 const ManagementProducts = () => {
   const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(false);
@@ -219,13 +220,14 @@ const ManagementProducts = () => {
                           <div className="actions">
                             {item.status.toLowerCase() === "deleted" ? (
                               <>
-                                <Popup size="sm" trigger={<RestoreIcon />} />
+                                <Popup size="sm"  trigger={<RestoreIcon />} />
                                 <Popup size="md" trigger={<ViewIcon />} />
                               </>
                             ) : (
                               <>
                                 <Popup size="sm" trigger={<EditIcon />} />
                                 <Popup size="xs" trigger={<DeleteIcon />} >
+                                <ProductDelete/>
                                 </Popup>
                                 <Popup size="md" trigger={<ViewIcon />}>
                                   <ProductView />
