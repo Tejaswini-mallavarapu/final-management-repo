@@ -13,6 +13,7 @@ import ProductView from './ProductView';
 import { useNavigate } from 'react-router-dom';
 import ProductDelete from './ProductDelete';
 const ManagementProducts = () => {
+  
   const navigate = useNavigate();
   const [showFilters, setShowFilters] = useState(false);
 
@@ -43,7 +44,7 @@ const ManagementProducts = () => {
   const statusClassMap = {
     active: "btn-active",
     inactive: "btn-inactive",
-    deleted: "btn-inactive",
+    deleted: "btn-deleted",
   };
 
 
@@ -123,12 +124,12 @@ const ManagementProducts = () => {
       </div>
 
       <div className="shape-card">
-        <svg className="shape-svg" viewBox="0 0 1411 778" preserveAspectRatio="none">
+        {/* <svg className="shape-svg" viewBox="0 0 1411 778" preserveAspectRatio="none">
           <path
             d="M1315.71 21C1334.49 21 1349.71 36.2223 1349.71 55V60.3545C1349.71 77.2795 1363.43 91 1380.35 91C1397.28 91 1411 104.72 1411 121.646V750C1411 765.464 1398.46 778 1383 778H49C33.536 778 21 765.464 21 750V49C21 33.536 33.536 21 49 21H1315.71Z"
             fill="white"
           />
-        </svg>
+        </svg> */}
 
         <div className="shape-content">
           <SearchToggle
@@ -210,7 +211,7 @@ const ManagementProducts = () => {
                         <td>{item.weight}</td>
                         <td>{item.price}</td>
 
-                        <td>
+                        <td className='status-col'>
                           <span className={`status ${statusClassMap[item.status.toLowerCase()] || ""}`}>
                             {item.status}
                           </span>
@@ -221,7 +222,8 @@ const ManagementProducts = () => {
                             {item.status.toLowerCase() === "deleted" ? (
                               <>
                                 <Popup size="sm" trigger={<RestoreIcon />} />
-                                <Popup size="md" trigger={<ViewIcon />} />
+                                <Popup size="md" trigger={<ViewIcon />} > 
+                                <ProductView product={item} /> </Popup>
                               </>
                             ) : (
                               <>
@@ -230,7 +232,7 @@ const ManagementProducts = () => {
                                 <ProductDelete/>
                                 </Popup>
                                 <Popup size="md" trigger={<ViewIcon />}>
-                                  <ProductView />
+                                  <ProductView product={item}/>
                                 </Popup>
                               </>
                             )}
