@@ -11,6 +11,7 @@ import Pagination from '../../../components/pagination/Pagination';
 import SearchToggle from '../../../components/forms/SearchToggle';
 import ProductView from './ProductView';
 import { useNavigate } from 'react-router-dom';
+import ActionPopup from '../../../components/popup/ActionPopup';
 import ProductDelete from './ProductDelete';
 const ManagementProducts = () => {
   
@@ -18,7 +19,9 @@ const ManagementProducts = () => {
   const [showFilters, setShowFilters] = useState(false);
 
   const [products, setProducts] = useState(productsData);
-  // pagination//
+
+  const [selectedProduct,setSelectedProduct]=useState(null);
+  const [popupType,setPopupType]=useState(null);
   const {
     currentData,
     currentPage,
@@ -219,7 +222,32 @@ const ManagementProducts = () => {
 
                         <td>
                           <div className="actions">
-                            {item.status.toLowerCase() === "deleted" ? (
+                            {item.status.toLowerCase()==="deleted"? (
+                              <>
+                                <RestoreIcon onClick={() => {
+                                  setSelectedProduct(item);
+                                  setPopupType("restore");
+                                }}/>
+                                <ViewIcon onClick={() => {
+                                  setSelectedProduct(item);
+                                  setPopupType("view");
+                                }}/>
+                              </>
+                            ):(
+                              <>
+                              <EditIcon></EditIcon>
+                              <DeleteIcon onClick={() => {
+                              setSelectedProduct(item);
+                              setPopupType("delete");
+                            }} />
+                              <ViewIcon onClick={() => {
+                              setSelectedProduct(item);
+                              setPopupType("view");
+                            }}/>
+                            </>
+                            )}
+                          
+                            {/* {item.status.toLowerCase() === "deleted" ? (
                               <>
                                 <Popup size="sm" trigger={<RestoreIcon />} />
                                 <Popup size="md" trigger={<ViewIcon />} > 
@@ -235,7 +263,7 @@ const ManagementProducts = () => {
                                   <ProductView product={item}/>
                                 </Popup>
                               </>
-                            )}
+                            )} */}
                           </div>
                         </td>
 
@@ -250,7 +278,35 @@ const ManagementProducts = () => {
 
         </div>
       </div>
-
+      <Popup
+        size={popupType === "view" ? "md" : "xs"}
+        open={!!popupType}
+        onCancel={() => setPopupType(null)}
+      >
+        {/* {popupType === "restore" && (
+          <ActionPopup
+              icon={Images.restore}
+              title="Are you sure you want to restore this product?"
+              description="Do you want to restore this product?"
+              confirmText='Restore'
+              onConfirm={()=>{
+                setPopupType(null)
+              }}
+              onCancel={()=>setPopupType(null)}
+          />
+        )} */}
+        {popupType === "view" && (
+          <ProductView
+            product={selectedProduct}
+            onDeleteClick={() => setPopupType("delete")}
+          />
+        )}
+        {popupType === "delete" && (
+          <ProductDelete
+            onClose={() => setPopupType(null)}
+          />
+        )}
+      </Popup>
       {products.length > 8 && (
         <Pagination
           currentPage={currentPage}

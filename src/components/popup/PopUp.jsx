@@ -6,47 +6,52 @@ const Popup = ({
   children,
   size = "md",
   title = "",
-  showFooter = true,
   onCancel,
-  className = ""
+  className = "",
+  open 
 }) => {
-  const [open, setOpen] = useState(false);
 
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isOpen = open !== undefined ? open : internalOpen;
+  const openPopup = () => {
+    if (open === undefined) {
+      setInternalOpen(true);
+    }
+  };
   const close = () => {
-    setOpen(false);
     if (onCancel) onCancel();
+    if (open === undefined) {
+      setInternalOpen(false);
+    }
   };
 
   return (
     <>
-      <span onClick={() => setOpen(true)} style={{ cursor: "pointer" }}>
-        {trigger}
-      </span>
-      {open &&
+      {trigger && (
+        <span onClick={openPopup} style={{ cursor: "pointer" }}>
+          {trigger}
+        </span>
+      )}
+
+      {isOpen &&
         createPortal(
           <div className="popup-overlay" onClick={close}>
             <div
               className={`popup-container ${size} ${className}`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="popup-header">
-                <h3>{title}</h3>
-                <button className="popup-close" onClick={close}><img src="/assets/images/popupclose.svg"></img></button>
-              </div>
-
+              onClick={(e) => e.stopPropagation()}>
+              {(title || true) && (
+                <div className="popup-header">
+                  <h3>{title}</h3>
+                  <button className="popup-close" onClick={close}>
+                    <img src="/assets/images/popupclose.svg" alt="close" />
+                  </button>
+                </div>
+              )}
               <div className="popup-body">
                 {typeof children === "function"
                   ? children({ close })
                   : children}
               </div>
-
-              {/* {showFooter && (
-                <div className="popup-footer">
-                  <button className="popup-cancel" onClick={close}>
-                    Cancel
-                  </button>
-                </div>
-              )} */}
             </div>
           </div>,
           document.body

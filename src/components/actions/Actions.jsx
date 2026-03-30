@@ -1,28 +1,28 @@
 import React from "react";
 import { Images } from "../../images/Images";
 
-export const EditIcon = () => (
-  <div className="action-icon">
+export const EditIcon = (props) => (
+  <div className="action-icon" {...props}>
    <img src={Images.edit}></img>
   </div>
 );
 
-export const DeleteIcon = () => (
-  <div className="action-icon">
+export const DeleteIcon = (props) => (
+  <div className="action-icon" {...props}>
   <img src={Images.delete}></img>
   </div>
 );
 
 
-export const ViewIcon = () => (
-  <div className="action-icon">
+export const ViewIcon = (props) => (
+  <div className="action-icon" {...props}>
      <img src={Images.closedeye}></img>
 
   </div>
 );
 
-export const RestoreIcon = () => (
-  <div className="action-icon">
+export const RestoreIcon = ({props}) => (
+  <div className="action-icon" {...props}>
      <img src={Images.restore}></img>
   
   </div>
