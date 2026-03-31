@@ -4,7 +4,6 @@ import CustomSelect from '../../../components/forms/CustomSelect';
 import Button from '../../../components/buttons/Button';
 import { Images } from '../../../images/Images';
 import Popup from '../../../components/popup/PopUp';
-import { productsData } from "../../../data/productsData";
 import usePagination from "../../../hooks/usePagination";
 import { DeleteIcon, EditIcon, RestoreIcon, ViewIcon } from '../../../components/actions/Actions';
 import Pagination from '../../../components/pagination/Pagination';
@@ -13,25 +12,17 @@ import ProductView from './ProductView';
 import { useNavigate } from 'react-router-dom';
 import ProductDelete from './ProductDelete';
 import { useAuth } from '../../../context/AuthContext';
+import api from '../../../apis/axios';
 const ManagementProducts = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
+
   const [showFilters, setShowFilters] = useState(false);
-  const [products, setProducts] = useState(productsData);
-
-  const {
-    currentData,
-    currentPage,
-    totalPages,
-    goToPage,
-    next,
-    prev,
-    showingFrom,
-    showingTo,
-    totalItems,
-  } = usePagination(products, 8);
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1);
+  const limit = 8;
+  const [totalProducts, setTotalProducts] = useState(0);
   const [search, setSearch] = useState("");
-
   const [filters, setFilters] = useState({
     companyType: "All",
     companyName: "All",
@@ -39,8 +30,27 @@ const ManagementProducts = () => {
     productsubcategory: "All",
     productName: "All",
   });
+  const [appliedFilters, setAppliedFilters] = useState(filters);
 
-  // active, inactive ,deleted
+
+  const totalPages = Math.ceil(totalProducts / limit);
+  const nextPage = () => {
+    if (page < totalPages) {
+      setPage(page + 1);
+    }
+  };
+
+  const prevPage = () => {
+    if (page > 1) {
+      setPage(page - 1);
+    }
+  };
+
+  const goToPage = (num) => {
+    setPage(num);
+  };
+
+
   const statusClassMap = {
     active: "btn-active",
     inactive: "btn-inactive",
@@ -52,13 +62,79 @@ const ManagementProducts = () => {
       try {
         const roleId = auth?.user?.role_id;
         const token = auth?.accessToken;
-        const respone=await api.get()
-      }catch(error){
+        const offset = (page - 1) * limit;
+        const response = await api.get(
+          `/management/products/${roleId}`,
+          {
+            params: {
+              offset,
+              limit,
+              productName: search || (appliedFilters.productName !== "All" ? appliedFilters.productName : undefined),
+              companyName: appliedFilters.companyName !== "All" ? appliedFilters.companyName : undefined,
+              productCategory: appliedFilters.productscategory !== "All" ? appliedFilters.productscategory : undefined,
+              productSubCategory: appliedFilters.productsubcategory !== "All" ? appliedFilters.productsubcategory : undefined,
+              companyType: appliedFilters.companyType !== "All" ? appliedFilters.companyType : undefined,
+            },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        console.log({
+          search,
+          filters: appliedFilters
+        });
+        const products = response.data.message || [];
+        const companyTypes = response.data.companyType || [];
+        const categories = response.data.productCategoryNames || [];
+        const subCategories = response.data.productSubCategoryNames || [];
 
+        const formatted = products.map(product => {
+          const productImages = (product.images || []).map(
+            img => `https://b17q02g4-5051.asse.devtunnels.ms/uploads/ManagementProducts/${img.image_url}`
+          );
+
+          const companyTypeObj = companyTypes.find(
+            company_type => company_type.id === product.role_id
+          );
+
+          const categoryObj = categories.find(
+            categories => Number(categories.id) === Number(product.product_category)
+          );
+
+          const subCategoryObj = subCategories.find(
+            sub_categories => Number(sub_categories.id) === Number(product.sub_category)
+          );
+
+          const status =
+            product.status === 1
+              ? "active"
+              : product.status === 0
+                ? "inactive"
+                : "deleted";
+
+          return {
+            ...product,
+            images: productImages,
+            companyType: companyTypeObj?.role_name || "N/A",
+            product_category: categoryObj?.category_name || "N/A",
+            sub_category: subCategoryObj?.sub_category_name || "N/A",
+            status
+          };
+        });
+
+        setProducts(formatted);
+        setTotalProducts(response.data.total_products || 0);
+        console.log("PRODUCTS:", response.data);
+      } catch (error) {
+        console.log("Products", error.response || error);
       }
-    }
-  })
+    };
 
+    if (auth?.accessToken) {
+      fetchProducts();
+    }
+  }, [auth, page, search, appliedFilters]);
 
   return (
     <div className='management-products-container'>
@@ -83,8 +159,7 @@ const ManagementProducts = () => {
             value={filters.companyType}
             options={["All", "Brand Owner", "Manufacturer"]}
             onChange={(val) =>
-              setFilters({ ...filters, companyType: val })}
-          />
+              setFilters({ ...filters, companyType: val })} />
 
           <CustomSelect
             className="filter-select"
@@ -92,8 +167,7 @@ const ManagementProducts = () => {
             value={filters.companyName}
             options={["All", "Sri Animalife Biotech", "Unique Biotech"]}
             onChange={(val) =>
-              setFilters({ ...filters, companyName: val })}
-          />
+              setFilters({ ...filters, companyName: val })} />
 
           <CustomSelect
             className="filter-select"
@@ -101,8 +175,7 @@ const ManagementProducts = () => {
             value={filters.productscategory}
             options={["All", "Aquaculture", "Agriculture", "Human Medicine", "Others"]}
             onChange={(val) =>
-              setFilters({ ...filters, productscategory: val })}
-          />
+              setFilters({ ...filters, productscategory: val })} />
 
           <CustomSelect
             className="filter-select"
@@ -110,8 +183,7 @@ const ManagementProducts = () => {
             value={filters.productsubcategory}
             options={["All", "Probiotic", "Minerals", "Medicine", "Feeds", "Biofertilizer", "Tablet"]}
             onChange={(val) =>
-              setFilters({ ...filters, productsubcategory: val })}
-          />
+              setFilters({ ...filters, productsubcategory: val })} />
 
           <CustomSelect
             className="filter-select"
@@ -119,12 +191,18 @@ const ManagementProducts = () => {
             value={filters.productName}
             options={["All", "Aqua Remid", "Aqua Bison", "Super-min", "Aqua care"]}
             onChange={(val) =>
-              setFilters({ ...filters, productName: val })}
-          />
-          <div><Button
-            variant='secondary'
-            onClick={() => setShowFilters(false)}>Search</Button></div>
-
+              setFilters({ ...filters, productName: val })} />
+          <div>
+            <Button
+              variant='secondary'
+              onClick={() => {
+                setAppliedFilters(filters);
+                setPage(1);
+                setShowFilters(false);
+              }}>
+              Search
+            </Button>
+          </div>
         </div>
 
         <div >
@@ -136,13 +214,6 @@ const ManagementProducts = () => {
       </div>
 
       <div className="shape-card">
-        {/* <svg className="shape-svg" viewBox="0 0 1411 778" preserveAspectRatio="none">
-          <path
-            d="M1315.71 21C1334.49 21 1349.71 36.2223 1349.71 55V60.3545C1349.71 77.2795 1363.43 91 1380.35 91C1397.28 91 1411 104.72 1411 121.646V750C1411 765.464 1398.46 778 1383 778H49C33.536 778 21 765.464 21 750V49C21 33.536 33.536 21 49 21H1315.71Z"
-            fill="white"
-          />
-        </svg> */}
-
         <div className="shape-content">
           <SearchToggle
             value={search}
@@ -168,9 +239,7 @@ const ManagementProducts = () => {
                 </div>
               </div>
             </div>
-
           ) : (
-
             <div>
               <div className='table-header'>
                 <h3>All Products</h3>
@@ -195,18 +264,18 @@ const ManagementProducts = () => {
                   </thead>
 
                   <tbody>
-                    {currentData.map((item) => (
+                    {products.map((item, index) => (
                       <tr key={item.id}
-                        className={item.status.toLowerCase() === "deleted" ? "row-deleted" : ""}>
-
-                        <td className='id'>{item.id}</td>
+                        className={item.status === "deleted" ? "row-deleted" : ""}>
+                        <td className='id'>
+                          {(page - 1) * limit + index + 1}
+                        </td>
 
                         <td>
                           <div className="image-stack">
                             {item.images?.slice(0, 3).map((img, i) => (
                               <img key={i} src={img} alt="product" />
                             ))}
-
                             {item.images?.length > 3 && (
                               <div className="more-count">
                                 +{item.images.length - 3}
@@ -216,22 +285,22 @@ const ManagementProducts = () => {
                         </td>
 
                         <td>{item.companyType}</td>
-                        <td>{item.companyName}</td>
-                        <td>{item.category}</td>
-                        <td>{item.subCategory}</td>
-                        <td>{item.productName}</td>
-                        <td>{item.weight}</td>
-                        <td>{item.price}</td>
+                        <td>{item.product_name}</td>
+                        <td>{item.product_category}</td>
+                        <td>{item.sub_category}</td>
+                        <td>{item.product_name}</td>
+                        <td>{item.quantity_unit}</td>
+                        <td>{item.price_per_unit}</td>
 
                         <td className='status-col'>
-                          <span className={`status ${statusClassMap[item.status.toLowerCase()] || ""}`}>
+                          <span className={`status ${statusClassMap[item.status] || ""}`}>
                             {item.status}
                           </span>
                         </td>
 
                         <td>
                           <div className="actions">
-                            {item.status.toLowerCase() === "deleted" ? (
+                            {item.status === "deleted" ? (
                               <>
                                 <Popup size="sm" trigger={<RestoreIcon />} />
                                 <Popup size="md" trigger={<ViewIcon />} >
@@ -262,17 +331,16 @@ const ManagementProducts = () => {
 
         </div>
       </div>
-
-      {products.length > 8 && (
+      {totalProducts > limit && (
         <Pagination
-          currentPage={currentPage}
+          currentPage={page}
           totalPages={totalPages}
           goToPage={goToPage}
-          next={next}
-          prev={prev}
-          showingFrom={showingFrom}
-          showingTo={showingTo}
-          totalItems={totalItems}
+          next={nextPage}
+          prev={prevPage}
+          showingFrom={(page - 1) * limit + 1}
+          showingTo={Math.min(page * limit, totalProducts)}
+          totalItems={totalProducts}
         />
       )}
     </div>
