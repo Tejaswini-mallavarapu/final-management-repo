@@ -23,6 +23,12 @@ const ManagementProducts = () => {
   const limit = 8;
   const [totalProducts, setTotalProducts] = useState(0);
   const [search, setSearch] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [companyTypes, setCompanyTypes] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+
+
   const [filters, setFilters] = useState({
     companyType: "All",
     companyName: "All",
@@ -31,7 +37,6 @@ const ManagementProducts = () => {
     productName: "All",
   });
   const [appliedFilters, setAppliedFilters] = useState(filters);
-
 
   const totalPages = Math.ceil(totalProducts / limit);
   const nextPage = () => {
@@ -56,6 +61,13 @@ const ManagementProducts = () => {
     inactive: "btn-inactive",
     deleted: "btn-inactive",
   };
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedSearch(search);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [search]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -63,47 +75,84 @@ const ManagementProducts = () => {
         const roleId = auth?.user?.role_id;
         const token = auth?.accessToken;
         const offset = (page - 1) * limit;
+
+        const companyTypeId = companyTypes.find(
+          c => c.role_name === appliedFilters.companyType
+        )?.id;
+
+        const categoryId = categories.find(
+          c => c.category_name === appliedFilters.productscategory
+        )?.id;
+
+        const subCategoryId = subCategories.find(
+          s => s.sub_category_name === appliedFilters.productsubcategory
+        )?.id;
+
         const response = await api.get(
           `/management/products/${roleId}`,
           {
             params: {
               offset,
               limit,
-              productName: search || (appliedFilters.productName !== "All" ? appliedFilters.productName : undefined),
-              companyName: appliedFilters.companyName !== "All" ? appliedFilters.companyName : undefined,
-              productCategory: appliedFilters.productscategory !== "All" ? appliedFilters.productscategory : undefined,
-              productSubCategory: appliedFilters.productsubcategory !== "All" ? appliedFilters.productsubcategory : undefined,
-              companyType: appliedFilters.companyType !== "All" ? appliedFilters.companyType : undefined,
+
+              productName:
+                search ||
+                (appliedFilters.productName !== "All"
+                  ? appliedFilters.productName
+                  : undefined),
+
+              companyName:
+                appliedFilters.companyName !== "All"
+                  ? appliedFilters.companyName
+                  : undefined,
+
+              productCategory:
+                appliedFilters.productscategory !== "All"
+                  ? categoryId
+                  : undefined,
+
+              productSubCategory:
+                appliedFilters.productsubcategory !== "All"
+                  ? subCategoryId
+                  : undefined,
+
+              companyType:
+                appliedFilters.companyType !== "All"
+                  ? companyTypeId
+                  : undefined,
             },
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        console.log({
-          search,
-          filters: appliedFilters
-        });
+        console.log(response)
         const products = response.data.message || [];
-        const companyTypes = response.data.companyType || [];
-        const categories = response.data.productCategoryNames || [];
-        const subCategories = response.data.productSubCategoryNames || [];
+
+        const companyTypesData = response.data.companyType || [];
+        const categoriesData = response.data.productCategoryNames || [];
+        const subCategoriesData = response.data.productSubCategoryNames || [];
+
+        setCompanyTypes(companyTypesData);
+        setCategories(categoriesData);
+        setSubCategories(subCategoriesData);
 
         const formatted = products.map(product => {
           const productImages = (product.images || []).map(
-            img => `https://b17q02g4-5051.asse.devtunnels.ms/uploads/ManagementProducts/${img.image_url}`
+            img =>
+              `https://b17q02g4-5051.asse.devtunnels.ms/uploads/ManagementProducts/${img.image_url}`
           );
 
-          const companyTypeObj = companyTypes.find(
-            company_type => company_type.id === product.role_id
+          const companyTypeObj = companyTypesData.find(
+            c => c.id === product.role_id
           );
 
-          const categoryObj = categories.find(
-            categories => Number(categories.id) === Number(product.product_category)
+          const categoryObj = categoriesData.find(
+            c => Number(c.id) === Number(product.product_category)
           );
 
-          const subCategoryObj = subCategories.find(
-            sub_categories => Number(sub_categories.id) === Number(product.sub_category)
+          const subCategoryObj = subCategoriesData.find(
+            s => Number(s.id) === Number(product.sub_category)
           );
 
           const status =
@@ -119,13 +168,13 @@ const ManagementProducts = () => {
             companyType: companyTypeObj?.role_name || "N/A",
             product_category: categoryObj?.category_name || "N/A",
             sub_category: subCategoryObj?.sub_category_name || "N/A",
-            status
+            status,
           };
         });
 
         setProducts(formatted);
         setTotalProducts(response.data.total_products || 0);
-        console.log("PRODUCTS:", response.data);
+
       } catch (error) {
         console.log("Products", error.response || error);
       }
@@ -134,8 +183,7 @@ const ManagementProducts = () => {
     if (auth?.accessToken) {
       fetchProducts();
     }
-  }, [auth, page, search, appliedFilters]);
-
+  }, [auth, page, debouncedSearch, appliedFilters]);
   return (
     <div className='management-products-container'>
       <div className='management-products-page'>
@@ -157,54 +205,68 @@ const ManagementProducts = () => {
             className="filter-select"
             label="Company Type"
             value={filters.companyType}
-            options={["All", "Brand Owner", "Manufacturer"]}
+            options={[
+              "All",
+              ...companyTypes
+                .filter(c =>
+                  c.role_name === "Management" ||
+                  c.role_name === "Manufacturer"
+                )
+                .map(c => c.role_name)
+            ]}
             onChange={(val) =>
-              setFilters({ ...filters, companyType: val })} />
+              setFilters({ ...filters, companyType: val })
+            } />
 
           <CustomSelect
             className="filter-select"
             label="Company Name"
             value={filters.companyName}
-            options={["All", "Sri Animalife Biotech", "Unique Biotech"]}
+            options={["All", "Sri Animal life", "Unique Bio minerals", "Sri Animal Biotech"]}
             onChange={(val) =>
-              setFilters({ ...filters, companyName: val })} />
+              setFilters({ ...filters, companyName: val })
+            } />
 
           <CustomSelect
             className="filter-select"
             label="Product Category"
             value={filters.productscategory}
-            options={["All", "Aquaculture", "Agriculture", "Human Medicine", "Others"]}
+            options={["All", ...categories.map(c => c.category_name)]}
             onChange={(val) =>
-              setFilters({ ...filters, productscategory: val })} />
+              setFilters({ ...filters, productscategory: val })
+            } />
 
           <CustomSelect
             className="filter-select"
             label="Product Sub Category"
             value={filters.productsubcategory}
-            options={["All", "Probiotic", "Minerals", "Medicine", "Feeds", "Biofertilizer", "Tablet"]}
+            options={["All", ...subCategories.map(s => s.sub_category_name)]}
             onChange={(val) =>
-              setFilters({ ...filters, productsubcategory: val })} />
+              setFilters({ ...filters, productsubcategory: val })
+            } />
 
           <CustomSelect
             className="filter-select"
             label="Product Name"
             value={filters.productName}
-            options={["All", "Aqua Remid", "Aqua Bison", "Super-min", "Aqua care"]}
+            options={["All", "Aqua Remid", "Aqua Bison", "Super min", "Aqua care", "Rhizobium", "Amlodipine"]}
             onChange={(val) =>
-              setFilters({ ...filters, productName: val })} />
+              setFilters({ ...filters, productName: val })
+            } />
+
+
           <div>
             <Button
-              variant='secondary'
+              variant="secondary"
               onClick={() => {
                 setAppliedFilters(filters);
                 setPage(1);
                 setShowFilters(false);
-              }}>
+              }} >
               Search
             </Button>
           </div>
         </div>
-
         <div >
           <Button variant='white' onClick={() => navigate("/productsupload/upload")} >
             <span className='upload-btn'> <FaPlus /> <span>Upload New</span></span>
@@ -285,7 +347,7 @@ const ManagementProducts = () => {
                         </td>
 
                         <td>{item.companyType}</td>
-                        <td>{item.product_name}</td>
+                        <td>{item.company_name}</td>
                         <td>{item.product_category}</td>
                         <td>{item.sub_category}</td>
                         <td>{item.product_name}</td>

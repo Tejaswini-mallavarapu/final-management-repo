@@ -16,7 +16,7 @@ import { useNavigate } from "react-router-dom";
 const statusClassMap = {
   active: "btn-active",
   inactive: "btn-inactive",
-  deleted: "btn-deleted",
+  deleted: "btn-inactive",
 };
 
 const ManufacturerProducts = () => {
