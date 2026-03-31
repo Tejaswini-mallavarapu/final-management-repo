@@ -11,8 +11,9 @@ import Pagination from '../../../components/pagination/Pagination';
 import SearchToggle from '../../../components/forms/SearchToggle';
 import ProductView from './ProductView';
 import { useNavigate } from 'react-router-dom';
-// import ActionPopup from '../../../components/popup/ActionPopup';
+import RestoreProduct from './RestoreProduct';
 import ProductDelete from './ProductDelete';
+
 const ManagementProducts = () => {
   
   const navigate = useNavigate();
@@ -189,7 +190,6 @@ const ManagementProducts = () => {
                     {currentData.map((item) => (
                       <tr key={item.id}
                         className={item.status.toLowerCase() === "deleted" ? "row-deleted" : ""}>
-
                         <td className='id'>{item.id}</td>
 
                         <td>
@@ -205,7 +205,6 @@ const ManagementProducts = () => {
                             )}
                           </div>
                         </td>
-
                         <td>{item.companyType}</td>
                         <td>{item.companyName}</td>
                         <td>{item.category}</td>
@@ -213,13 +212,11 @@ const ManagementProducts = () => {
                         <td>{item.productName}</td>
                         <td>{item.weight}</td>
                         <td>{item.price}</td>
-
                         <td className='status-col'>
                           <span className={`status ${statusClassMap[item.status.toLowerCase()] || ""}`}>
                             {item.status}
                           </span>
                         </td>
-
                         <td>
                           <div className="actions">
                             {item.status.toLowerCase()==="deleted"? (
@@ -248,16 +245,13 @@ const ManagementProducts = () => {
                             )}
                           </div>
                         </td>
-
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
             </div>
-
           )}
-
         </div>
       </div>
       <Popup
@@ -265,26 +259,20 @@ const ManagementProducts = () => {
         open={!!popupType}
         onCancel={() => setPopupType(null)}
       >
-        {/* {popupType === "restore" && (
-          <ActionPopup
-              icon={Images.restore}
-              title="Are you sure you want to restore this product?"
-              description="Do you want to restore this product?"
-              confirmText='Restore'
-              onConfirm={()=>{
-                setPopupType(null)
-              }}
-              onCancel={()=>setPopupType(null)}
-          />
-        )} */}
         {popupType === "view" && (
           <ProductView
             product={selectedProduct}
             onDeleteClick={() => setPopupType("delete")}
+            onRestoreClick={()=>setPopupType("restore")}
           />
         )}
         {popupType === "delete" && (
           <ProductDelete
+            onClose={() => setPopupType(null)}
+          />
+        )}
+        {popupType === "restore" && (
+          <RestoreProduct
             onClose={() => setPopupType(null)}
           />
         )}

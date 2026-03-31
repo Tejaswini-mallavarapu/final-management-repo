@@ -25,13 +25,20 @@ const TextAreaEditor = ({placeholder="Enter",onChange}) => {
         if (document.queryCommandState("italic")) formats.push("italic");
         if (document.queryCommandState("underline")) formats.push("underline");
         if (document.queryCommandState("strikeThrough")) formats.push("strikeThrough");
+        if (document.queryCommandState("insertUnorderedList")) formats.push("insertUnorderedList");
+        if (document.queryCommandState("justifyLeft")) formats.push("justifyLeft");
+        if (document.queryCommandState("justifyCenter")) formats.push("justifyCenter");
+        if (document.queryCommandState("justifyRight")) formats.push("justifyRight");
 
         setActiveFormats(formats);
     }
     const toggleFormat=(type)=>{
         editorRef.current?.focus();
         document.execCommand(type);
-        updateActiveFormats();
+        setTimeout(()=>{
+            updateActiveFormats();
+        },0);
+        
 
         setActiveFormats((prev)=>
         prev.includes(type)
@@ -44,28 +51,28 @@ const TextAreaEditor = ({placeholder="Enter",onChange}) => {
     return ( 
             <div className='text-area'>
                 <div className='edit-icons'>
-                    <div className={`icon ${isActive("bold") ? "active" : ""}`} onClick={()=>toggleFormat("bold")}>
+                    <div className={`icon ${isActive("bold") ? "active" : ""}`} onClick={()=>{toggleFormat("bold");updateActiveFormats();}}>
                         <span className='logo'><BiBold /></span>
                     </div>
-                    <div className={`icon ${isActive("italic") ? "active" : ""}`} onClick={()=>toggleFormat("italic")}>
+                    <div className={`icon ${isActive("italic") ? "active" : ""}`} onClick={()=>{toggleFormat("italic");updateActiveFormats();}}>
                         <span className='logo'><FaItalic /></span>
                     </div>
-                    <div className={`icon ${isActive("underline") ? "active" : ""}`} onClick={()=>toggleFormat("underline")}>
+                    <div className={`icon ${isActive("underline") ? "active" : ""}`} onClick={()=>{toggleFormat("underline");updateActiveFormats();}}>
                         <span className='logo'><FiUnderline /></span>
                     </div>
-                    <div className={`icon ${isActive("strikeThrough") ? "active" : ""}`} onClick={()=>toggleFormat("strikeThrough")}>
+                    <div className={`icon ${isActive("strikeThrough") ? "active" : ""}`} onClick={()=>{toggleFormat("strikeThrough");updateActiveFormats();}}>
                         <span className='logo'><AiOutlineStrikethrough /></span>
                     </div>
-                    <div className={`icon ${isActive("insertUnorderedList") ? "active" : ""}`} onClick={() => toggleFormat("insertUnorderedList")}>
+                    <div className={`icon ${isActive("insertUnorderedList") ? "active" : ""}`} onClick={() => {toggleFormat("insertUnorderedList");updateActiveFormats();}}>
                         <span className="logo"><IoList /></span>
                     </div>
-                    <div className={`icon ${isActive("justifyLeft") ? "active" : ""}`}  onClick={() => toggleFormat("justifyLeft")} >
+                    <div className={`icon ${isActive("justifyLeft") ? "active" : ""}`}  onClick={() => {toggleFormat("justifyLeft");updateActiveFormats();}} >
                         <span className="logo"><BsJustifyLeft /></span>
                     </div>
-                    <div className={`icon ${isActive("justifyCenter") ? "active" : ""}`} onClick={() => toggleFormat("justifyCenter")} >
+                    <div className={`icon ${isActive("justifyCenter") ? "active" : ""}`} onClick={() => {toggleFormat("justifyCenter");updateActiveFormats();}} >
                         <span className="logo"><BsJustify /></span>
                     </div>  
-                    <div className={`icon ${isActive("justifyRight") ? "active" : ""}`} onClick={() => toggleFormat("justifyRight")} >
+                    <div className={`icon ${isActive("justifyRight") ? "active" : ""}`} onClick={() => {toggleFormat("justifyRight");updateActiveFormats();}} >
                         <span className="logo"><BsJustifyRight /></span>
                     </div>
                 </div>

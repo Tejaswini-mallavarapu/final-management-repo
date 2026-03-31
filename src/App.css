@@ -328,6 +328,9 @@ background: rgba(var(--blue-text),1);
 .btn-inactive {
   color: rgba(var(--inActive-text), 1);
   padding: 10px 20px;
+  display: flex;
+  align-self: center;
+  justify-self: center;
   border-radius: 42px;
   background: rgba(var(--inActive-bg), 1);
   font-family: "CreatoDisplay-medium";
@@ -884,7 +887,7 @@ background: rgba(var(--blue-text),1);
 
   .popup-container.md {
     max-width: 650px;
-    height: 80%;
+    /* height: 80%; */
   }
 
   .popup-container.sm {
@@ -929,7 +932,7 @@ background: rgba(var(--blue-text),1);
 
   .popup-container.md {
     max-width: 90%;
-    height: 60%;
+    /* height: 60%; */
 
   }
 
@@ -1016,9 +1019,7 @@ body {
   flex-direction: column;
   gap: 5px;
   cursor: pointer;
-  background-color: white;
-  padding: 20px;
-  border-radius: 50%;
+  padding: 10px;
 }
 
 .hamburger span {
@@ -1046,14 +1047,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   background-color: var(--body-bg);
   padding: 25px;
 
   position: fixed;
   top: 0%;
+  left: 50%;
+  transform: translateX(-50%);
   max-width: 1440px;
   margin: 0 auto;
   z-index: 99;
@@ -1344,20 +1344,15 @@ body {
 }
 .header .nav-wrapper .actions-bar{
 display: none;
-width: 65px;
-height: 62px;
-border-radius: 50%;
-background: rgba(var(--main-white), 1);
 }
 .header .nav-wrapper .actions-bar .dot{
   font-size: 40px;
 }
-@media (max-width:1441px){
-.header {
-    left: 0%;
+@media(max-width:425px){
+  .header{
+    padding: 25px 10px;
+  }
 }
-}
-
 
 
 
@@ -2034,7 +2029,7 @@ background: rgba(var(--main-white), 1);
 
 /* ************************ Dashboar content ******************/
 .dashboard-content {
-  margin-top: 50px;
+  margin-top: 130px;
 }
 
 /************************** card*****************************/
@@ -2947,6 +2942,7 @@ h3{
     flex-wrap: wrap;
     padding-top: 10px;
     gap: 10px;
+    flex-direction: column;
   }
 
   .view-products .popup-actions {
@@ -2974,10 +2970,16 @@ h3{
     padding-top: 15px;
     padding-bottom: 10px;
   }
+  
 
   .view-products .popup-content .heading {
     padding-top: 10px;
     padding-bottom: 10px;
+  }
+  @media(max-width:480px){
+    .upload-products-page .upload-products-links{
+    flex-direction: column;
+  }
   }
   @media(max-width:375px){
     /* .view-products .popup-content h3 {
@@ -3138,10 +3140,11 @@ h3{
 .delete-container .buttons{
   display: flex;
   gap: 10px;
+  justify-content: center;
 }
 .delete-container .buttons .popup-delete,
 .delete-container .buttons .popup-cancel{
-  padding: 20px 50px;
+  padding: 20px 48px;
 }
 @media(max-width:992px){
   .delete-container .buttons .popup-delete, .delete-container .buttons .popup-cancel {
@@ -3153,7 +3156,7 @@ h3{
 }
 @media(max-width:768px){
   .delete-container .buttons .popup-delete, .delete-container .buttons .popup-cancel {
-    padding: 15px 40px;
+    padding: 15px 38px;
 }
 .delete-container {
     gap: 20px;
@@ -3387,21 +3390,10 @@ h3{
     height: 190px;
     padding: 10px;
 }
-
-
-
-/* upload products  */
-.product-upload-page .upload-header {
-  display: flex;
-  justify-content: space-between;
 }
 
-
-
 /* upload products  */
-.product-upload-page{
-  
-}
+
 .product-upload-page .upload-header {
   display: flex;
   justify-content: space-between;
@@ -3525,6 +3517,7 @@ h3{
   justify-content: flex-end;
   gap:30px;
   margin-top: 40px;
+  margin-bottom: 72px;
 }
 
 .product-upload-page .section-actions{
@@ -3709,9 +3702,19 @@ h3{
     color: red;
     padding: 10px 20px;
     border-radius: 42px;
-    line-height: 16px;
+    
     background: rgba(var(--inActive-bg), 1);
     font-family: "CreatoDisplay-medium";
     font-size: 13px;
     border: 1px solid red;
-}}
+    display: flex;
+    align-self: center;
+    justify-self: center;
+}
+@media(max-width:768px){
+}
+@media(max-width:425px){
+  .view-products .popup-content h3 {
+    font-size: 18px;
+}
+}

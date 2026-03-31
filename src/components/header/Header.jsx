@@ -161,9 +161,6 @@ const Header = () => {
                 }}>
                         <HiDotsVertical className="dot"/>
                     </div>
-
-                
-
                 {
                     showNotification && (
                         <div onClick={(e)=>e.stopPropagation()} >
