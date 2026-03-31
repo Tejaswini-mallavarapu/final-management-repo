@@ -11,7 +11,7 @@ import Pagination from '../../../components/pagination/Pagination';
 import SearchToggle from '../../../components/forms/SearchToggle';
 import ProductView from './ProductView';
 import { useNavigate } from 'react-router-dom';
-import ActionPopup from '../../../components/popup/ActionPopup';
+// import ActionPopup from '../../../components/popup/ActionPopup';
 import ProductDelete from './ProductDelete';
 const ManagementProducts = () => {
   
@@ -246,24 +246,6 @@ const ManagementProducts = () => {
                             }}/>
                             </>
                             )}
-                          
-                            {/* {item.status.toLowerCase() === "deleted" ? (
-                              <>
-                                <Popup size="sm" trigger={<RestoreIcon />} />
-                                <Popup size="md" trigger={<ViewIcon />} > 
-                                <ProductView product={item} /> </Popup>
-                              </>
-                            ) : (
-                              <>
-                                <Popup size="sm" trigger={<EditIcon />} />
-                                <Popup size="xs" trigger={<DeleteIcon />} >
-                                <ProductDelete/>
-                                </Popup>
-                                <Popup size="md" trigger={<ViewIcon />}>
-                                  <ProductView product={item}/>
-                                </Popup>
-                              </>
-                            )} */}
                           </div>
                         </td>
 

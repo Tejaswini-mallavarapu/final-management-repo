@@ -3167,6 +3167,9 @@ h3{
   font-size:14px ;
   line-height: 22px;
 }
+.product-upload-page .text-editor .text-area .text ul li{
+  list-style-position: inside;
+}
 
 .product-upload-page .text-editor .text-area .text:empty::before {
   content: attr(data-placeholder);
@@ -3294,7 +3297,7 @@ h3{
   align-items: flex-start;
 }
 
-.preview-card {
+.preview-card { 
   width: 262px;
   height: 262px;
   overflow: hidden;
