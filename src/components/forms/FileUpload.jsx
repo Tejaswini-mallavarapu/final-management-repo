@@ -5,6 +5,8 @@ import { Images } from "../../images/Images";
 const FileUpload = ({ label, value = [], onChange }) => {
   const inputRef = useRef(null);
   const [files, setFiles] = useState(value);
+  const [isDragActive, setIsDragActive]=useState(false);
+  const dragCounter = useRef(0);
 
   const handleFiles = (selectedFiles) => {
     const fileArray = Array.from(selectedFiles);
@@ -20,9 +22,22 @@ const FileUpload = ({ label, value = [], onChange }) => {
     setFiles(updated);
     onChange && onChange(updated);
   };
+  const handleDragEnter=(e)=>{
+    e.preventDefault();
+    dragCounter.current++;
+    setIsDragActive(true);
+  }
+  const handleDragLeave=(e)=>{
+    e.preventDefault();
+    dragCounter.current--;
 
+  if(dragCounter.current === 0)
+    setIsDragActive(false);
+  }
   const handleDrop = (e) => {
     e.preventDefault();
+    dragCounter.current=0;
+   setIsDragActive(false);
     handleFiles(e.dataTransfer.files);
   };
 
@@ -43,15 +58,20 @@ const FileUpload = ({ label, value = [], onChange }) => {
           <div className="preview-card" key={index}>
             <img src={item.preview} alt="preview" />
 
-            <button className="delete-btn" onClick={() => removeFile(index)}>
+            <button className="delete-btn preview-btn" onClick={() => removeFile(index)}>
               <img src={Images.deletepopup}/>
+            </button>
+            <button className="edit-btn preview-btn" >
+              <img src={Images.edit}/>
             </button>
           </div>
         ))}
 
         <div
-          className="upload-box"
+          className={`upload-box ${isDragActive ? "drag-active": ""}`}
           onClick={() => inputRef.current.click()}
+          onDragEnter={handleDragEnter}
+          onDragLeave={handleDragLeave}
           onDragOver={(e) => e.preventDefault()}
           onDrop={handleDrop}
         >

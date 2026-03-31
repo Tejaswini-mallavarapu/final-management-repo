@@ -362,22 +362,29 @@ const ManagementProducts = () => {
 
                         <td>
                           <div className="actions">
-                            {item.status === "deleted" ? (
+                            {item.status.toLowerCase()==="deleted"? (
                               <>
-                                <Popup size="sm" trigger={<RestoreIcon />} />
-                                <Popup size="md" trigger={<ViewIcon />} >
-                                  <ProductView product={item} /> </Popup>
+                                <RestoreIcon onClick={() => {
+                                  setSelectedProduct(item);
+                                  setPopupType("restore");
+                                }}/>
+                                <ViewIcon onClick={() => {
+                                  setSelectedProduct(item);
+                                  setPopupType("view");
+                                }}/>
                               </>
-                            ) : (
+                            ):(
                               <>
-                                <Popup size="sm" trigger={<EditIcon />} />
-                                <Popup size="xs" trigger={<DeleteIcon />} >
-                                  <ProductDelete />
-                                </Popup>
-                                <Popup size="md" trigger={<ViewIcon />}>
-                                  <ProductView product={item} />
-                                </Popup>
-                              </>
+                              <EditIcon></EditIcon>
+                              <DeleteIcon onClick={() => {
+                              setSelectedProduct(item);
+                              setPopupType("delete");
+                            }} />
+                              <ViewIcon onClick={() => {
+                              setSelectedProduct(item);
+                              setPopupType("view");
+                            }}/>
+                            </>
                             )}
                           </div>
                         </td>

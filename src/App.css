@@ -376,6 +376,7 @@ background: rgba(var(--blue-text),1);
   justify-content: center;
   padding: 10px;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 /* blue button */
@@ -774,6 +775,22 @@ background: rgba(var(--blue-text),1);
   max-height: 90vh;
   overflow-y: auto;
 }
+.popup-overlay .others{
+  max-width: 500px !important; 
+  height: 338px !important;
+}
+.popup-overlay .others .popup-content{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 78px;
+}
+.popup-overlay .others .popup-content .category{
+  padding-top: 30px;
+}
+.popup-overlay .others .popup-content .others-btn{
+  width: 100%;
+}
 
 
 @keyframes popupFade {
@@ -949,6 +966,26 @@ background: rgba(var(--blue-text),1);
   .popup-container.xs {
     max-width: 300px;
   }
+
+  .popup-overlay .others .popup-content .category {
+    padding-top: 20px;
+}
+.popup-overlay .others .popup-content {
+    gap: 50px;
+}
+.popup-overlay .others {
+      max-width: 410px !important;
+    height: 260px !important;
+}
+}
+@media(max-width:425px){
+  .popup-overlay .others {
+        max-width: 303px !important;
+        height: 220px !important;
+    }
+    .popup-overlay .others .popup-content {
+        gap: 15px;
+    }
 }
 
 
@@ -3654,6 +3691,9 @@ h3{
 
 
 /* upload products  */
+.product-upload-page{
+  
+}
 .product-upload-page .upload-header {
   display: flex;
   justify-content: space-between;
@@ -3668,6 +3708,7 @@ h3{
 
 .product-upload-page .product-input-boxes {
   display: flex;
+  justify-content: space-around;
   gap: 15px;
 }
 
@@ -3684,11 +3725,20 @@ h3{
   margin-top: 30px;
   border-radius: 34px;
   position: relative;
+  box-shadow: 0px 0px 21px 0px rgba(0, 0, 0, 0.08);
+
 }
 .product-upload-page .add-btn{
   position: absolute;
   right: 0%;
   bottom: 3%;
+  cursor: pointer;
+}
+.product-upload-page .remove-btn{
+  position: absolute;
+  left: 0%;
+  bottom: 3%;
+  cursor: pointer;
 }
 
 .product-upload-page .text-editor .textarea-label{
@@ -3732,10 +3782,12 @@ h3{
 .product-upload-page .text-editor .text-area .text {
   padding-top: 20px;
   outline: none;
-
   font-family: "CreatoDisplay-medium";
   font-size:14px ;
   line-height: 22px;
+}
+.product-upload-page .text-editor .text-area .text ul li{
+  list-style-position: inside;
 }
 
 .product-upload-page .text-editor .text-area .text:empty::before {
@@ -3767,8 +3819,21 @@ h3{
   margin-top: 40px;
 }
 
+.product-upload-page .section-actions{
+  display: flex;
+  justify-content: space-between;
+}
 
-
+.product-upload-page .remove-btn .trash{
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(var(--main-white), 1);
+  border: 1px solid rgba(var(--light-gray), 0.8);
+}
 .product-upload-page .add-btn .search-toggle-btn {
   width: 50px;
   height: 50px;
@@ -3787,6 +3852,14 @@ h3{
   .product-upload-page .product-input-boxes {
     flex-wrap: wrap;
 
+  }
+}
+@media(max-width:576px){
+
+}
+@media(max-width:425px){
+  .product-upload-page .upload-fields{
+    padding: 20px 20px 80px 20px;
   }
 }
 
@@ -3843,7 +3916,7 @@ h3{
   align-items: flex-start;
 }
 
-.preview-card {
+.preview-card { 
   width: 262px;
   height: 262px;
   overflow: hidden;
@@ -3859,19 +3932,28 @@ h3{
   object-fit: cover;
 }
 
-.delete-btn {
+ .preview-card .preview-btn{
   width: 50px;
   height: 50px;
-  position: absolute;
-  top: 6px;
-  right: 6px;
   border: none;
   border-radius: 50%;
   cursor: pointer;
   background: rgba(var(--main-white),1);
   border: 1px solid rgba(var(--light-gray),0.8);
 }
-.preview-card .delete-btn>img{
+
+.preview-card .delete-btn {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+}
+.preview-card .edit-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+}
+
+.preview-card .preview-btn>img{
   width: 20px;
   height: 20px;
   justify-self: center;
@@ -3890,6 +3972,10 @@ h3{
   justify-content: center;
   cursor: pointer;
 }
+.upload-box.drag-active{
+  border: 2px dotted rgba(var(--blue-text), 1);
+  background-color: rgba(var(--blue-text),0.12);
+}
 
 .upload-content {
   display: flex;
@@ -3897,6 +3983,7 @@ h3{
   gap: 10px;
   align-items: center;
   justify-content: center;
+  text-align: center;
 
 }
 .upload-content small{

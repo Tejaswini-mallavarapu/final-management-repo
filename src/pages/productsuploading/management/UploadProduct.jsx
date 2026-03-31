@@ -7,6 +7,7 @@ import Input from '../../../components/forms/Input';
 import FileUpload from '../../../components/forms/FileUpload';
 import { IoMdAdd } from "react-icons/io";
 import TextAreaEditor from '../../../components/forms/TextAreaEditor';
+import Popup from '../../../components/popup/PopUp';
 
 const UploadProduct = () => {
   const navigate = useNavigate();
@@ -17,24 +18,61 @@ const UploadProduct = () => {
     productCategory: "",
     productSubCategory: "",
     productName: "",
-    packaging: "",
-    productCode: "",
-    quantity: "",
-    PricePerUnit: "",
-    images: [],
     composition: ""
   });
+
+  const [uploadSections,setUploadSections]=useState([
+    {
+      id: Date.now(),
+      packaging:"",
+      productCode:"",
+      quantity:"",
+      PricePerUnit:"",
+      images:[]
+    }
+  ]);
+  const [showPopup,setShowPopup]=useState(false);
+  const [customSubCategory,setCustomSubCategory]=useState("");
+
 
   const handleChange = (key, value) => {
     setForm(prev => ({
       ...prev,
       [key]: value
     }));
+      if(key === "productSubCategory" && value === "Others"){
+        setShowPopup(true);
+      }
   };
+  const handleSectionChange=(index,key,value)=>{
+    const updated=[...uploadSections];
+    updated[index][key]=value;
+    setUploadSections(updated);
+  };
+
+  const handleAddSection=()=>{
+    setUploadSections([...uploadSections,{
+      id: Date.now(),
+      packaging:"",
+      productCode:"",
+      quantity:"",
+      PricePerUnit:"",
+      images:[]
+    }]);
+  };
+  const handleRemoveSection=(index)=>{
+    const updated=uploadSections.filter((_,i)=>i !==index);
+    setUploadSections(updated);
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data:", form);
+
+    const finalData={
+      ...form,
+      variants: uploadSections
+    };
+    console.log(finalData);
 
   };
 
@@ -90,50 +128,62 @@ const UploadProduct = () => {
         />
       </div>
 
-      <div className='upload-fields'>
+      {uploadSections.map((section, index)=>(
+
+      <div className='upload-fields' key={section.id}>
         <div className='product-input-boxes'>
           <CustomSelect
             className="w-315"
             label="Packing Type"
-            value={form.packaging}
+            value={section.packaging}
             placeholder="Select"
             options={["Pouch", "Bottle", "Bucket", "Other"]}
-            onChange={(val) => handleChange("packaging", val)}
+            onChange={(val) => handleSectionChange(index, "packaging", val)}
           />
           <Input
             className="w-315"
             label="Product Code"
             placeholder="Auto fill"
-            value={form.productCode}
-            onChange={(val) => handleChange("productCode", val)}
+            value={section.productCode}
+            onChange={(val) => handleSectionChange(index, "productCode", val)}
           />
           <CustomSelect
             className="w-315"
             label="Product Quantity"
-            value={form.quantity}
+            value={section.quantity}
             placeholder="Select"
             options={["500g", "1kg", "5kg", "10kg"]}
-            onChange={(val) => handleChange("quantity", val)}
+            onChange={(val) => handleSectionChange(index, "quantity", val)}
           />
           <Input
             className="w-315"
             label="Price Per Unit"
             placeholder="Enter"
-            value={form.PricePerUnit}
-            onChange={(val) => handleChange("PricePerUnit", val)}
+            value={section.PricePerUnit}
+            onChange={(val) => handleSectionChange(index, "PricePerUnit", val)}
           />
         </div>
         <FileUpload
           label="Upload Product Photos"
-          value={form.images}
-          onChange={(files) => handleChange("images", files)}
+          value={section.images}
+          onChange={(files) => handleSectionChange(index, "images", files)}
         />
         <div className='add-btn'>
-          <div className='search-toggle-btn'>
-            <IoMdAdd />
-          </div>
+          {index===uploadSections.length - 1 && (
+            <div className='search-toggle-btn' type="button" onClick={handleAddSection}>
+              <IoMdAdd />
+            </div>
+          )}
+        </div>
+        <div className='remove-btn'>
+          {uploadSections.length > 1 && (
+            <div type="button" className='trash' onClick={() => handleRemoveSection(index)} >
+              <img src={Images.delete} alt="delete" />
+              </div>
+            )}
         </div>
       </div>
+      ))}
       <div className='text-editor'>
         <label className='textarea-label'>Composition/Ingredients</label>
         <TextAreaEditor onChange={(val) => handleChange("composition", val)}/>
@@ -149,6 +199,39 @@ const UploadProduct = () => {
           Submit Product
         </Button>
       </div>
+      <Popup
+      className='others'
+        open={showPopup}
+        title="Product Category"
+        onCancel={()=>setShowPopup(false)}>
+          {({ close }) => (
+          <div className='popup-content'>
+            <Input
+            className='category'
+              label="Category"
+              placeholder="Enter"
+              value={customSubCategory}
+              onChange={(val) => setCustomSubCategory(val)}
+            />
+
+            <div>
+              <Button
+              className='others-btn'
+                onClick={() => {
+                  setForm(prev => ({
+                    ...prev,
+                    productSubCategory: customSubCategory
+                  }));
+                  close();
+                  setShowPopup(false);
+                }}
+              >
+                Submit
+              </Button>
+            </div>
+          </div>
+        )}
+        </Popup>
     </form>
   );
 };

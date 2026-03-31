@@ -4,7 +4,7 @@ import Button from "../../../components/buttons/Button";
 import { Images } from "../../../images/Images";
 import { MdSettingsBackupRestore } from "react-icons/md";
 
-const ProductView = ({ product,hideActions=false }) => {
+const ProductView = ({ product,hideActions=false, onDeleteClick}) => {
     const [showDeletePopup,setShowDeletePopup] = useState(false);
 
     const isDeleted=product?.status?.toLowerCase()==="deleted";
@@ -212,7 +212,7 @@ Sydney College in Virginia, looked up one of the more obscure Latin words, conse
                             <MdSettingsBackupRestore className="Restore Product"/><span>Restore Product</span>
                         </Button>
                     ):(<>
-                        <Button variant="delete">
+                        <Button variant="delete" onClick={onDeleteClick}>
                             <img src={Images.delete} />
                             <span>Delete Product</span>
                         </Button>

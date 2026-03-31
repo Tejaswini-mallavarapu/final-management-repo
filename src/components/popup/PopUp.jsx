@@ -6,44 +6,47 @@ const Popup = ({
   children,
   size = "md",
   title = "",
-  showFooter = true,
   onCancel,
   className = "",
-  isOpen = false
+  open 
 }) => {
-  const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-    if (isOpen) setOpen(true);
-  }, [isOpen]);
-
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isOpen = open !== undefined ? open : internalOpen;
+  const openPopup = () => {
+    if (open === undefined) {
+      setInternalOpen(true);
+    }
+  };
   const close = () => {
-    setOpen(false);
     if (onCancel) onCancel();
+    if (open === undefined) {
+      setInternalOpen(false);
+    }
   };
 
   return (
     <>
       {trigger && (
-        <span onClick={() => setOpen(true)} style={{ cursor: "pointer" }}>
+        <span onClick={openPopup} style={{ cursor: "pointer" }}>
           {trigger}
         </span>
       )}
 
-      {open &&
+      {isOpen &&
         createPortal(
           <div className="popup-overlay" onClick={close}>
             <div
               className={`popup-container ${size} ${className}`}
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="popup-header">
-                <h3>{title}</h3>
-                <button className="popup-close" onClick={close}>
-                  <img src="/assets/images/popupclose.svg" />
-                </button>
-              </div>
-
+              onClick={(e) => e.stopPropagation()}>
+              {(title || true) && (
+                <div className="popup-header">
+                  <h3>{title}</h3>
+                  <button className="popup-close" onClick={close}>
+                    <img src="/assets/images/popupclose.svg" alt="close" />
+                  </button>
+                </div>
+              )}
               <div className="popup-body">
                 {typeof children === "function"
                   ? children({ close })
