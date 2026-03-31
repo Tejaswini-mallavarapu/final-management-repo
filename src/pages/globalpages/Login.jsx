@@ -175,6 +175,8 @@ const Login = () => {
             .required("Email is required"),
         password: yup
             .string()
+            .min(8, "At least 8 characters required")
+            .matches(/\d/, "At least one number required")
             .min(8, "Minimum 8 characters")
             .max(16, "Maximum 16 characters")
             .matches(/^[A-Za-z\d!@#$%^&*]+$/, "Only letters, numbers & !@#$%^&* allowed")
@@ -218,72 +220,76 @@ const Login = () => {
     //     }
     // };
     const handleLogin = async (data) => {
-    try {
-        const response = await axios.post(
-            "https://b17q02g4-5051.asse.devtunnels.ms/rest2/0.1/login",
-            {
-                email: data.email,
-                password: data.password,
+        try {
+            const response = await axios.post(
+                "https://b17q02g4-5051.asse.devtunnels.ms/rest2/0.1/login",
+                {
+                    email: data.email,
+                    password: data.password,
+                }
+            );
+
+            const res = response.data;
+
+            login({
+                accessToken: res.accessToken,
+                refreshToken: res.refreshToken,
+                user: null,
+            });
+
+            setLoginError({ email: "", password: "" });
+            navigate("/");
+
+        } catch (error) {
+            console.log("ERROR:", error);
+
+            let errorMessage = "Something went wrong";
+
+            if (error.response) {
+                const status = error.response.status;
+
+                if (status === 401 || status === 400) {
+                    errorMessage = "Invalid email or password";
+                }
+                else if (status === 422) {
+                    errorMessage = error.response.data?.message || "Validation error";
+                }
+                else if (status >= 500) {
+                    errorMessage = "Server error. Please try again later";
+                }
+                else {
+                    errorMessage = error.response.data?.message || "Login failed";
+                }
             }
-        );
 
-        const res = response.data;
 
-        login({
-            accessToken: res.accessToken,
-            refreshToken: res.refreshToken,
-            user: null,
-        });
+            else if (error.request) {
+                errorMessage = "Network error. Check your internet connection";
+            }
 
-        setLoginError({ email: "", password: "" });
-        navigate("/");
 
-    } catch (error) {
-        console.log("ERROR:", error);
-
-        let errorMessage = "Something went wrong";
-
-        if (error.response) {
-            const status = error.response.status;
-
-            if (status === 401 || status === 400) {
-                errorMessage = "Invalid email or password";
-            } 
-            else if (status === 422) {
-                errorMessage = error.response.data?.message || "Validation error";
-            } 
-            else if (status >= 500) {
-                errorMessage = "Server error. Please try again later";
-            } 
             else {
-                errorMessage = error.response.data?.message || "Login failed";
+                errorMessage = error.message || "Unexpected error occurred";
             }
+
+            setLoginError({
+                email: errorMessage,
+                password: errorMessage,
+            });
         }
-
-
-        else if (error.request) {
-            errorMessage = "Network error. Check your internet connection";
-        }
-
-    
-        else {
-            errorMessage = error.message || "Unexpected error occurred";
-        }
-
-        setLoginError({
-            email: errorMessage,
-            password: errorMessage,
-        });
-    }
-};
+    };
     const {
         register,
         watch,
         handleSubmit,
-        formState: { isValid: formIsValid, errors }
+        formState: { isValid, isDirty, errors }
     } = useForm({
         mode: "onChange",
         resolver: yupResolver(schema),
+        defaultValues: {
+            email: "",
+            password: ""
+        }
     });
     const password = watch("password");
     return (
@@ -379,17 +385,8 @@ const Login = () => {
                                                 <li className={password.length < 8 ? "error" : "success"}>
                                                     At least 8 characters
                                                 </li>
-                                                <li className={!/[A-Z]/.test(password) ? "error" : "success"}>
-                                                    One uppercase letter
-                                                </li>
-                                                <li className={!/[a-z]/.test(password) ? "error" : "success"}>
-                                                    One lowercase letter
-                                                </li>
                                                 <li className={!/\d/.test(password) ? "error" : "success"}>
-                                                    One number
-                                                </li>
-                                                <li className={!/[!@#$%^&*]/.test(password) ? "error" : "success"}>
-                                                    One special character
+                                                    A number (0-9)
                                                 </li>
                                             </ul>
                                         </>
@@ -400,7 +397,11 @@ const Login = () => {
                             </div>
 
                             <div className="login-btns">
-                                <Button variant="primary" disabled={!formIsValid} type="submit">
+                                <Button
+                                    variant="primary"
+                                    disabled={!isValid || !isDirty}
+                                    type="submit"
+                                >
                                     Login
                                 </Button>
                             </div>

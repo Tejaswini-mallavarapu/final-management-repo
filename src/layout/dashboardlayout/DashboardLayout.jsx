@@ -8,7 +8,9 @@ const DashboardLayout = () => {
     return (
         <div>
             <div className='container-fluid'>
+            <div className='dashboard-header '>
                 <Header />
+            </div>
             </div>
             <div className='container-fluid'>
                 <div className='dashboard-content'>

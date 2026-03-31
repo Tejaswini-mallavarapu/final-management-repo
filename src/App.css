@@ -990,6 +990,25 @@ body {
 
 
 
+@media(max-width:2720px) {
+  .container-fluid {
+    width: 80%;
+    padding: 0px 25px;
+  }
+}
+
+@media(max-width:2000px) {
+  .container-fluid {
+    width: 90%;
+  }
+}
+
+@media(max-width:1440px) {
+  .container-fluid {
+    width: 100%;
+  }
+}
+
 /* ************************* NavBar ********************/
 
 .hamburger {
@@ -1577,6 +1596,243 @@ background: rgba(var(--main-white), 1);
 }
 
 
+
+
+/* ****************************************Notifications*********************************************/
+.notification-box{
+  width: 482px;
+  background: rgba(var(--main-white), 1);
+  border-radius: 24px;
+  box-shadow: 0px 0px 8px 0px rgba(43, 43, 44, 0.2);
+  
+  position: absolute;
+  top: 87%;
+  right: 5%;
+  z-index: 30;
+}
+.notification-box .notification-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 25px;
+  border-bottom: 1px solid rgba(var(--light-gray),0.4);
+}
+.notification-box .notification-header .tabs button {
+  font-family: "CreatoDisplay";
+  font-size: 13px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(var(--main-white), 1);
+  border: 1px solid rgba(var(--light-gray),0.8);
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.notification-box .notification-header .tabs .active {
+  background: rgba(var(--blue-text), 1);
+  color: rgba(var(--main-white),1);
+  border: none;
+}
+.notification-box .notification-content .empty{
+  justify-content: center;
+  text-align: center;
+  padding: 20px 25px;
+}
+.notification-box .notification-content .empty .img{
+  display: flex;
+  justify-self: center;
+  padding: 60px 68px 34px 68px;
+}
+.notification-box .notification-content .empty h3{
+  font-family: "CreatoDisplay";
+}
+.notification-box .notification-content .empty p{
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(var(--text-secondary),1);
+  padding: 10px 0px 100px 0px;
+}
+/* .notification-box .notification-list{
+  height: 60vh;
+} */
+.notification-box .notification-content .notification-list .notification-item{
+  display: flex;
+  gap: 15px;
+  padding: 20px 25px;
+  border-bottom: 1px solid rgba(var(--light-gray),0.4);
+}
+.notification-box .notification-content .notification-list .notification-item .icon-box .icon{
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+.notification-box .notification-content .notification-list .notification-item:last-child{
+  border-bottom: none;
+}
+.notification-box .notification-content .notification-list .notification-item .content{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  cursor: pointer;
+}
+.notification-box .notification-content .notification-list .notification-item .content h6{
+  font-size: 16px;
+  font-family: "CreatoDisplay";
+  color: rgba(var(--text-primary),1);
+}
+.notification-box .notification-content .notification-list .notification-item .content .message{
+  font-family: "CreatoDisplay-medium";
+  font-size: 13px;
+  line-height: 16px;
+  color: rgba(var(--text-primary),1);
+}
+.notification-box .notification-content .notification-list .notification-item .content .desc{
+  font-family: "CreatoDisplay-regular";
+  font-size: 12px;
+  line-height: 16px;
+  color: rgba(var(--text-secondary), 1);
+}
+.notification-box .notification-content .notification-list .notification-item .content .view{
+  max-width: fit-content;
+}
+
+.notification-box .notification-content .notification-list {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 5px;
+  scroll-behavior: smooth;
+}
+.notification-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.notification-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notification-list::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.2);
+  border-radius: 10px;
+}
+/* profile */
+
+.profile-wrapper {
+  width: 295px;
+  background: rgba(var(--main-white),1);
+  border-radius: 14px;
+  position: absolute;
+  padding: 12px;
+  top: 75px;
+  right: 10px;
+  z-index: 99;
+  box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.2);
+
+}
+
+
+
+.profile-wrapper .profile-popup .popup-header {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.profile-wrapper .profile-popup .popup-header .logo{
+  width: 60px;
+  height: 60px;
+  background: rgba(var(--light-gray),0.16);
+  border-radius: 50%;
+  font-size: 25px;
+  color: rgba(107, 114, 128, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+
+.profile-wrapper .profile-popup .popup-header .edit {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background:rgba(var(--text-primary),1);
+  border: 1.6px solid rgba(255, 255, 255, 1);
+  border-radius: 50%;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profile-wrapper .profile-popup .popup-header .edit img{
+  width: 13px;
+  height: 13px;
+}
+
+.profile-wrapper .profile-popup .popup-header .close-btn {
+  padding: 8px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  cursor: pointer;
+}
+
+.profile-wrapper .profile-popup .profile-content {
+  background: rgba(var(--light-gray),0.1);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 15px;
+}
+
+.profile-wrapper .profile-popup .profile-content .field {
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  border-bottom:  1px solid rgba(156, 163, 175, 0.16);
+}
+.profile-wrapper .profile-popup .profile-content .field:last-child{
+  border-bottom: none;
+  margin-bottom: 0px;
+  padding-bottom: 0px;
+}
+
+.profile-wrapper .profile-popup .profile-content .field label {
+  font-family:"CreatoDisplay-regular";
+  font-size: 12px;
+  color:rgba(var(--text-primary), 1);
+}
+.profile-wrapper .profile-popup .profile-content .field .value {
+  font-family:"CreatoDisplay-medium" ;
+  color:rgba(var(--text-primary), 1);
+  font-size: 13px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.profile-wrapper .profile-popup .profile-content .field .edit-icon {
+  cursor: pointer;
+}
+
+.profile-wrapper .profile-popup  button{
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 16px;
+    font-size: 14px;
+    font-family: "CreatoDisplay";
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+    text-decoration: none;
+}
+.profile-wrapper .profile-popup  button img{
+  padding-right: 8px;
+}
+
+
 @media(max-width:1300px) {
 
   .hamburger {
@@ -1645,6 +1901,70 @@ background: rgba(var(--main-white), 1);
     justify-content: center;
     cursor: pointer;
  }
+
+}
+@media(max-width: 576px){
+  .notification-box{
+  width: 382px;
+}
+.header .nav-wrapper .nav .dropdown .hover-dropdown .more-data .sub-dropdown{
+
+    top: 43px;
+    left: 32%;
+}
+}
+@media(max-width: 425px){
+  .header .nav-wrapper .nav.show {
+    width: 185px;
+  }
+  .header .nav-wrapper .nav .dropdown .hover-dropdown {
+    width: 160px;
+}
+.header .nav-wrapper .nav .dropdown .hover-dropdown .more-data .sub-dropdown {
+        top: 43px;
+        left: -11%;
+    }
+  .notification-box{
+  width: 300px;
+  right: 3%;
+}
+.notification-box .notification-header{
+  padding: 15px 15px;
+}
+.notification-box .notification-header h3{
+  font-size: 16px;
+}
+.notification-box .notification-content .notification-list .notification-item {
+    gap: 10px;
+    padding: 15px 15px;
+}
+.notification-box .notification-content .notification-list .notification-item .content {
+    gap: 5px;
+}
+.notification-box .notification-content .notification-list .notification-item .content h6 {
+    font-size: 14px;
+}
+.notification-box .notification-content .notification-list .notification-item .content .message {
+    font-size: 12px;
+    line-height: 12px;
+}
+.notification-box .notification-content .notification-list .notification-item .content .desc {
+    font-size: 10px;
+    line-height: 12px;
+}
+.notification-box .notification-content .notification-list .notification-item .content .view {
+    padding: 10px 15px;
+}
+.profile-wrapper {
+    width: 295px;
+    background: rgba(var(--main-white), 1);
+    border-radius: 14px;
+    position: absolute;
+    padding: 12px;
+    top: 75px;
+    right: -12px;
+
+}
 
 }
 @media(max-width: 576px){
@@ -3067,6 +3387,13 @@ h3{
     height: 190px;
     padding: 10px;
 }
+
+
+
+/* upload products  */
+.product-upload-page .upload-header {
+  display: flex;
+  justify-content: space-between;
 }
 
 
@@ -3387,4 +3714,4 @@ h3{
     font-family: "CreatoDisplay-medium";
     font-size: 13px;
     border: 1px solid red;
-}
+}}
