@@ -132,6 +132,7 @@ const ManagementProducts = () => {
         const companyTypesData = response.data.companyType || [];
         const categoriesData = response.data.productCategoryNames || [];
         const subCategoriesData = response.data.productSubCategoryNames || [];
+        const quantityData = response.data.quantity || [];
 
         setCompanyTypes(companyTypesData);
         setCategories(categoriesData);
@@ -141,6 +142,9 @@ const ManagementProducts = () => {
           const productImages = (product.images || []).map(
             img =>
               `https://b17q02g4-5051.asse.devtunnels.ms/uploads/ManagementProducts/${img.image_url}`
+          );
+          const quantityObj = quantityData.find(
+            q => q.product_id === product.id
           );
 
           const companyTypeObj = companyTypesData.find(
@@ -168,6 +172,8 @@ const ManagementProducts = () => {
             companyType: companyTypeObj?.role_name || "N/A",
             product_category: categoryObj?.category_name || "N/A",
             sub_category: subCategoryObj?.sub_category_name || "N/A",
+            quantity_unit: quantityObj?.quantity || "N/A",
+            price_per_unit: quantityObj?.price || "N/A",
             status,
           };
         });
@@ -362,29 +368,29 @@ const ManagementProducts = () => {
 
                         <td>
                           <div className="actions">
-                            {item.status.toLowerCase()==="deleted"? (
+                            {item.status.toLowerCase() === "deleted" ? (
                               <>
                                 <RestoreIcon onClick={() => {
                                   setSelectedProduct(item);
                                   setPopupType("restore");
-                                }}/>
+                                }} />
                                 <ViewIcon onClick={() => {
                                   setSelectedProduct(item);
                                   setPopupType("view");
-                                }}/>
+                                }} />
                               </>
-                            ):(
+                            ) : (
                               <>
-                              <EditIcon></EditIcon>
-                              <DeleteIcon onClick={() => {
-                              setSelectedProduct(item);
-                              setPopupType("delete");
-                            }} />
-                              <ViewIcon onClick={() => {
-                              setSelectedProduct(item);
-                              setPopupType("view");
-                            }}/>
-                            </>
+                                <EditIcon></EditIcon>
+                                <DeleteIcon onClick={() => {
+                                  setSelectedProduct(item);
+                                  setPopupType("delete");
+                                }} />
+                                <ViewIcon onClick={() => {
+                                  setSelectedProduct(item);
+                                  setPopupType("view");
+                                }} />
+                              </>
                             )}
                           </div>
                         </td>
