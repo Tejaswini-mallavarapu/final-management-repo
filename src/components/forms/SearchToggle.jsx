@@ -26,8 +26,7 @@ const SearchToggle = ({
 
       <button
         className="search-toggle-btn"
-        onClick={() => setOpen(!open)}
-      >
+        onClick={() => setOpen(!open)} >
         {open ? <img src={Images.close} alt="close" /> :  <img src={Images.search} alt="search" />}
       </button>
 

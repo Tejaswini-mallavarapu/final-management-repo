@@ -432,7 +432,7 @@ const ManagementProducts = () => {
             onClose={() => setPopupType(null)} />
         )}
       </Popup>
-      {products.length > 8 && (
+      {totalProducts > limit && (
         <Pagination
           currentPage={page}
           totalPages={totalPages}
@@ -441,7 +441,8 @@ const ManagementProducts = () => {
           prev={prevPage}
           showingFrom={(page - 1) * limit + 1}
           showingTo={Math.min(page * limit, totalProducts)}
-          totalItems={totalProducts} />
+          totalItems={totalProducts}
+        />
       )}
     </div>
   );
