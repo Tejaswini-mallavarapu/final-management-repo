@@ -13,10 +13,12 @@ import { useNavigate } from 'react-router-dom';
 import ProductDelete from './ProductDelete';
 import { useAuth } from '../../../context/AuthContext';
 import api from '../../../apis/axios';
+import RestoreProduct from './RestoreProduct';
 const ManagementProducts = () => {
   const { auth } = useAuth();
   const navigate = useNavigate();
-
+  const [popupType, setPopupType] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const [showFilters, setShowFilters] = useState(false);
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
@@ -27,7 +29,6 @@ const ManagementProducts = () => {
   const [companyTypes, setCompanyTypes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
-
 
   const [filters, setFilters] = useState({
     companyType: "All",
@@ -178,10 +179,11 @@ const ManagementProducts = () => {
           };
         });
 
-        setProducts(formatted);
+        setProducts(formatted || []);
         setTotalProducts(response.data.total_products || 0);
 
       } catch (error) {
+        setProducts([]);
         console.log("Products", error.response || error);
       }
     };
@@ -190,6 +192,8 @@ const ManagementProducts = () => {
       fetchProducts();
     }
   }, [auth, page, debouncedSearch, appliedFilters]);
+  console.log(companyTypes, 'companyTypes')
+
   return (
     <div className='management-products-container'>
       <div className='management-products-page'>
@@ -365,7 +369,6 @@ const ManagementProducts = () => {
                             {item.status}
                           </span>
                         </td>
-
                         <td>
                           <div className="actions">
                             {item.status.toLowerCase() === "deleted" ? (
@@ -374,39 +377,62 @@ const ManagementProducts = () => {
                                   setSelectedProduct(item);
                                   setPopupType("restore");
                                 }} />
+
                                 <ViewIcon onClick={() => {
                                   setSelectedProduct(item);
                                   setPopupType("view");
                                 }} />
+
                               </>
                             ) : (
                               <>
                                 <EditIcon></EditIcon>
+
                                 <DeleteIcon onClick={() => {
                                   setSelectedProduct(item);
                                   setPopupType("delete");
                                 }} />
+
                                 <ViewIcon onClick={() => {
                                   setSelectedProduct(item);
                                   setPopupType("view");
                                 }} />
+
                               </>
                             )}
                           </div>
                         </td>
-
                       </tr>
                     ))}
                   </tbody>
                 </table>
               </div>
             </div>
-
           )}
-
         </div>
       </div>
-      {totalProducts > limit && (
+      <Popup
+        size={popupType === "view" ? "md" : "xs"}
+        open={!!popupType}
+        onCancel={() => setPopupType(null)}>
+        {popupType === "view" && (
+          <ProductView
+            product={selectedProduct}
+            onDeleteClick={() => setPopupType("delete")}
+            onRestoreClick={() => setPopupType("restore")} />
+        )}
+        {popupType === "delete" && (
+          <ProductDelete
+            product={selectedProduct}
+            onClose={() => setPopupType(null)} />
+        )}
+        {popupType === "restore" && (
+          <RestoreProduct
+            product={selectedProduct}
+            onClose={() => setPopupType(null)} />
+        )}
+      </Popup>
+      {products.length > 8 && (
         <Pagination
           currentPage={page}
           totalPages={totalPages}
@@ -415,8 +441,7 @@ const ManagementProducts = () => {
           prev={prevPage}
           showingFrom={(page - 1) * limit + 1}
           showingTo={Math.min(page * limit, totalProducts)}
-          totalItems={totalProducts}
-        />
+          totalItems={totalProducts} />
       )}
     </div>
   );

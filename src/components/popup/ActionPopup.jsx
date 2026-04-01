@@ -1,4 +1,4 @@
-import Button from '../../../components/buttons/Button'
+import Button from "../buttons/Button";
 
 const ActionPopup = ({
     icon,
@@ -18,13 +18,14 @@ const ActionPopup = ({
             <span>{description}</span>
         </div>
         <div className='buttons'>
-            <Button variant="delete" className='popup-cancel' onClick={onCancel} >
-                <span>{cancelText}</span>
-            </Button>
             <Button variant={variant}
                 className='popup-delete' onClick={onConfirm} >
                 <span>{confirmText}</span>
             </Button>
+            <Button variant="delete" className='popup-cancel' onClick={onCancel} >
+                <span>{cancelText}</span>
+            </Button>
+            
         </div>
         </div>
     )
