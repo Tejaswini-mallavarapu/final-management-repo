@@ -429,7 +429,7 @@ const ManagementProducts = () => {
         {popupType === "restore" && (
           <RestoreProduct
             product={selectedProduct}
-            onClose={() => setPopupType(null)} />
+            onClose={() => setPopupType(null )} />
         )}
       </Popup>
       {totalProducts > limit && (
