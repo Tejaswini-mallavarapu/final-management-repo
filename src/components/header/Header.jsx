@@ -3,6 +3,7 @@ import { IoIosArrowDown } from "react-icons/io";
 import { IoMoonSharp, IoSunny } from "react-icons/io5";
 import { LuSunMoon } from "react-icons/lu";
 import { NavLink } from "react-router-dom";
+import { IoIosArrowUp } from "react-icons/io";
 import { Images } from "../../images/Images";
 import Notifications from "./notifications/Notifications";
 import Profile from "./profile/Profile";
@@ -84,25 +85,23 @@ const Header = () => {
                                 isActive ? "nav-item active" : "nav-item"}>
                             Product Uploading
                         </NavLink>
-                        <div
-                            className={`nav-item dropdown ${location.pathname.includes("/creation") ? "active" : ""
-                                }`}
-                        >
-                            Creation <img src={Images.dropdown} />
+                        <div className={`nav-item dropdown ${location.pathname.includes("/creation") ? "active" : "" }`} >
+                            Creation <IoIosArrowUp className="img"/>
                             <div className="hover-dropdown">
-                              <NavLink to="/creation"> <div className="item">Creation</div></NavLink> 
+                                <NavLink to="/creation"> <div className="item">Creation</div></NavLink>
+                                <div className="item">Add Category</div>
                                 <div className="item">Package Creation</div>
                             </div>
                         </div>
                         <div className="nav-item dropdown">
-                            Reports <img src={Images.dropdown} />
+                            Reports <IoIosArrowUp className="img"/>
                             <div className="hover-dropdown">
                                 <div className="item">Package Statement</div>
                                 <div className="item">Sales Report</div>
                             </div>
                         </div>
                         <div className="nav-item dropdown">
-                            More <img src={Images.dropdown} />
+                            More <IoIosArrowUp className="img"/>
                             <div className="hover-dropdown">
                                 <div className="item">Signup Request</div>
                                 <div className="item more-data">Reference Data <IoIosArrowDown className="img" />

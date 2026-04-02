@@ -190,8 +190,9 @@ const UploadProduct = () => {
       </div>
       <div className='text-editor'>
         <label className='textarea-label'>Dosage/Usage</label>
-        <TextAreaEditor onChange={(val) => handleChange("composition", val)}/>
+        <TextAreaEditor onChange={(val) => handleChange("dosage", val)}/>
       </div>
+      
 
       <div className="submit-btn">
         <Button type="button" variant='delete'>Cancel</Button>

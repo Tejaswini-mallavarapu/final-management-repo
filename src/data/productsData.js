@@ -1,5 +1,7 @@
 // productsData.js
 
+import Brandowner from "../pages/creations/creation/Brandowner/Brandowner";
+
 export const productsData = [
     {
   id: 20,
@@ -242,3 +244,34 @@ export const productsData = [
     status: "Deleted",
   }
 ];
+
+export const BrandownerData = [
+  {
+    id: 1,
+    images:["/assets/images/Rectangle 54.svg"] ,
+    Name: "Sri Animalife Biotechr",
+    category: "Aqua Culture",
+    subCategory: "Probiotic, Minerals",
+    Number: "+91 7221078156",
+    status: "Active",
+  },
+  {
+    id: 2,
+    images:["/assets/images/Frame 3027.svg"] ,
+    Name: "Unique Bio Minerals",
+    category: "Agriculture",
+    subCategory: "Tablet, Capsule, Syrup",
+    Number: "+91 82090 69392",
+    status: "Inactive",
+  },
+  {
+    id: 3,
+    images:["/assets/images/Frame 3027.svg"] ,
+    Name: "Unique Bio Minerals",
+    category: "Human Medicine",
+    subCategory: "Biofertilizers, Biopesticides, Biostimulants",
+    Number: "+91 82090 69392",
+    status: "Inactive",
+  }
+
+]

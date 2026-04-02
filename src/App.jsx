@@ -1,4 +1,3 @@
-
 import React from 'react'
 import './App.css'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
@@ -6,12 +5,11 @@ import DashboardLayout from './layout/dashboardlayout/DashboardLayout'
 import Dashboard from './pages/dashboard/Dashboard'
 import ProductsUploading from './pages/productsuploading/ProductsUploading'
 import Login from './pages/globalpages/Login'
-
+ 
 import UploadProduct from './pages/productsuploading/management/UploadProduct'
 import { AuthProvider } from './context/AuthContext'
-import Inputssss from './components/forms/Inputssss'
 import ProfileTest from './components/forms/Inputssss'
-import Creation from './pages/creation/Creation'
+import Creation from './pages/creations/Creation'
 const App = () => {
   return (
     <div>
@@ -24,7 +22,7 @@ const App = () => {
               <Route path="productsupload">
                 <Route index element={<ProductsUploading />} />
                 <Route path="upload" element={<UploadProduct />} />
-
+ 
               </Route>
             </Route>
             <Route path='/login' element={<Login />}></Route>
@@ -37,5 +35,5 @@ const App = () => {
     </div>
   )
 }
-
+ 
 export default App
