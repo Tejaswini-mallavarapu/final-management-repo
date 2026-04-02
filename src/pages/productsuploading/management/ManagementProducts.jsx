@@ -65,7 +65,7 @@ const ManagementProducts = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(search);
-    }, 1000);
+    }, 500);
 
     return () => clearTimeout(timer);
   }, [search]);
@@ -96,11 +96,7 @@ const ManagementProducts = () => {
               offset,
               limit,
 
-              productName:
-                search ||
-                (appliedFilters.productName !== "All"
-                  ? appliedFilters.productName
-                  : undefined),
+              search: debouncedSearch || undefined,
 
               companyName:
                 appliedFilters.companyName !== "All"
@@ -121,13 +117,20 @@ const ManagementProducts = () => {
                 appliedFilters.companyType !== "All"
                   ? companyTypeId
                   : undefined,
+
+              productName:
+                appliedFilters.productName !== "All"
+                  ? appliedFilters.productName
+                  : undefined,
             },
             headers: {
               Authorization: `Bearer ${token}`,
             },
           }
         );
-        console.log(response)
+
+        console.log(response);
+
         const products = response.data.message || [];
 
         const companyTypesData = response.data.companyType || [];
@@ -144,6 +147,7 @@ const ManagementProducts = () => {
             img =>
               `https://b17q02g4-5051.asse.devtunnels.ms/uploads/ManagementProducts/${img.image_url}`
           );
+
           const quantityObj = quantityData.find(
             q => q.product_id === product.id
           );
@@ -180,7 +184,7 @@ const ManagementProducts = () => {
         });
 
         setProducts(formatted || []);
-        setTotalProducts(response.data.total_products || 0);
+        setTotalProducts(products.length || 0);
 
       } catch (error) {
         setProducts([]);
@@ -192,7 +196,52 @@ const ManagementProducts = () => {
       fetchProducts();
     }
   }, [auth, page, debouncedSearch, appliedFilters]);
-  console.log(companyTypes, 'companyTypes')
+  const handleView=async(id)=>{
+    try{
+      const token=auth?.accessToken;
+      const response=await api.get(`/management/products/${roleId}`)
+    }catch(error){
+
+    }
+  }
+
+
+  const companyTypeOptions = [
+    "All",
+    ...companyTypes
+      .filter(c =>
+        c.role_name === "Management" ||
+        c.role_name === "Manufacturer"
+      )
+      .map(c => c.role_name)
+  ];
+
+  const companyNameOptions = [
+    "All",
+    "Sri Animal life",
+    "Unique Bio minerals",
+    "Sri Animal Biotech"
+  ];
+
+  const categoryOptions = [
+    "All",
+    ...categories.map(c => c.category_name)
+  ];
+
+  const subCategoryOptions = [
+    "All",
+    ...subCategories.map(s => s.sub_category_name)
+  ];
+
+  const productNameOptions = [
+    "All",
+    "Aqua Remid",
+    "Aqua Bison",
+    "Super min",
+    "Aqua care",
+    "Rhizobium",
+    "Amlodipine"
+  ];
 
   return (
     <div className='management-products-container'>
@@ -215,56 +264,41 @@ const ManagementProducts = () => {
             className="filter-select"
             label="Company Type"
             value={filters.companyType}
-            options={[
-              "All",
-              ...companyTypes
-                .filter(c =>
-                  c.role_name === "Management" ||
-                  c.role_name === "Manufacturer"
-                )
-                .map(c => c.role_name)
-            ]}
+            options={companyTypeOptions}
             onChange={(val) =>
-              setFilters({ ...filters, companyType: val })
-            } />
+              setFilters({ ...filters, companyType: val })} />
 
           <CustomSelect
             className="filter-select"
             label="Company Name"
             value={filters.companyName}
-            options={["All", "Sri Animal life", "Unique Bio minerals", "Sri Animal Biotech"]}
+            options={companyNameOptions}
             onChange={(val) =>
-              setFilters({ ...filters, companyName: val })
-            } />
+              setFilters({ ...filters, companyName: val })} />
 
           <CustomSelect
             className="filter-select"
             label="Product Category"
             value={filters.productscategory}
-            options={["All", ...categories.map(c => c.category_name)]}
+            options={categoryOptions}
             onChange={(val) =>
-              setFilters({ ...filters, productscategory: val })
-            } />
+              setFilters({ ...filters, productscategory: val })} />
 
           <CustomSelect
             className="filter-select"
             label="Product Sub Category"
             value={filters.productsubcategory}
-            options={["All", ...subCategories.map(s => s.sub_category_name)]}
+            options={subCategoryOptions}
             onChange={(val) =>
-              setFilters({ ...filters, productsubcategory: val })
-            } />
+              setFilters({ ...filters, productsubcategory: val })} />
 
           <CustomSelect
             className="filter-select"
             label="Product Name"
             value={filters.productName}
-            options={["All", "Aqua Remid", "Aqua Bison", "Super min", "Aqua care", "Rhizobium", "Amlodipine"]}
+            options={productNameOptions}
             onChange={(val) =>
-              setFilters({ ...filters, productName: val })
-            } />
-
-
+              setFilters({ ...filters, productName: val })} />
           <div>
             <Button
               variant="secondary"
@@ -393,10 +427,7 @@ const ManagementProducts = () => {
                                   setPopupType("delete");
                                 }} />
 
-                                <ViewIcon onClick={() => {
-                                  setSelectedProduct(item);
-                                  setPopupType("view");
-                                }} />
+                                <ViewIcon onClick={() => handleView(item.id)} />
 
                               </>
                             )}
@@ -429,7 +460,7 @@ const ManagementProducts = () => {
         {popupType === "restore" && (
           <RestoreProduct
             product={selectedProduct}
-            onClose={() => setPopupType(null )} />
+            onClose={() => setPopupType(null)} />
         )}
       </Popup>
       {totalProducts > limit && (
@@ -441,8 +472,7 @@ const ManagementProducts = () => {
           prev={prevPage}
           showingFrom={(page - 1) * limit + 1}
           showingTo={Math.min(page * limit, totalProducts)}
-          totalItems={totalProducts}
-        />
+          totalItems={totalProducts} />
       )}
     </div>
   );

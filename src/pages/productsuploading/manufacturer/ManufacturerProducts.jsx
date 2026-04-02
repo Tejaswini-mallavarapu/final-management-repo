@@ -1,58 +1,149 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ReusableTable from "../../../components/table/ReusableTable";
 import Popup from "../../../components/popup/PopUp";
 import { ViewIcon } from "../../../components/actions/Actions";
 import ProductView from "../management/ProductView";
 import SearchToggle from "../../../components/forms/SearchToggle";
-import { productsData } from "../../../data/productsData";
-import usePagination from "../../../hooks/usePagination";
 import Pagination from "../../../components/pagination/Pagination";
 import CustomSelect from "../../../components/forms/CustomSelect";
 import Button from "../../../components/buttons/Button";
 import { Images } from "../../../images/Images";
 import { useNavigate } from "react-router-dom";
-
-
-const statusClassMap = {
-  active: "btn-active",
-  inactive: "btn-inactive",
-  deleted: "btn-inactive",
-};
+import { useAuth } from "../../../context/AuthContext";
+import api from "../../../apis/axios";
 
 const ManufacturerProducts = () => {
-
-  const reservedProducts = [...productsData].reverse();
+  const baseURL = "https://b17q02g4-5051.asse.devtunnels.ms/uploads/ManufacturerProducts/";
+  const { auth } = useAuth();
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1);
+  const limit = 8;
+  const [totalProducts, setTotalProducts] = useState(0);
+  const [companyList, setCompanyList] = useState([]);
+  const [categoryList, setCategoryList] = useState([]);
+  const [subCategoryList, setSubCategoryList] = useState([]);
+  const [productList, setProductList] = useState([]);
 
   const [showFilters, setShowFilters] = useState(false);
-  const navigate = useNavigate
+  const navigate = useNavigate();
+  const statusClassMap = {
+    active: "btn-active",
+    inactive: "btn-inactive",
+    deleted: "btn-inactive",
+  };
+
+  const categoryMap = {
+    "Aquaculture": 1,
+    "Agriculture": 2,
+    "Human Medicine": 3,
+    "Others": 4
+  };
+
+  const subCategoryMap = {
+    "Probiotic": 1,
+    "Minerals": 2,
+    "Medicine": 3,
+    "Feeds": 4,
+    "Biofertilizer": 5,
+    "Tablet": 6
+  };
 
   const [filters, setFilters] = useState({
-    ManufacturerName: "All",
-    productscategory: "All",
-    productsubcategory: "All",
-    productName: "All"
-  })
+    ManufacturerName: "",
+    productscategory: "",
+    productsubcategory: "",
+    productName: ""
+  });
 
-  const products_total = 8;
-  const {
-    currentData,
-    currentPage,
-    totalPages,
-    goToPage,
-    next,
-    prev,
-    showingForm,
-    showingTo,
-    totalItems
-  } = usePagination(reservedProducts, products_total);
-
+  const [appliedFilters, setAppliedFilters] = useState({
+    ManufacturerName: "",
+    productscategory: "",
+    productsubcategory: "",
+    productName: ""
+  });
   const [search, setSearch] = useState("");
 
-  const fetcProducts=async()=>{
-    try{
-      const token=auth?.accessToken
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const token = auth?.accessToken;
+        const roleId = 3;
+        const offset = (page - 1) * limit;
+        const res = await api.get(
+          `/management/getProductsManufacturer/${roleId}`,
+          {
+            params: {
+              offset,
+              limit,
+              
+              companyName: appliedFilters.ManufacturerName || undefined,
+              productCategory: appliedFilters.productscategory || undefined,
+              productSubCategory: appliedFilters.productsubcategory || undefined,
+              productName: appliedFilters.productName || undefined,
+            },
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        console.log(res.data);
+
+        const products = res.data.message || [];
+        const categories = res.data.productCategoryNames || [];
+        const subCategories = res.data.productSubCategoryNames || [];
+        const quantity = res.data.quantity || [];
+
+        const formatted = products.map((item) => {
+          const imageUrls = (item.images || []).map(
+            (img) => baseURL + img.image_url
+          );
+
+          const categoryObj = categories.find(
+            (c) => Number(c.id) === Number(item.product_category)
+          );
+
+          const subCategoryObj = subCategories.find(
+            (s) => Number(s.id) === Number(item.sub_category)
+          );
+
+          const quantityObj = quantity.find(
+            (q) => q.product_id === item.id
+          );
+
+          const status =
+            item.status === 1
+              ? "active"
+              : item.status === 0
+                ? "inactive"
+                : "deleted";
+
+          return {
+            ...item,
+            images: imageUrls,
+            companyName: item.company_name,
+            productName: item.product_name,
+            category: categoryObj?.category_name || "N/A",
+            subCategory: subCategoryObj?.sub_category_name || "N/A",
+            weight: quantityObj?.quantity || "N/A",
+            price: quantityObj?.price || "N/A",
+            status,
+          };
+        });
+
+        setProducts(formatted);
+        setTotalProducts(res.data.total_products || 0);
+
+      } catch (error) {
+        console.log(error);
+        setProducts([]);
+      }
+    };
+
+    if (auth?.accessToken) {
+      fetchProducts();
     }
-  }
+  }, [auth, page, appliedFilters]);
 
   const columns = [
     { label: "S.No", className: "id" },
@@ -69,23 +160,19 @@ const ManufacturerProducts = () => {
 
   const renderProductRow = (item, index) => (
     <tr key={item.id}>
-
-      <td className="id">{totalItems - ((currentPage - 1) * products_total + index)}</td>
-
+      <td className="id">{totalProducts - ((page - 1) * limit + index)}</td>
       <td>
         <div className="image-stack">
           {item.images?.slice(0, 3).map((img, i) => (
             <img key={i} src={img} alt="product" />
           ))}
-
-          {item.images?.length > 3 && (
+          {item.imageUrls?.length > 3 && (
             <div className="more-count">
               +{item.images.length - 3}
             </div>
           )}
         </div>
       </td>
-
       <td>{item.companyName}</td>
       <td>{item.category}</td>
       <td>{item.subCategory}</td>
@@ -95,7 +182,7 @@ const ManufacturerProducts = () => {
 
       <td className="status-col">
         <span
-          className={`status ${statusClassMap[item.status.toLowerCase()]
+          className={`status ${statusClassMap[item.status]
             }`}>
           {item.status}
         </span>
@@ -130,21 +217,49 @@ const ManufacturerProducts = () => {
             label="Manufacturer Name"
             value={filters.ManufacturerName}
             options={["All", "Agrocel Industries Pvt Ltd.", "Unique Bio Tech Pvt Ltd."]}
-            onChange={(value) => setFilters({ ...filters, ManufacturerName: value })} />
+            onChange={(value) =>
+              setFilters({
+                ...filters,
+                ManufacturerName: value === "All" ? "" : value
+              })
+            }
+          />
 
           <CustomSelect
             className="filter-select filter-manu"
             label="product Category"
             value={filters.productscategory}
             options={["All", "Aquaculture", "Agriculture", "Human Medicine", "Others"]}
-            onChange={(value) => setFilters({ ...filters, productscategory: value })}  />
+            onChange={(value) => {
+              if (value === "All") {
+                setFilters({ ...filters, productscategory: "" });
+                return;
+              }
+
+              setFilters({
+                ...filters,
+                productscategory: categoryMap[value] || ""
+              });
+            }}
+          />
+
           <CustomSelect
             className="filter-select filter-manu"
             label="Product Sub Category"
             value={filters.productsubcategory}
             options={["All", "Probiotic", "Minerals", "Medicine", "Feeds", "Biofertilizer", "Tablet"]}
-            onChange={(val) =>
-              setFilters({ ...filters, productsubcategory: val })}/>
+            onChange={(val) => {
+              if (val === "All") {
+                setFilters({ ...filters, productsubcategory: "" });
+                return;
+              }
+
+              setFilters({
+                ...filters,
+                productsubcategory: subCategoryMap[val] || ""
+              });
+            }}
+          />
 
           <CustomSelect
             className="filter-select filter-manu"
@@ -152,16 +267,30 @@ const ManufacturerProducts = () => {
             value={filters.productName}
             options={["All", "Aqua Remid", "Aqua Bison", "Super-min", "Aqua care"]}
             onChange={(val) =>
-              setFilters({ ...filters, productName: val })} />
+              setFilters({
+                ...filters,
+                productName: val === "All" ? "" : val
+              })
+            }
+          />
           <div>
-            <Button variant='secondary' onClick={() => setShowFilters(false)}>Search</Button>
+            <Button
+              variant='secondary'
+              onClick={() => {
+                setAppliedFilters(filters);
+                setPage(1);
+                setShowFilters(false);
+              }}>
+              Search
+            </Button>
           </div>
+
         </div>
       </div>
       <div className="shape-card">
         <div className="shape-content">
           <SearchToggle value={search} onChange={setSearch} />
-          {Array.isArray(currentData) && currentData.length === 0 ? (
+          {Array.isArray(products) && products.length === 0 ? (
             <div className="empty-state-container">
               <div className="empty-state">
                 <span>
@@ -191,26 +320,24 @@ const ManufacturerProducts = () => {
 
               <ReusableTable
                 columns={columns}
-                data={currentData}
+                data={products}
                 renderRow={renderProductRow} />
             </>
           )}
 
         </div>
       </div>
-      {productsData.length > products_total && (
+      {totalProducts > limit && (
         <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          goToPage={goToPage}
-          next={next}
-          prev={prev}
-          showingFrom={showingForm}
-          showingTo={showingTo}
-          totalItems={totalItems}
-        />
-      )
-      }
+          currentPage={page}
+          totalPages={Math.ceil(totalProducts / limit)}
+          goToPage={(num) => setPage(num)}
+          next={() => setPage((p) => Math.min(p + 1, Math.ceil(totalProducts / limit)))}
+          prev={() => setPage((p) => Math.max(p - 1, 1))}
+          showingFrom={(page - 1) * limit + 1}
+          showingTo={Math.min(page * limit, totalProducts)}
+          totalItems={totalProducts} />
+      )}
     </div>
   );
 };

@@ -536,6 +536,7 @@ const Profile = ({ onClose }) => {
                             alt="profile"
                             className="profile-img" />
                     )}
+
                     <div
                         className="edit"
                         onClick={() => {
@@ -543,6 +544,7 @@ const Profile = ({ onClose }) => {
                             setName(profile?.name);
                             document.getElementById("profileImageInput").click();
                         }}>
+                            
                         <img src={Images.edit} alt="edit" />
                     </div>
                 </div>

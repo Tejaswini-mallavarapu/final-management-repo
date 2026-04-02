@@ -4,10 +4,10 @@ import Button from "../../../components/buttons/Button";
 import { Images } from "../../../images/Images";
 import { MdSettingsBackupRestore } from "react-icons/md";
 
-const ProductView = ({ product,hideActions=false, onDeleteClick, onRestoreClick }) => {
-    const [showDeletePopup,setShowDeletePopup] = useState(false);
+const ProductView = ({ product, hideActions = false, onDeleteClick, onRestoreClick }) => {
+    const [showDeletePopup, setShowDeletePopup] = useState(false);
 
-    const isDeleted=product?.status?.toLowerCase()==="deleted";
+    const isDeleted = product?.status?.toLowerCase() === "deleted";
 
     const [activeTab, setActiveTab] = useState("details");
     const [openDescription, setOpenDescription] = useState([]);
@@ -44,15 +44,13 @@ const ProductView = ({ product,hideActions=false, onDeleteClick, onRestoreClick 
             <div className="popup-actions">
                 <Button
                     variant={activeTab === "details" ? "secondary" : "btn-gray"}
-                    onClick={() => setActiveTab("details")}
-                >
+                    onClick={() => setActiveTab("details")}>
                     Product Details
                 </Button>
 
                 <Button
                     variant={activeTab === "photos" ? "secondary" : "btn-gray"}
-                    onClick={() => setActiveTab("photos")}
-                >
+                    onClick={() => setActiveTab("photos")} >
                     Product Photos
                 </Button>
             </div>
@@ -70,8 +68,8 @@ const ProductView = ({ product,hideActions=false, onDeleteClick, onRestoreClick 
                                     <h3>{product?.productName}</h3>
                                     <div>
                                         <span className="btn probiotics">Probiotics</span>
-                                        <span className={isDeleted ?"btn-deleted"
-                                                : product?.status?.toLowerCase() === "active"
+                                        <span className={isDeleted ? "btn-deleted"
+                                            : product?.status?.toLowerCase() === "active"
                                                 ? "btn-active"
                                                 : "btn-inactive"}>
                                             {product?.status}
@@ -105,13 +103,10 @@ const ProductView = ({ product,hideActions=false, onDeleteClick, onRestoreClick 
                                         <span>FXSK123U</span>
                                     </div>
                                 </div>
-
-                                {/* Composition */}
                                 <div className="border">
                                     <div
                                         className="description"
-                                        onClick={() => toggleDescription("composition")}
-                                    >
+                                        onClick={() => toggleDescription("composition")}>
                                         <p>Composition/Ingredients</p>
                                         <span>
                                             {openDescription.includes("composition")
@@ -138,8 +133,7 @@ const ProductView = ({ product,hideActions=false, onDeleteClick, onRestoreClick 
                                 <div className="border">
                                     <div
                                         className="description"
-                                        onClick={() => toggleDescription("dosage")}
-                                    >
+                                        onClick={() => toggleDescription("dosage")}>
                                         <p>Dosage & Usage</p>
                                         <span>
                                             {openDescription.includes("dosage")
@@ -151,8 +145,8 @@ const ProductView = ({ product,hideActions=false, onDeleteClick, onRestoreClick 
                                     {openDescription.includes("dosage") && (
                                         <div className="description-content">
                                             <span>
-                                               Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-
-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.
+                                                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-
+                                                Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.
                                             </span>
                                         </div>
                                     )}
@@ -173,28 +167,24 @@ Sydney College in Virginia, looked up one of the more obscure Latin words, conse
                                     <button
                                         className="nav left"
                                         onClick={prevImage}
-                                        disabled={activeImage === 0}
-                                    >
-                                        <FaArrowLeft/>
+                                        disabled={activeImage === 0}>
+                                        <FaArrowLeft />
                                     </button>
 
                                     <button
                                         className="nav right"
                                         onClick={nextImage}
-                                        disabled={activeImage === images.length - 1}
-                                    >
-                                        <FaArrowRight/>
+                                        disabled={activeImage === images.length - 1}>
+                                        <FaArrowRight />
                                     </button>
                                 </div>
 
-                                {/* THUMBNAILS */}
                                 <div className="thumbnails">
                                     {images.map((img, i) => (
                                         <div
                                             key={i}
                                             className={`thumb ${activeImage === i ? "active" : ""}`}
-                                            onClick={() => setActiveImage(i)}
-                                        >
+                                            onClick={() => setActiveImage(i)}>
                                             <img src={img} alt="" />
                                         </div>
                                     ))}
@@ -205,29 +195,29 @@ Sydney College in Virginia, looked up one of the more obscure Latin words, conse
                     )}
 
                 </div>
-                {!hideActions &&(
-                <div className="popup-actions popup-actions-footer">
-                    {isDeleted ? (
-                        <Button variant="primary" onClick={onRestoreClick}>
-                            <MdSettingsBackupRestore className="Restore Product"/><span>Restore Product</span>
-                        </Button>
-                    ):(<>
-                        <Button variant="delete" onClick={onDeleteClick}>
-                            <img src={Images.delete} />
-                            <span>Delete Product</span>
-                        </Button>
+                {!hideActions && (
+                    <div className="popup-actions popup-actions-footer">
+                        {isDeleted ? (
+                            <Button variant="primary" onClick={onRestoreClick}>
+                                <MdSettingsBackupRestore className="Restore Product" /><span>Restore Product</span>
+                            </Button>
+                        ) : (<>
+                            <Button variant="delete" onClick={onDeleteClick}>
+                                <img src={Images.delete} />
+                                <span>Delete Product</span>
+                            </Button>
 
-                        <Button variant="primary">
-                            <img src="/assets/images/editbtn.svg" />
-                            <span>Edit Product Details</span>
-                        </Button>
-                    </>
-                    )}
-                </div>
+                            <Button variant="primary">
+                                <img src="/assets/images/editbtn.svg" />
+                                <span>Edit Product Details</span>
+                            </Button>
+                        </>
+                        )}
+                    </div>
                 )}
 
             </div>
-            
+
         </div>
     );
 };
