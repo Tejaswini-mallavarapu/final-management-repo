@@ -1,93 +1,83 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef } from "react";
+import Quill from "quill";
+
 import { BiBold } from "react-icons/bi";
 import { FaItalic } from "react-icons/fa";
 import { FiUnderline } from "react-icons/fi";
 import { AiOutlineStrikethrough } from "react-icons/ai";
 import { IoList } from "react-icons/io5";
-import { BsJustifyLeft,BsJustify,BsJustifyRight } from "react-icons/bs";
+import { BsJustifyLeft, BsJustify, BsJustifyRight } from "react-icons/bs";
 
-const TextAreaEditor = ({placeholder="Enter",onChange}) => {
-    const [content,setContent]=useState("");
-    const [activeFormats,setActiveFormats]=useState([]);
+const TextAreaEditor = ({ placeholder = "Enter", onChange }) => {
+    const editorRef = useRef(null);
+    const quillRef = useRef(null);
+    const toolbarRef = useRef(null);
 
-    const editorRef=useRef(null);
+    useEffect(() => {
+    if (!quillRef.current && editorRef.current && toolbarRef.current) {
+        const quill = new Quill(editorRef.current, {
+        theme: null,
+        placeholder,
+        formats: ["bold","italic", "underline", "strike", "list", "align" ],
+        modules: {
+            toolbar: toolbarRef.current
+        }
+        });
 
-    const handleInput=(e)=>{
-        const value = e.curretTarget.innerText;
-        setContent(value);
-        onChange && onChange(value);
-        updateActiveFormats();
-    };
+        quill.on("text-change", () => {
+        const html =
+            editorRef.current.querySelector(".ql-editor").innerHTML;
+        onChange && onChange(html);
+        });
 
-    const updateActiveFormats=()=>{
-        const formats = [];
-        if (document.queryCommandState("bold")) formats.push("bold");
-        if (document.queryCommandState("italic")) formats.push("italic");
-        if (document.queryCommandState("underline")) formats.push("underline");
-        if (document.queryCommandState("strikeThrough")) formats.push("strikeThrough");
-        if (document.queryCommandState("insertUnorderedList")) formats.push("insertUnorderedList");
-        if (document.queryCommandState("justifyLeft")) formats.push("justifyLeft");
-        if (document.queryCommandState("justifyCenter")) formats.push("justifyCenter");
-        if (document.queryCommandState("justifyRight")) formats.push("justifyRight");
-
-        setActiveFormats(formats);
+        quillRef.current = quill;
     }
-    const toggleFormat=(type)=>{
-        editorRef.current?.focus();
-        document.execCommand(type);
-        setTimeout(()=>{
-            updateActiveFormats();
-        },0);
-        
+    }, []);
+    return (
+        <div  className="text-area">
+            <div ref={toolbarRef} id="toolbar" className="edit-icons">
 
-        setActiveFormats((prev)=>
-        prev.includes(type)
-        ? prev.filter((f)=>f !==type)
-        :[...prev, type]
-        )
-    }
+                <button className="ql-bold">
+                <span className="icon"><BiBold className="logo"/></span>
+                </button>
 
-    const isActive=(type)=>activeFormats.includes(type);
-    return ( 
-            <div className='text-area'>
-                <div className='edit-icons'>
-                    <div className={`icon ${isActive("bold") ? "active" : ""}`} onClick={()=>{toggleFormat("bold");updateActiveFormats();}}>
-                        <span className='logo'><BiBold /></span>
-                    </div>
-                    <div className={`icon ${isActive("italic") ? "active" : ""}`} onClick={()=>{toggleFormat("italic");updateActiveFormats();}}>
-                        <span className='logo'><FaItalic /></span>
-                    </div>
-                    <div className={`icon ${isActive("underline") ? "active" : ""}`} onClick={()=>{toggleFormat("underline");updateActiveFormats();}}>
-                        <span className='logo'><FiUnderline /></span>
-                    </div>
-                    <div className={`icon ${isActive("strikeThrough") ? "active" : ""}`} onClick={()=>{toggleFormat("strikeThrough");updateActiveFormats();}}>
-                        <span className='logo'><AiOutlineStrikethrough /></span>
-                    </div>
-                    <div className={`icon ${isActive("insertUnorderedList") ? "active" : ""}`} onClick={() => {toggleFormat("insertUnorderedList");updateActiveFormats();}}>
-                        <span className="logo"><IoList /></span>
-                    </div>
-                    <div className={`icon ${isActive("justifyLeft") ? "active" : ""}`}  onClick={() => {toggleFormat("justifyLeft");updateActiveFormats();}} >
-                        <span className="logo"><BsJustifyLeft /></span>
-                    </div>
-                    <div className={`icon ${isActive("justifyCenter") ? "active" : ""}`} onClick={() => {toggleFormat("justifyCenter");updateActiveFormats();}} >
-                        <span className="logo"><BsJustify /></span>
-                    </div>  
-                    <div className={`icon ${isActive("justifyRight") ? "active" : ""}`} onClick={() => {toggleFormat("justifyRight");updateActiveFormats();}} >
-                        <span className="logo"><BsJustifyRight /></span>
-                    </div>
-                </div>
-                <div ref={editorRef}
-                className={`text ${content ? "has-content": ""}`}
-                contentEditable
-                suppressContentEditableWarning
-                onInput={handleInput}
-                onKeyUp={updateActiveFormats}
-                onMouseUp={updateActiveFormats}
-                data-placeholder={placeholder}
-                >
-                </div>
+                <button className="ql-italic">
+                <span className="icon"><FaItalic className="logo"/></span>
+                </button>
+
+                <button className="ql-underline">
+                <span className="icon"><FiUnderline className="logo"/></span>
+                </button>
+
+                <button className="ql-strike">
+                <span className="icon"><AiOutlineStrikethrough className="logo"/></span>
+                </button>
+
+                <button className="ql-list" value="bullet" type="button">
+                <span className="icon"><IoList className="logo"/></span>
+                </button>
+
+                <button className="ql-align" value="">
+                <span className="icon"><BsJustifyLeft className="logo"/></span>
+                </button>
+
+                <button className="ql-align" value="center">
+                <span className="icon"><BsJustify className="logo"/></span>
+                </button>
+
+                <button className="ql-align" value="right">
+                <span className="icon"><BsJustifyRight className="logo"/></span>
+                </button>
+
             </div>
-    )
-}
 
-export default TextAreaEditor
+        <div
+            ref={editorRef}
+            className="text"
+            data-placeholder={placeholder}
+        />
+        </div>
+    );
+};
+
+export default TextAreaEditor;
