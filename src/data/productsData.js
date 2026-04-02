@@ -249,7 +249,7 @@ export const BrandownerData = [
   {
     id: 1,
     images:["/assets/images/Rectangle 54.svg"] ,
-    Name: "Sri Animalife Biotechr",
+    Name: "Sri Animalife Biotech",
     category: "Aqua Culture",
     subCategory: "Probiotic, Minerals",
     Number: "+91 7221078156",

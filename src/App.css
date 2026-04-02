@@ -1002,7 +1002,7 @@ body {
 
 @media(max-width:2000px) {
   .container-fluid {
-    width: 90%;
+    width: 100%;
   }
 }
 
@@ -2132,7 +2132,7 @@ display: none;
   color: rgba(var(--text-secondary), 1);
 }
 
-.empty-state-container .empty-state .empty-state-content .enpty-state-btn {
+.empty-state-container .empty-state .empty-state-content .empty-state-btn {
   margin-top: 27px;
   display: flex;
   gap: 10px;
@@ -2228,6 +2228,7 @@ h3{
     top: 25px;
   }
 }
+
 
 @media(max-width:768px) {
   .search-toggle-container {
@@ -2770,6 +2771,7 @@ h3{
   }
 
   .management-products-container .management-products-page {
+    
     justify-content: flex-end;
     align-items: start;
     gap:10px
