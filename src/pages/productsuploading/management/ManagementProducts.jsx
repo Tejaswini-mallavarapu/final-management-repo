@@ -196,14 +196,6 @@ const ManagementProducts = () => {
       fetchProducts();
     }
   }, [auth, page, debouncedSearch, appliedFilters]);
-  const handleView=async(id)=>{
-    try{
-      const token=auth?.accessToken;
-      const response=await api.get(`/management/products/${roleId}`)
-    }catch(error){
-
-    }
-  }
 
 
   const companyTypeOptions = [
@@ -242,6 +234,37 @@ const ManagementProducts = () => {
     "Rhizobium",
     "Amlodipine"
   ];
+
+  //  const handleView = async (productId) => {
+  //   try {
+  //     const token = auth?.accessToken;
+  //     const managementId = auth?.user?.role_id;
+
+  //     const res = await api.get(
+  //       `/management/products/${managementId}`,
+  //       {
+  //         params: {
+  //           id: productId   
+  //         },
+  //         headers: {
+  //           Authorization: `Bearer ${token}`
+  //         }
+  //       }
+  //     );
+
+  //     console.log("View API:", res.data);
+
+
+  //     const productData = res.data.message || res.data;
+
+  //     setSelectedProduct(productData);
+
+  //     setPopupType("view");
+
+  //   } catch (error) {
+  //     console.log("View Error", error);
+  //   }
+  // };
 
   return (
     <div className='management-products-container'>
@@ -413,7 +436,7 @@ const ManagementProducts = () => {
                                 }} />
 
                                 <ViewIcon onClick={() => {
-                                  setSelectedProduct(item);
+                                  setSelectedProduct({ id: item.id });
                                   setPopupType("view");
                                 }} />
 
@@ -427,8 +450,10 @@ const ManagementProducts = () => {
                                   setPopupType("delete");
                                 }} />
 
-                                <ViewIcon onClick={() => handleView(item.id)} />
-
+                                <ViewIcon onClick={() => {
+                                  setSelectedProduct({ id: item.id });
+                                  setPopupType("view");
+                                }} />
                               </>
                             )}
                           </div>
@@ -448,7 +473,7 @@ const ManagementProducts = () => {
         onCancel={() => setPopupType(null)}>
         {popupType === "view" && (
           <ProductView
-            product={selectedProduct}
+            productId={selectedProduct?.id}
             onDeleteClick={() => setPopupType("delete")}
             onRestoreClick={() => setPopupType("restore")} />
         )}
