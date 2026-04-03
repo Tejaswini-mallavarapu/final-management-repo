@@ -8,49 +8,80 @@ import { useAuth } from "../../../context/AuthContext";
 
 const ProductView = ({
     productId,
+    roleId: passedRoleId,
     hideActions = false,
     onDeleteClick,
     onRestoreClick,
 }) => {
     const [showDeletePopup, setShowDeletePopup] = useState(false);
     const { auth } = useAuth();
+    const roleId = passedRoleId ?? auth?.user?.role_id;
     const [product, setProduct] = useState(null);
-
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [companyTypes, setCompanyTypes] = useState([]);
+    const [quantities, setQuantities] = useState([]);
     const isDeleted = product?.status === 2;
-
     const [activeTab, setActiveTab] = useState("details");
     const [openDescription, setOpenDescription] = useState([]);
+    const basePath =
+        roleId === 3
+            ? "ManufacturerProducts"
+            : "ManagementProducts";
+
     const images =
         product?.images?.map(
-            img =>
-                `https://b17q02g4-5051.asse.devtunnels.ms/uploads/ManagementProducts/${img.image_url}`
+            (img) =>
+                `http://localhost:5051/uploads/${basePath}/${img.image_url}`
         ) || [];
     const [activeImage, setActiveImage] = useState(0);
-    useEffect(() => {
-        const fetchProduct = async () => {
-            try {
-                const token = auth?.accessToken;
-                const managementId = auth?.user?.role_id;
-                const res = await api.get(
-                    `/management/products/${managementId}`,
-                    {
-                        params: { id: productId },
-                        headers: {
-                            Authorization: `Bearer ${token}`
-                        }
-                    }
-                );
-                console.log("DATA", res.data);
-                const data = res.data.message?.[0];
-                setProduct(data);
-            } catch (error) {
-                console.log("View error", error);
-            }
-        };
-        if (productId) {
-            fetchProduct();
+   
+useEffect(() => {
+    const fetchProduct = async () => {
+        if (!roleId || !productId) return;
+
+        setLoading(true);
+        setError(null);
+
+        try {
+            const token = auth?.accessToken;
+
+            const url =
+                roleId === 3
+                    ? `/management/getProductsManufacturer/${roleId}?id=${productId}`
+                    : `/management/products/${roleId}`;
+
+            const res = await api.get(url, {
+                params: roleId === 3 ? {} : { id: productId },
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+
+            const data = res.data.message?.[0];
+
+            if (!data) throw new Error("No product found");
+
+            setProduct(data);
+            setCompanyTypes(res.data.companyType);
+            setQuantities(res.data.quantity);
+
+        } catch (error) {
+            console.log("View error", error);
+            setError("Failed to fetch product data");
+            setProduct(null);
+        } finally {
+            setLoading(false);
         }
-    }, [productId]);
+    };
+
+    fetchProduct();
+}, [productId, roleId]);
+    const companyTypeName =
+        companyTypes.find(c => c.id === product?.role_id)?.role_name;
+
+    const productQuantity =
+        quantities.find(q => q.product_id === product?.id);
 
     const toggleDescription = (section) => {
         if (openDescription.includes(section)) {
@@ -71,6 +102,20 @@ const ProductView = ({
             setActiveImage(activeImage - 1);
         }
     };
+
+    if (error) {
+        return (
+            <div className="view-products">
+                <div className="popup-content">
+                    <div className="popup-body">
+                        <p style={{ color: "red", textAlign: "center" }}>
+                            {error}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
     return (
         <div className="view-products">
             <div className="popup-actions">
@@ -86,8 +131,13 @@ const ProductView = ({
                     Product Photos
                 </Button>
             </div>
+            {loading && (
+                <div className="popup-loader">
+                    <div className="loader-spinner"></div>
+                </div>
+            )}
 
-            <div className="popup-content">
+            <div className={`popup-content ${loading ? "loading" : ""}`}>
                 <div className="popup-body">
                     {activeTab === "details" && (
                         <>
@@ -104,8 +154,7 @@ const ProductView = ({
                                                     ? "btn-deleted"
                                                     : product?.status === 1
                                                         ? "btn-active"
-                                                        : "btn-inactive"
-                                            }>
+                                                        : "btn-inactive"}>
                                             {product?.status === 1
                                                 ? "active"
                                                 : product?.status === 0
@@ -118,7 +167,7 @@ const ProductView = ({
                                 <div className="products-info border">
                                     <div className="info-box">
                                         <span>Company Type</span>
-                                        <span>Brand Owner</span>
+                                        <span>{companyTypeName}</span>
                                     </div>
                                     <div className="info-box">
                                         <span>Company Name</span>
@@ -130,11 +179,11 @@ const ProductView = ({
                                     </div>
                                     <div className="info-box">
                                         <span>Quantity/Unit</span>
-                                        <span>{product?.quantity_unit}</span>
+                                        <span>{productQuantity?.quantity}</span>
                                     </div>
                                     <div className="info-box">
                                         <span>Price/Unit</span>
-                                        <span><span>{product?.price_per_unit}</span></span>
+                                        <span>{productQuantity?.price}</span>
                                     </div>
                                     <div className="info-box">
                                         <span>Product Codet</span>
@@ -151,8 +200,7 @@ const ProductView = ({
                                             {openDescription.includes("composition") ? (
                                                 <img src={Images.closdescription} />
                                             ) : (
-                                                <img src={Images.add} />
-                                            )}
+                                                <img src={Images.add} />)}
                                         </span>
                                     </div>
 
@@ -163,8 +211,7 @@ const ProductView = ({
                                                     <li key={i}>{item}</li>
                                                 ))}
                                             </ul>
-                                        </div>
-                                    )}
+                                        </div>)}
                                 </div>
 
                                 <div className="border">
@@ -176,8 +223,7 @@ const ProductView = ({
                                             {openDescription.includes("dosage") ? (
                                                 <img src={Images.closdescription} />
                                             ) : (
-                                                <img src={Images.add} />
-                                            )}
+                                                <img src={Images.add} />)}
                                         </span>
                                     </div>
 
@@ -186,8 +232,7 @@ const ProductView = ({
                                             <span>
                                                 {product?.dosage_usage}
                                             </span>
-                                        </div>
-                                    )}
+                                        </div>)}
                                 </div>
                             </div>
                         </>
@@ -220,8 +265,7 @@ const ProductView = ({
                                         <div
                                             key={i}
                                             className={`thumb ${activeImage === i ? "active" : ""}`}
-                                            onClick={() => setActiveImage(i)}
-                                        >
+                                            onClick={() => setActiveImage(i)}>
                                             <img src={img} alt="" />
                                         </div>
                                     ))}

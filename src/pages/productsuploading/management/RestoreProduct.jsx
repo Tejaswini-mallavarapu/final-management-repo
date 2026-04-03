@@ -12,7 +12,6 @@ const RestoreProduct = ({ product, onClose }) => {
             setLoading(true);
             const token = auth?.accessToken;
             const roleId = auth?.user?.role_id;
-
             console.log("roleId:", roleId);
             console.log("productId:", product?.id);
             console.log("Restore Product:", product);
@@ -27,7 +26,6 @@ const RestoreProduct = ({ product, onClose }) => {
             );
             console.log(response);
             onClose();
-            window.location.reload();
         } catch (error) {
             console.log("Restore error", error.response || error);
 

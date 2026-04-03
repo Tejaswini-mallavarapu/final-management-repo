@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-
+import Quill from "quill";
 
 import { BiBold } from "react-icons/bi";
 import { FaItalic } from "react-icons/fa";

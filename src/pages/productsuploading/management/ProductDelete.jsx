@@ -28,7 +28,6 @@ const ProductDelete = ({ product, onClose }) => {
                 }
             );
             onClose();
-            window.location.reload();
         } catch (error) {
             console.log("Delete error", error.response || error);
         } finally {

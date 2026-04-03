@@ -4,7 +4,6 @@ import CustomSelect from '../../../components/forms/CustomSelect';
 import Button from '../../../components/buttons/Button';
 import { Images } from '../../../images/Images';
 import Popup from '../../../components/popup/PopUp';
-import usePagination from "../../../hooks/usePagination";
 import { DeleteIcon, EditIcon, RestoreIcon, ViewIcon } from '../../../components/actions/Actions';
 import Pagination from '../../../components/pagination/Pagination';
 import SearchToggle from '../../../components/forms/SearchToggle';
@@ -143,11 +142,6 @@ const ManagementProducts = () => {
         setSubCategories(subCategoriesData);
 
         const formatted = products.map(product => {
-          const productImages = (product.images || []).map(
-            img =>
-              `https://b17q02g4-5051.asse.devtunnels.ms/uploads/ManagementProducts/${img.image_url}`
-          );
-
           const quantityObj = quantityData.find(
             q => q.product_id === product.id
           );
@@ -164,6 +158,7 @@ const ManagementProducts = () => {
             s => Number(s.id) === Number(product.sub_category)
           );
 
+
           const status =
             product.status === 1
               ? "active"
@@ -173,7 +168,6 @@ const ManagementProducts = () => {
 
           return {
             ...product,
-            images: productImages,
             companyType: companyTypeObj?.role_name || "N/A",
             product_category: categoryObj?.category_name || "N/A",
             sub_category: subCategoryObj?.sub_category_name || "N/A",
@@ -181,10 +175,11 @@ const ManagementProducts = () => {
             price_per_unit: quantityObj?.price || "N/A",
             status,
           };
+
         });
 
         setProducts(formatted || []);
-        setTotalProducts(products.length || 0);
+        setTotalProducts(response.data.total_products || 0);
 
       } catch (error) {
         setProducts([]);
@@ -234,37 +229,6 @@ const ManagementProducts = () => {
     "Rhizobium",
     "Amlodipine"
   ];
-
-  //  const handleView = async (productId) => {
-  //   try {
-  //     const token = auth?.accessToken;
-  //     const managementId = auth?.user?.role_id;
-
-  //     const res = await api.get(
-  //       `/management/products/${managementId}`,
-  //       {
-  //         params: {
-  //           id: productId   
-  //         },
-  //         headers: {
-  //           Authorization: `Bearer ${token}`
-  //         }
-  //       }
-  //     );
-
-  //     console.log("View API:", res.data);
-
-
-  //     const productData = res.data.message || res.data;
-
-  //     setSelectedProduct(productData);
-
-  //     setPopupType("view");
-
-  //   } catch (error) {
-  //     console.log("View Error", error);
-  //   }
-  // };
 
   return (
     <div className='management-products-container'>
@@ -402,10 +366,16 @@ const ManagementProducts = () => {
 
                         <td>
                           <div className="image-stack">
-                            {item.images?.slice(0, 3).map((img, i) => (
-                              <img key={i} src={img} alt="product" />
-                            ))}
-                            {item.images?.length > 3 && (
+                            {item.images && item.images.length > 0 &&
+                              item.images.slice(0, 3).map((img, i) => (
+                                <img
+                                  key={i}
+                                  src={`http://localhost:5051/uploads/ManagementProducts/${img.image_url}`}
+                                  alt="product"
+                                  loading="lazy"
+                                />
+                              ))}
+                            {item.images && item.images.length > 3 && (
                               <div className="more-count">
                                 +{item.images.length - 3}
                               </div>

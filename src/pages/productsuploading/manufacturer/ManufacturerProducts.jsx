@@ -13,7 +13,7 @@ import { useAuth } from "../../../context/AuthContext";
 import api from "../../../apis/axios";
 
 const ManufacturerProducts = () => {
-  const baseURL = "https://b17q02g4-5051.asse.devtunnels.ms/uploads/ManufacturerProducts/";
+  const baseURL = "http://localhost:5051/uploads/ManufacturerProducts/";
   const { auth } = useAuth();
   const [products, setProducts] = useState([]);
   const [page, setPage] = useState(1);
@@ -75,7 +75,6 @@ const ManufacturerProducts = () => {
             params: {
               offset,
               limit,
-              
               companyName: appliedFilters.ManufacturerName || undefined,
               productCategory: appliedFilters.productscategory || undefined,
               productSubCategory: appliedFilters.productsubcategory || undefined,
@@ -191,7 +190,10 @@ const ManufacturerProducts = () => {
       <td>
         <div className="actions">
           <Popup size="md" trigger={<ViewIcon />}>
-            <ProductView product={item} hideActions={true} />
+            <ProductView
+              productId={item.id}
+              roleId={3}
+              hideActions={true}/>
           </Popup>
         </div>
       </td>
