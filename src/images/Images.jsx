@@ -24,6 +24,7 @@ export const Images={
     closew:"/assets/images/closew.svg",
     closdescription:"/assets/images/fi_9312231 (1).svg",
     deletepopup:"/assets/images/Delete popup.svg",
+    creationempty:"/assets/images/Group 70.svg",
 
 
     empty:"/assets/images/notification empty.svg",
