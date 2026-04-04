@@ -807,6 +807,7 @@ background: rgba(var(--blue-text),1);
   margin-top: 8px;
   border: 1px solid #ddd;
   z-index: 10;
+  list-style: none;
 }
 .dropdown-lists label{
   margin: 0px;
@@ -1274,6 +1275,9 @@ body {
   background: rgba(var(--text-primary), 1);
   color: rgba(var(--main-white));
   border-radius: 54px;
+}
+.header .nav-wrapper .nav .nav-header{
+  display: none;
 }
 
 .header .nav-wrapper .nav .dropdown {
@@ -2025,13 +2029,15 @@ display: none;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 
   }
-  .header .nav-wrapper .nav.show .nav-header{
+  .header .nav-wrapper .nav .nav-header{
+
     font-size: 30px;
     width: inherit;
     display: flex;
     justify-content: end;
     margin-right: 10px;
     cursor: pointer;
+    margin-bottom: 40px;
   }
   .header .nav-wrapper .actions .settings-btn .hover-dropdown {
     top: 120%;
@@ -2157,8 +2163,6 @@ display: none;
     border-radius: 14px;
     position: absolute;
     padding: 12px;
-    top: 75px;
-    right: -12px;
 
 }
 
@@ -2215,8 +2219,8 @@ display: none;
     border-radius: 14px;
     position: absolute;
     padding: 12px;
-    top: 75px;
-    right: -12px;
+
+    right: 12px;
 
 }
 
