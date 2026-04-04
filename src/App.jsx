@@ -5,11 +5,12 @@ import DashboardLayout from './layout/dashboardlayout/DashboardLayout'
 import Dashboard from './pages/dashboard/Dashboard'
 import ProductsUploading from './pages/productsuploading/ProductsUploading'
 import Login from './pages/globalpages/Login'
- 
 import UploadProduct from './pages/productsuploading/management/UploadProduct'
 import { AuthProvider } from './context/AuthContext'
 import ProfileTest from './components/forms/Inputssss'
 import Creation from './pages/creations/Creation'
+import BrandownerCreation from './pages/creations/creation/Brandowner/BrandownerCreation'
+
 const App = () => {
   return (
     <div>
@@ -18,7 +19,8 @@ const App = () => {
           <Routes>
             <Route path='/' element={<DashboardLayout />}>
               <Route index element={<Dashboard />} />
-              <Route path='creation' element={<Creation />}></Route>
+              <Route path='creation' element={<Creation />}/>
+              <Route path='creation/brandowner-creation' element={<BrandownerCreation/>}/>
               <Route path="productsupload">
                 <Route index element={<ProductsUploading />} />
                 <Route path="upload" element={<UploadProduct />} />

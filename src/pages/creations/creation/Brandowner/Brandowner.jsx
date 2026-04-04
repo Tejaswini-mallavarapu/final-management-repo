@@ -6,11 +6,14 @@ import { BrandownerData } from "../../../../data/productsData";
 import { ViewIcon, EditIcon, DeleteIcon } from "../../../../components/actions/Actions";
 import ReusableFilters from "../../../../components/forms/ReusableFilters";
 import { Images } from "../../../../images/Images";
+import { useNavigate } from "react-router-dom";
 
 const Brandowner = () => {
 
     const [showFilters, setShowFilters] = useState(false);
     const [search, setSearch] = useState("");
+    const navigate=useNavigate();
+
 
     const [filter, setFilter] = useState({
         BrandownerName: "All",
@@ -21,40 +24,39 @@ const Brandowner = () => {
 
     const filterConfig = [
         {
-        key: "BrandownerName",
-        label: "Brand Owner Name",
-        options: ["All","Sri Animalife Biotech","Unique Bio Minerals"],
+            key: "BrandownerName",
+            label: "Brand Owner Name",
+            options: ["All","Sri Animalife Biotech","Unique Bio Minerals"],
         },
         {
-        key: "productscategory",
-        label: "Product Category",
-        options: ["All","Aquaculture","Agriculture","Human Medicine"],
+            key: "productscategory",
+            label: "Product Category",
+            options: ["All","Aquaculture","Agriculture","Human Medicine"],
         },
         {
-        key: "productsubcategory",
-        label: "Product Sub Category",
-        options: [
-            "All",
-            "Probiotic",
-            "Minerals",
-            "Medicine",
-            "Feeds",
-            "Biofertilizer",
-            "Tablet",
-        ],
+            key: "productsubcategory",
+            label: "Product Sub Category",
+            options: [
+                "All",
+                "Probiotic",
+                "Minerals",
+                "Medicine",
+                "Feeds",
+                "Biofertilizer",
+                "Tablet",
+            ],
         },
         {
-        key: "Status",
-        label: "Status",
-        options: ["All", "Active", "Inactive"],
-        },
+            key: "Status",
+            label: "Status",
+            options: ["All", "Active", "Inactive"],
+            },
     ];
 
     const statusClassMap = {
         active: "btn-active",
         inactive: "btn-inactive",
     };
-
     const columns = [
         { label: "S.No", className: "id" },
         { label: "Brand Owner Logo" },
@@ -77,24 +79,19 @@ const Brandowner = () => {
         <td>{item.subCategory}</td>
         <td>{item.Number}</td>
         <td className="status-col">
-            <span
-            className={`status ${
-                statusClassMap[item.status.toLowerCase()]
-            }`}
-            >
-            {item.status}
+            <span  className={`status ${ statusClassMap[item.status.toLowerCase()] }`} >
+                {item.status}
             </span>
         </td>
         <td>
             <div className="actions">
-            <EditIcon />
-            <DeleteIcon />
-            <ViewIcon />
+                <EditIcon />
+                <DeleteIcon />
+                <ViewIcon />
             </div>
         </td>
         </tr>
     );
-
     const filteredData = BrandownerData.filter((item) => {
         return (
         (filter.BrandownerName === "All" ||
@@ -126,7 +123,7 @@ const Brandowner = () => {
                 onSearch={() => setShowFilters(false)}
             />
             <div >
-            <Button variant='white' >
+            <Button variant='white' onClick={()=>navigate('/creation/brandowner-creation')}>
                 <span className='upload-btn'><FaPlus /><span>Create New</span></span>
             </Button>
         </div>

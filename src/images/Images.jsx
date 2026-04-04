@@ -1,4 +1,5 @@
 export const Images={
+    tick:"/assets/images/check.svg",
     logo:"/assets/logo/logo.png",
     settings:"/assets/images/settings.svg",
     chat:"/assets/images/chat.svg",
