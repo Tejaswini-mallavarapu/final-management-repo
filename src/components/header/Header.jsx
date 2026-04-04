@@ -45,20 +45,17 @@ const Header = () => {
             unread: true,
         }
     ]);
-    const closeMenu=()=>{
+    const closeAll=()=>{
         setMenuOpen(false);
+        setShowNotification(false);
+        setShowProfile(false);
+        setShowActionsSidebar(false);
     }
-
     useEffect(() => {
-        const closeMenu = () => {
-            setMenuOpen(false);
-            setShowNotification(false);
-            setShowProfile(false);
-            setShowActionsSidebar(false);
-        };
-        document.addEventListener("click", closeMenu)
+        
+        document.addEventListener("click", closeAll)
         return () => {
-            document.removeEventListener("click", closeMenu);
+            document.removeEventListener("click", closeAll);
         };
     }, []);
 
@@ -70,6 +67,9 @@ const Header = () => {
                     onClick={(e) => {
                         e.stopPropagation();
                         setMenuOpen(!menuOpen);
+                        setShowNotification(false);
+                        setShowProfile(false);
+                        setShowActionsSidebar(false);
                     }}>
                     <span></span>
                     <span></span>
@@ -80,9 +80,9 @@ const Header = () => {
                 </div>
                 <div className="nav-wrapper">
                     <div className={`nav ${menuOpen ? "show sidebar" : ""}`}>
-                        <div className="nav-header"><IoClose className="logo" onClick={closeMenu} /></div>
+                        <div className="nav-header"><IoClose className="logo" onClick={closeAll} /></div>
                         <NavLink  to="/" end
-                            onClick={closeMenu}
+                            onClick={closeAll}
                             className={({ isActive }) =>
                                 isActive ? "nav-item active" : "nav-item"
                             }>
@@ -90,7 +90,7 @@ const Header = () => {
                         </NavLink>
                         <NavLink
                             to="/productsupload"
-                            onClick={closeMenu}
+                            onClick={closeAll}
                             className={({ isActive }) =>
                                 isActive ? "nav-item active" : "nav-item"}>
                             Product Uploading
@@ -98,30 +98,30 @@ const Header = () => {
                         <div className={`nav-item dropdown ${location.pathname.includes("/creation") ? "active" : "" }`} >
                             Creation <IoIosArrowUp className="img"/>
                             <div className="hover-dropdown">
-                                <NavLink to="/creation" onClick={closeMenu}> <div className="item">Creation</div></NavLink>
-                                <div className="item" onClick={closeMenu}>Add Category</div>
-                                <div className="item" onClick={closeMenu}>Package Creation</div>
+                                <NavLink to="/creation" onClick={closeAll}> <div className="item">Creation</div></NavLink>
+                                <div className="item" onClick={closeAll}>Add Category</div>
+                                <div className="item" onClick={closeAll}>Package Creation</div>
                             </div>
                         </div>
                         <div className="nav-item dropdown">
                             Reports <IoIosArrowUp className="img"/>
                             <div className="hover-dropdown">
-                                <div className="item" onClick={closeMenu}>Package Statement</div>
-                                <div className="item" onClick={closeMenu}>Sales Report</div>
+                                <div className="item" onClick={closeAll}>Package Statement</div>
+                                <div className="item" onClick={closeAll}>Sales Report</div>
                             </div>
                         </div>
                         <div className="nav-item dropdown">
                             More <IoIosArrowUp className="img"/>
                             <div className="hover-dropdown">
-                                <div className="item" onClick={closeMenu}>Signup Request</div>
+                                <div className="item" onClick={closeAll}>Signup Request</div>
                                 <div className="item more-data">Reference Data <IoIosArrowDown className="img" />
                                     <div className="sub-dropdown">
-                                        <div className="item" onClick={closeMenu}>Rejection Reasons</div>
-                                        <div className="item" onClick={closeMenu}>Security Questions</div>
-                                        <div className="item" onClick={closeMenu}>Privacy Policy</div>
+                                        <div className="item" onClick={closeAll}>Rejection Reasons</div>
+                                        <div className="item" onClick={closeAll}>Security Questions</div>
+                                        <div className="item" onClick={closeAll}>Privacy Policy</div>
                                     </div>
                                 </div>
-                                <div className="item" onClick={closeMenu}>Blog</div>
+                                <div className="item" onClick={closeAll}>Blog</div>
                             </div>
                         </div>
                     </div>
@@ -155,6 +155,8 @@ const Header = () => {
                             e.stopPropagation();
                             setShowNotification(!showNotification);
                             setShowProfile(false);
+                            setShowActionsSidebar(false);
+                            setMenuOpen(false);
                         }}>
                             <img src={Images.bell} alt="bell" />
                             <span className="dot"></span>
@@ -163,6 +165,8 @@ const Header = () => {
                             e.stopPropagation();
                             setShowProfile(!showProfile);
                             setShowNotification(false);
+                            setShowActionsSidebar(false);
+                            setMenuOpen(false);
                         }}>
                             <img src={Images.user} alt="error" />
                         </div>
@@ -170,6 +174,9 @@ const Header = () => {
                     <div className="actions-bar" onClick={(e) => {
                         e.stopPropagation();
                         setShowActionsSidebar(true);
+                        etShowNotification(false);
+                        setShowProfile(false);
+                        setMenuOpen(false);
                     }}>
                         <HiDotsVertical className="dot" />
                     </div>
@@ -189,11 +196,11 @@ const Header = () => {
             </div>
             {showActionsSidebar && (
                 <>
-                <div className="actions-sidebar-overlay"  onClick={() => setShowActionsSidebar(false)} >     
+                <div className="actions-sidebar-overlay"  onClick={closeAll} >     
                 </div>
                 <div  className="actions-sidebar" onClick={(e) => e.stopPropagation()} >
                     <div className="sidebar-header">
-                        <div  className="close-btn"  onClick={() => setShowActionsSidebar(false)} >
+                        <div  className="close-btn"  onClick={closeAll} >
                             <IoClose />
                         </div>
                     </div>
@@ -239,6 +246,8 @@ const Header = () => {
                         onClick={() => {
                         setShowNotification(true);
                         setShowActionsSidebar(false);
+                        setShowProfile(false);
+                        setMenuOpen(false);
                         }}
                     >
                         <img src={Images.bell} /> Notifications
@@ -248,6 +257,8 @@ const Header = () => {
                         onClick={() => {
                         setShowProfile(true);
                         setShowActionsSidebar(false);
+                        setShowNotification(false);
+                        setMenuOpen(false);
                         }}
                     >
                         <img src={Images.user} /> Profile
@@ -256,7 +267,7 @@ const Header = () => {
                 </>
                 )}
             {menuOpen && (
-                <div className="overlay" onClick={() => setMenuOpen(false)}></div>
+                <div className="overlay" onClick={closeAll}></div>
             )}
         </div>
     );

@@ -203,7 +203,6 @@ const ProductView = ({
                     </button>
                     </div>
 
-                    {/* THUMBNAILS */}
                     <div className="thumbnails">
                     {images.map((img, i) => (
                         <div

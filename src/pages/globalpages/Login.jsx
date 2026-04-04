@@ -252,9 +252,7 @@ const Login = () => {
                                     Login
                                 </Button>
                             </div>
-
                         </form>
-
                         <span>© 2026 Sri animalife Biotech. All rights reserved.</span>
                     </div>
                 </div>
