@@ -10,6 +10,7 @@ import { AuthProvider } from './context/AuthContext'
 import ProfileTest from './components/forms/Inputssss'
 import Creation from './pages/creations/Creation'
 import BrandownerCreation from './pages/creations/creation/Brandowner/BrandownerCreation'
+import SignUpRequest from './pages/more/SignUpRequest'
 
 const App = () => {
   return (
@@ -21,10 +22,10 @@ const App = () => {
               <Route index element={<Dashboard />} />
               <Route path='creation' element={<Creation />}/>
               <Route path='creation/brandowner-creation' element={<BrandownerCreation/>}/>
+              <Route path='signup' element={<SignUpRequest/>}/>
               <Route path="productsupload">
                 <Route index element={<ProductsUploading />} />
                 <Route path="upload" element={<UploadProduct />} />
- 
               </Route>
             </Route>
             <Route path='/login' element={<Login />}></Route>

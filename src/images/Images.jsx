@@ -26,14 +26,13 @@ export const Images={
     closdescription:"/assets/images/fi_9312231 (1).svg",
     deletepopup:"/assets/images/Delete popup.svg",
     creationempty:"/assets/images/Group 70.svg",
-
-
     empty:"/assets/images/notification empty.svg",
     comment:"/assets/images/Frame 3201.svg",
     signup:"/assets/images/Frame 3205.svg",
     back:"/assets/images/back.svg",
-
     logout:"/assets/images/logout.svg",
+    calendar1:"/assets/images/calendar.svg",
+    uparrow:"/assets/images/uparrow.svg"
 }
 
 export const ProductImages={

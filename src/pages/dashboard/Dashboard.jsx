@@ -8,6 +8,7 @@ import {
   YAxis,
 } from "recharts";
 import { Images } from "../../images/Images";
+import Calendar from "../../components/forms/Calendar";
 
 const data=[
   {name: "Jan",expenditure :35000,profit:50000},
@@ -169,9 +170,7 @@ const Dashboard = () => {
                 <h2>Total Revenue</h2>
                 <p>Bar of the company revenue</p>
               </div>
-              {/* <div>
-                <input type="date"/>
-              </div> */}
+              <Calendar />
             </div>
             <div>
               {/* <div>

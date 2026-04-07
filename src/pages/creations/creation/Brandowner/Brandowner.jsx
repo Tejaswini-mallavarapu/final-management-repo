@@ -26,16 +26,19 @@ const Brandowner = () => {
         {
             key: "BrandownerName",
             label: "Brand Owner Name",
+            type: "select",
             options: ["All","Sri Animalife Biotech","Unique Bio Minerals"],
         },
         {
             key: "productscategory",
             label: "Product Category",
+            type: "select",
             options: ["All","Aquaculture","Agriculture","Human Medicine"],
         },
         {
             key: "productsubcategory",
             label: "Product Sub Category",
+            type: "select",
             options: [
                 "All",
                 "Probiotic",
@@ -49,6 +52,7 @@ const Brandowner = () => {
         {
             key: "Status",
             label: "Status",
+            type:"select",
             options: ["All", "Active", "Inactive"],
             },
     ];

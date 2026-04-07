@@ -20,6 +20,19 @@ const Header = () => {
     const [openLang,setOpenLang]=useState(false);
     const [openTheme,setOpenTheme]=useState(false);
 
+    const creationsRoutes=[
+        "/creation",
+        "/creation/add-category",
+        "/creation/package-creation"
+    ]
+    const moreRoutes=[
+        "/signup",
+        "/reference-data"
+    ]
+    const isParentActive=(routes)=>{
+        return routes.some(route=>location.pathname.startsWith(route));
+    }
+
     const [notifications] = useState([
         {
             id: 1,
@@ -62,21 +75,23 @@ const Header = () => {
     return (
         <div>
             <div className="header " onClick={(e) => e.stopPropagation()}>
-                <div
-                    className={`hamburger ${menuOpen ? "active" : ""}`}
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        setMenuOpen(!menuOpen);
-                        setShowNotification(false);
-                        setShowProfile(false);
-                        setShowActionsSidebar(false);
-                    }}>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
+                <div className="header-side">
+                    <div
+                        className={`hamburger ${menuOpen ? "active" : ""}`}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            setMenuOpen(!menuOpen);
+                            setShowNotification(false);
+                            setShowProfile(false);
+                            setShowActionsSidebar(false);
+                        }}>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
                 <div className="logo">
                     <img src={Images.logo} alt="logo" />
+                </div>
                 </div>
                 <div className="nav-wrapper">
                     <div className={`nav ${menuOpen ? "show sidebar" : ""}`}>
@@ -95,10 +110,10 @@ const Header = () => {
                                 isActive ? "nav-item active" : "nav-item"}>
                             Product Uploading
                         </NavLink>
-                        <div className={`nav-item dropdown ${location.pathname.includes("/creation") ? "active" : "" }`} >
+                        <div className={`nav-item dropdown ${isParentActive(creationsRoutes)? "active" : "" }`} >
                             Creation <IoIosArrowUp className="img"/>
                             <div className="hover-dropdown">
-                                <NavLink to="/creation" onClick={closeAll}> <div className="item">Creation</div></NavLink>
+                                <NavLink to="/creation" onClick={closeAll} className="item">Creation</NavLink>
                                 <div className="item" onClick={closeAll}>Add Category</div>
                                 <div className="item" onClick={closeAll}>Package Creation</div>
                             </div>
@@ -110,10 +125,10 @@ const Header = () => {
                                 <div className="item" onClick={closeAll}>Sales Report</div>
                             </div>
                         </div>
-                        <div className="nav-item dropdown">
+                        <div className={`nav-item dropdown ${isParentActive(moreRoutes) ? "active" : "" }`}>
                             More <IoIosArrowUp className="img"/>
                             <div className="hover-dropdown">
-                                <div className="item" onClick={closeAll}>Signup Request</div>
+                                <NavLink to="/signup" className="item" onClick={closeAll}>Signup Request</NavLink>
                                 <div className="item more-data">Reference Data <IoIosArrowDown className="img" />
                                     <div className="sub-dropdown">
                                         <div className="item" onClick={closeAll}>Rejection Reasons</div>

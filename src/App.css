@@ -360,7 +360,8 @@ background: rgba(var(--blue-text),1);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  width: 40px;
+  height: 40px;
   border-radius: 8px;
   cursor: pointer;
 }
@@ -458,6 +459,7 @@ background: rgba(var(--blue-text),1);
   padding-bottom: 12px;
   border-bottom: 1px solid rgba(var(--light-gray), 0.4);
   vertical-align: middle;
+  
 }
 
 .table-container table tbody td .image-stack {
@@ -505,6 +507,9 @@ background: rgba(var(--blue-text),1);
 .table-container th.actions{
   text-align: center;
   vertical-align: middle;
+}
+.table-container tr .sub-width{
+  width: 191px;
 }
 
 .table-container .status{
@@ -597,7 +602,8 @@ background: rgba(var(--blue-text),1);
   font-family: "CreatoDisplay-medium";
 }
 
-.custom-select .select-label {
+.custom-select .select-label,
+.filter-date label {
   display: block;
   margin: 0 0 15px 10px;
   font-size: 14px;
@@ -609,7 +615,8 @@ background: rgba(var(--blue-text),1);
 .custom-select .select-box {
   border: 1px solid rgba(var(--light-gray), 0.8);
   border-radius: 40px;
-  padding: 17px 24px;
+  min-height: 50px;
+  padding: 0px 24px 0px 24px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -895,6 +902,122 @@ background: rgba(var(--blue-text),1);
 .chip-close {
   cursor: pointer;
   font-size: 16px;
+}
+/* calendar */
+
+.calendar-wrapper {
+  position: relative;
+}
+
+.calendar-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(var(--light-gray), 0.4);
+  cursor: pointer;
+  width: 260px;
+  font-size: 14px;
+}
+.calendar-input span{
+  font-family:"CreatoDisplay-medium";
+  font-size: 14px;
+  color: rgba(var(--text-primary), 1);
+}
+
+.calendar-input span:last-child {
+  margin-left: auto;
+}
+
+.calendar-container {
+  width: fit-content;
+  position: absolute;
+  top: 60px;
+  right: -25px;
+  display: flex;
+  background: rgba(var(--main-white), 1);
+  border-radius: 24px;
+  padding: 24px;
+  gap: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+  z-index: 100;
+  border: 1px solid rgba(156, 163, 175, 0.8);
+}
+
+.calendar-box {
+  width: 280px;
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-family:"CreatoDisplay";
+  font-size: 15px;
+}
+
+.nav-group {
+  display: flex;
+  gap: 6px;
+}
+
+.nav-group span {
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+.nav-group span:hover {
+  background: #e5e7eb;
+}
+
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  font-family:"CreatoDisplay";
+  font-size: 14px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 8px;
+  font-size: 13px;
+  font-family:"CreatoDisplay-regular" ;
+}
+
+.day {
+  width: 26px;
+  height: 27px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.day:hover {
+  background: rgba(var(--light-gray), 0.16);
+}
+
+.day.selected {
+  background: rgba(var(--blue-text),1);
+  color: white;
+}
+.day.muted {
+  color: rgba(var(--light-gray),0.16);
+}
+
+
+.divider {
+  width: 1px;
+  background: rgba(var(--light-gray), 0.8);
 }
 
 
@@ -1541,6 +1664,84 @@ display: none;
     padding: 25px 10px;
   }
 }
+  /* ================= SIDEBAR ================= */
+.actions-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 280px;
+  height: 100%;
+  background: rgba(var(--card-bg), 1);
+  z-index: 99;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+
+  box-shadow: -6px 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.actions-sidebar .sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+
+.actions-sidebar .sidebar-header .close-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.actions-sidebar .sidebar-header .close-btn svg {
+  font-size: 30px;
+}
+
+
+.actions-sidebar .sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: "CreatoDisplay-medium";
+  color: rgba(var(--text-primary),1);
+  font-size: 14px;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+ .sidebar-item:hover {
+  background: rgba(var(--text-primary), 1);
+  color: rgba(var(--main-white), 1);
+}
+ .sidebar-sub {
+  padding-left: 15px;
+}
+ .sidebar-sub-item {
+  font-family: "CreatoDisplay-medium";
+  color: rgba(var(--text-primary),1);
+  font-size: 12px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+ .sidebar-sub-item:hover {
+  background: rgba(var(--text-primary), 1);
+  color: rgba(var(--main-white),1);
+}
 
 
 
@@ -2017,6 +2218,13 @@ display: none;
   .hamburger {
     display: flex;
     cursor: pointer;
+    
+  }
+  
+  .header .header-side{
+    display: flex;
+    gap: 20px;
+    align-items: center;
   }
 
   .header .nav-wrapper .nav {
@@ -2035,6 +2243,10 @@ display: none;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 
   }
+  .header .nav-wrapper .nav .nav-item.active,
+ .header .nav-wrapper .nav .nav-item:hover{
+  border-radius: 10px;
+ }
   .header .nav-wrapper .nav .nav-header{
 
     font-size: 30px;
@@ -2966,7 +3178,9 @@ h3{
 }
 
 @media (max-width: 1403px) {
-
+  .signup-cnt .management-products-container .management-products-page{
+  margin-top: -60px;
+}
   .mobile-filter-toggle {
     display: block;
   }
@@ -3975,20 +4189,23 @@ h3{
 .upload-content button {
   margin-top: 10px;
 }
-
 .btn-deleted {
-    color: red;
+    color: rgba(255, 78, 72, 1);
     padding: 10px 20px;
     border-radius: 42px;
     
     background: rgba(var(--inActive-bg), 1);
     font-family: "CreatoDisplay-medium";
     font-size: 13px;
-    border: 1px solid red;
+    border: 1px solid rgba(255, 78, 72, 1);
     display: flex;
     align-self: center;
     justify-self: center;
 }
+
+
+
+
 @media(max-width:768px){
 }
 @media(max-width:425px){
@@ -4030,86 +4247,23 @@ h3{
   }
 
 
-
-
-  /* ================= SIDEBAR ================= */
-.actions-sidebar {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 280px;
-  height: 100%;
-  background: rgba(var(--card-bg), 1);
-  z-index: 99;
-
-  padding: 16px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-
-
-  box-shadow: -6px 0 20px rgba(0, 0, 0, 0.15);
+/* >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>SignupRequests>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */
+.signup-cnt h2{
+  margin: 0px 0px 30px 2px;
 }
-
-.actions-sidebar .sidebar-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+.btn-new {
+    color: rgba(34, 160, 199, 1);
+    padding: 10px 27px;
+    border-radius: 42px;
+    background: rgba(195, 241, 255, 1);
+    font-family: "CreatoDisplay-medium";
+    font-size: 13px;
+    border: 1px solid rgba(34, 160, 199, 1);
+    display: flex;
+    align-self: center;
+    justify-self: center;
 }
-
-
-.actions-sidebar .sidebar-header .close-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.actions-sidebar .sidebar-header .close-btn svg {
-  font-size: 30px;
-}
-
-
-.actions-sidebar .sidebar-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: "CreatoDisplay-medium";
-  color: rgba(var(--text-primary),1);
-  font-size: 14px;
-  padding: 12px;
-  border-radius: 10px;
-  cursor: pointer;
-}
- .sidebar-item:hover {
-  background: rgba(var(--text-primary), 1);
-  color: rgba(var(--main-white), 1);
-}
- .sidebar-sub {
-  padding-left: 15px;
-}
- .sidebar-sub-item {
-  font-family: "CreatoDisplay-medium";
-  color: rgba(var(--text-primary),1);
-  font-size: 12px;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
- .sidebar-sub-item:hover {
-  background: rgba(var(--text-primary), 1);
-  color: rgba(var(--main-white),1);
+.signup-cnt .shape-card{
+  padding-top: 33px;
 }
 

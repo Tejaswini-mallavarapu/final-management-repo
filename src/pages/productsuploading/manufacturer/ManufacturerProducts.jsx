@@ -37,21 +37,25 @@ const ManufacturerProducts = () => {
     {
       key:"ManufacturerName",
       label:"Manufacturer Name",
+      type: "select",
       options:["All","Agrocel Industries Pvt Ltd.","Unique Bio Tech Pvt Ltd."]
     },
     {
       key:"productscategory",
       label:"product Category",
+      type: "select",
       options:["All","Aquaculture","Agriculture", "Human Medicine","Others"]
     },
     {
       key:"productsubcategory",
       label:"Product Sub Category",
+      type: "select",
       options:["All", "Probiotic", "Minerals", "Medicine", "Feeds", "Biofertilizer", "Tablet"]
     },
     {
       key:"productNamme",
       label:"Product Name",
+      type: "select",
       options:["All", "Aqua Remid", "Aqua Bison", "Super-min", "Aqua care"]
     }
   ]
@@ -80,7 +84,7 @@ const ManufacturerProducts = () => {
     { label: "Mg/G/M/L/KG/L" },
     { label: "Price/Unit" },
     { label: "Status", className:'status-col'},
-    { label: "Action", className: "actions" },
+    { label: "Action", className: "actions"}
   ];
 
   const renderProductRow = (item, index) => (

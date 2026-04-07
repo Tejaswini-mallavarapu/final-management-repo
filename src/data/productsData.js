@@ -275,3 +275,97 @@ export const BrandownerData = [
   }
 
 ]
+export const SignupData=[
+  {
+
+    Date:"25th Dec 2025, 10:45 PM",
+    Name:"Aarav",
+    Role:"Requested Role",
+    Userid:"aarav6713",
+    Category:"AquaCulture",
+    SubCategory:"Probiotic, Minerals",
+    Status:"New"
+  },
+  {
+
+    Date:"25th Dec 2025, 10:45 PM",
+    Name:"Vijay",
+    Role:"Requested Role",
+    Userid:"vijay22113",
+    Category:"Human Medicine",
+    SubCategory:`Tablets, Capsules, Syrup / Liquid,
+                Injection, Cream / Ointment / Gel
+                and Drops`,
+    Status:"New"
+  },
+  {
+
+    Date:"25th Dec 2025, 10:45 PM",
+    Name:"Rohan",
+    Role:"Manufacturer",
+    Userid:"rohan44168",
+    Category:"Agriculture",
+    SubCategory:"Seeds, Fertilizers, and Pesticides",
+    Status:"Rejected"
+  },
+  {
+
+    Date:"25th Dec 2025, 10:45 PM",
+    Name:"Ananya",
+    Role:"Manufacturer",
+    Userid:"ananya8710",
+    Category:"AquaCulture",
+    SubCategory:"Probiotic, Minerals and Feeds",
+    Status:"Approved"
+  },
+  {
+
+    Date:"25th Dec 2025, 10:45 PM",
+    Name:"Aarav",
+    Role:"Requested Role",
+    Userid:"aarav6713",
+    Category:"Category",
+    SubCategory:"Probiotic, Minerals",
+    Status:"Approved"
+  },
+  {
+
+    Date:"25th Dec 2025, 10:45 PM",
+    Name:"Aarav",
+    Role:"Requested Role",
+    Userid:"aarav6713",
+    Category:"Category",
+    SubCategory:"Probiotic, Minerals",
+    Status:"Approved"
+  },
+  {
+
+    Date:"25th Dec 2025, 10:45 PM",
+    Name:"Aarav",
+    Role:"Requested Role",
+    Userid:"aarav6713",
+    Category:"Category",
+    SubCategory:"Probiotic, Minerals",
+    Status:"Rejected"
+  },
+  {
+
+    Date:"25th Dec 2025, 10:45 PM",
+    Name:"Aarav",
+    Role:"Requested Role",
+    Userid:"aarav6713",
+    Category:"Category",
+    SubCategory:"Probiotic, Minerals",
+    Status:"Approved"
+  },
+  {
+
+    Date:"25th Dec 2025, 10:45 PM",
+    Name:"Aarav",
+    Role:"Requested Role",
+    Userid:"aarav6713",
+    Category:"Category",
+    SubCategory:"Probiotic, Minerals",
+    Status:"Rejected"
+  }
+]

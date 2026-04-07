@@ -41,7 +41,6 @@ const Popup = ({
               onClick={(e) => e.stopPropagation()}>
               {(title || true) && (
                 <div className="popup-header">
-                  <h3>{title}</h3>
                   <button className="popup-close" onClick={close}>
                     <img src="/assets/images/popupclose.svg" alt="close" />
                   </button>
